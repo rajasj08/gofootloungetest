@@ -1,0 +1,135 @@
+2016-04-12 22:25:49 - PHP Notice:  Error: MySQL server has gone away<br />Error No: 2006<br />SELECT * FROM `oc_language` in /home/footlounge/public_html/system/database/mysql.php on line 50
+2016-04-12 22:25:49 - PHP Notice:  Trying to get property of non-object in /home/footlounge/public_html/fladmin15/index.php on line 122
+2016-04-12 22:25:49 - PHP Warning:  Invalid argument supplied for foreach() in /home/footlounge/public_html/fladmin15/index.php on line 122
+2016-04-12 22:25:49 - PHP Notice:  Undefined index: en in /home/footlounge/public_html/fladmin15/index.php on line 126
+2016-04-12 22:25:49 - PHP Notice:  Undefined index: en in /home/footlounge/public_html/fladmin15/index.php on line 129
+2016-04-12 22:25:49 - PHP Notice:  Undefined index: en in /home/footlounge/public_html/fladmin15/index.php on line 130
+2016-04-12 22:25:49 - PHP Notice:  Error: Could not load language file: /home/footlounge/public_html/fladmin15/language/english/.php! in /home/footlounge/public_html/vqmod/vqcache/vq2-system_library_language.php on line 65
+2016-04-12 22:25:49 - PHP Notice:  Error: MySQL server has gone away<br />Error No: 2006<br />SELECT * FROM oc_currency in /home/footlounge/public_html/system/database/mysql.php on line 50
+2016-04-12 22:25:49 - PHP Notice:  Trying to get property of non-object in /home/footlounge/public_html/vqmod/vqcache/vq2-system_library_currency.php on line 15
+2016-04-12 22:25:49 - PHP Warning:  Invalid argument supplied for foreach() in /home/footlounge/public_html/vqmod/vqcache/vq2-system_library_currency.php on line 15
+2016-04-12 22:25:49 - PHP Notice:  Error: MySQL server has gone away<br />Error No: 2006<br />SELECT * FROM oc_weight_class wc LEFT JOIN oc_weight_class_description wcd ON (wc.weight_class_id = wcd.weight_class_id) WHERE wcd.language_id = '0' in /home/footlounge/public_html/system/database/mysql.php on line 50
+2016-04-12 22:25:49 - PHP Notice:  Trying to get property of non-object in /home/footlounge/public_html/system/library/weight.php on line 11
+2016-04-12 22:25:49 - PHP Warning:  Invalid argument supplied for foreach() in /home/footlounge/public_html/system/library/weight.php on line 11
+2016-04-12 22:25:49 - PHP Notice:  Error: MySQL server has gone away<br />Error No: 2006<br />SELECT * FROM oc_length_class mc LEFT JOIN oc_length_class_description mcd ON (mc.length_class_id = mcd.length_class_id) WHERE mcd.language_id = '0' in /home/footlounge/public_html/system/database/mysql.php on line 50
+2016-04-12 22:25:49 - PHP Notice:  Trying to get property of non-object in /home/footlounge/public_html/system/library/length.php on line 11
+2016-04-12 22:25:49 - PHP Warning:  Invalid argument supplied for foreach() in /home/footlounge/public_html/system/library/length.php on line 11
+2016-04-12 22:25:49 - PHP Notice:  Error: MySQL server has gone away<br />Error No: 2006<br />SELECT * FROM oc_user WHERE user_id = '17' AND status = '1' in /home/footlounge/public_html/system/database/mysql.php on line 50
+2016-04-12 22:25:49 - PHP Notice:  Trying to get property of non-object in /home/footlounge/public_html/system/library/user.php on line 15
+2016-04-12 22:25:49 - PHP Notice:  Error: MySQL server has gone away<br />Error No: 2006<br />SELECT * FROM `oc_language` in /home/footlounge/public_html/system/database/mysql.php on line 50
+2016-04-12 22:25:49 - PHP Notice:  Trying to get property of non-object in /home/footlounge/public_html/fladmin15/index.php on line 122
+2016-04-12 22:25:49 - PHP Warning:  Invalid argument supplied for foreach() in /home/footlounge/public_html/fladmin15/index.php on line 122
+2016-04-12 22:25:49 - PHP Notice:  Undefined index: en in /home/footlounge/public_html/fladmin15/index.php on line 126
+2016-04-12 22:25:49 - PHP Notice:  Undefined index: en in /home/footlounge/public_html/fladmin15/index.php on line 129
+2016-04-12 22:25:49 - PHP Notice:  Undefined index: en in /home/footlounge/public_html/fladmin15/index.php on line 130
+2016-04-12 22:25:49 - PHP Notice:  Error: Could not load language file: /home/footlounge/public_html/fladmin15/language/english/.php! in /home/footlounge/public_html/vqmod/vqcache/vq2-system_library_language.php on line 65
+2016-04-12 22:25:49 - PHP Notice:  Error: MySQL server has gone away<br />Error No: 2006<br />SELECT * FROM oc_currency in /home/footlounge/public_html/system/database/mysql.php on line 50
+2016-04-12 22:25:49 - PHP Notice:  Trying to get property of non-object in /home/footlounge/public_html/vqmod/vqcache/vq2-system_library_currency.php on line 15
+2016-04-12 22:25:49 - PHP Warning:  Invalid argument supplied for foreach() in /home/footlounge/public_html/vqmod/vqcache/vq2-system_library_currency.php on line 15
+2016-04-12 22:25:49 - PHP Notice:  Error: MySQL server has gone away<br />Error No: 2006<br />SELECT * FROM oc_weight_class wc LEFT JOIN oc_weight_class_description wcd ON (wc.weight_class_id = wcd.weight_class_id) WHERE wcd.language_id = '0' in /home/footlounge/public_html/system/database/mysql.php on line 50
+2016-04-12 22:25:49 - PHP Notice:  Trying to get property of non-object in /home/footlounge/public_html/system/library/weight.php on line 11
+2016-04-12 22:25:49 - PHP Warning:  Invalid argument supplied for foreach() in /home/footlounge/public_html/system/library/weight.php on line 11
+2016-04-12 22:25:49 - PHP Notice:  Error: MySQL server has gone away<br />Error No: 2006<br />SELECT * FROM oc_length_class mc LEFT JOIN oc_length_class_description mcd ON (mc.length_class_id = mcd.length_class_id) WHERE mcd.language_id = '0' in /home/footlounge/public_html/system/database/mysql.php on line 50
+2016-04-12 22:25:49 - PHP Notice:  Trying to get property of non-object in /home/footlounge/public_html/system/library/length.php on line 11
+2016-04-12 22:25:49 - PHP Warning:  Invalid argument supplied for foreach() in /home/footlounge/public_html/system/library/length.php on line 11
+2016-04-12 22:25:49 - PHP Notice:  Error: MySQL server has gone away<br />Error No: 2006<br />SELECT * FROM oc_user WHERE user_id = '17' AND status = '1' in /home/footlounge/public_html/system/database/mysql.php on line 50
+2016-04-12 22:25:49 - PHP Notice:  Trying to get property of non-object in /home/footlounge/public_html/system/library/user.php on line 15
+2016-04-12 22:25:49 - PHP Notice:  Error: MySQL server has gone away<br />Error No: 2006<br />SELECT * FROM `oc_language` in /home/footlounge/public_html/system/database/mysql.php on line 50
+2016-04-12 22:25:49 - PHP Notice:  Trying to get property of non-object in /home/footlounge/public_html/fladmin15/index.php on line 122
+2016-04-12 22:25:49 - PHP Warning:  Invalid argument supplied for foreach() in /home/footlounge/public_html/fladmin15/index.php on line 122
+2016-04-12 22:25:49 - PHP Notice:  Undefined index: en in /home/footlounge/public_html/fladmin15/index.php on line 126
+2016-04-12 22:25:49 - PHP Notice:  Undefined index: en in /home/footlounge/public_html/fladmin15/index.php on line 129
+2016-04-12 22:25:49 - PHP Notice:  Undefined index: en in /home/footlounge/public_html/fladmin15/index.php on line 130
+2016-04-12 22:25:49 - PHP Notice:  Error: Could not load language file: /home/footlounge/public_html/fladmin15/language/english/.php! in /home/footlounge/public_html/vqmod/vqcache/vq2-system_library_language.php on line 65
+2016-04-12 22:25:49 - PHP Notice:  Error: MySQL server has gone away<br />Error No: 2006<br />SELECT * FROM oc_currency in /home/footlounge/public_html/system/database/mysql.php on line 50
+2016-04-12 22:25:49 - PHP Notice:  Trying to get property of non-object in /home/footlounge/public_html/vqmod/vqcache/vq2-system_library_currency.php on line 15
+2016-04-12 22:25:49 - PHP Warning:  Invalid argument supplied for foreach() in /home/footlounge/public_html/vqmod/vqcache/vq2-system_library_currency.php on line 15
+2016-04-12 22:25:49 - PHP Notice:  Error: MySQL server has gone away<br />Error No: 2006<br />SELECT * FROM oc_weight_class wc LEFT JOIN oc_weight_class_description wcd ON (wc.weight_class_id = wcd.weight_class_id) WHERE wcd.language_id = '0' in /home/footlounge/public_html/system/database/mysql.php on line 50
+2016-04-12 22:25:49 - PHP Notice:  Trying to get property of non-object in /home/footlounge/public_html/system/library/weight.php on line 11
+2016-04-12 22:25:49 - PHP Warning:  Invalid argument supplied for foreach() in /home/footlounge/public_html/system/library/weight.php on line 11
+2016-04-12 22:25:49 - PHP Notice:  Error: MySQL server has gone away<br />Error No: 2006<br />SELECT * FROM oc_length_class mc LEFT JOIN oc_length_class_description mcd ON (mc.length_class_id = mcd.length_class_id) WHERE mcd.language_id = '0' in /home/footlounge/public_html/system/database/mysql.php on line 50
+2016-04-12 22:25:49 - PHP Notice:  Trying to get property of non-object in /home/footlounge/public_html/system/library/length.php on line 11
+2016-04-12 22:25:49 - PHP Warning:  Invalid argument supplied for foreach() in /home/footlounge/public_html/system/library/length.php on line 11
+2016-04-12 22:25:49 - PHP Notice:  Error: MySQL server has gone away<br />Error No: 2006<br />SELECT * FROM oc_user WHERE user_id = '17' AND status = '1' in /home/footlounge/public_html/system/database/mysql.php on line 50
+2016-04-12 22:25:49 - PHP Notice:  Trying to get property of non-object in /home/footlounge/public_html/system/library/user.php on line 15
+2016-04-12 22:25:49 - PHP Notice:  Error: MySQL server has gone away<br />Error No: 2006<br />SELECT * FROM oc_extension WHERE `type` = 'module' in /home/footlounge/public_html/system/database/mysql.php on line 50
+2016-04-12 22:25:49 - PHP Notice:  Trying to get property of non-object in /home/footlounge/public_html/fladmin15/model/setting/extension.php on line 8
+2016-04-12 22:25:49 - PHP Warning:  Invalid argument supplied for foreach() in /home/footlounge/public_html/fladmin15/model/setting/extension.php on line 8
+2016-04-12 22:25:49 - PHP Notice:  Error: MySQL server has gone away<br />Error No: 2006<br />SELECT * FROM `oc_language` WHERE status = '1' in /home/footlounge/public_html/system/database/mysql.php on line 50
+2016-04-12 22:25:49 - PHP Notice:  Trying to get property of non-object in /home/footlounge/public_html/index.php on line 149
+2016-04-12 22:25:49 - PHP Warning:  Invalid argument supplied for foreach() in /home/footlounge/public_html/index.php on line 149
+2016-04-12 22:25:49 - PHP Notice:  Undefined index: en in /home/footlounge/public_html/index.php on line 189
+2016-04-12 22:25:49 - PHP Notice:  Undefined index: en in /home/footlounge/public_html/index.php on line 190
+2016-04-12 22:25:49 - PHP Notice:  Undefined index: en in /home/footlounge/public_html/index.php on line 194
+2016-04-12 22:25:49 - PHP Notice:  Undefined index: en in /home/footlounge/public_html/index.php on line 195
+2016-04-12 22:25:49 - PHP Notice:  Error: MySQL server has gone away<br />Error No: 2006<br />SELECT * FROM oc_extension WHERE `type` = 'module' in /home/footlounge/public_html/system/database/mysql.php on line 50
+2016-04-12 22:25:49 - PHP Notice:  Trying to get property of non-object in /home/footlounge/public_html/fladmin15/model/setting/extension.php on line 8
+2016-04-12 22:25:49 - PHP Warning:  Invalid argument supplied for foreach() in /home/footlounge/public_html/fladmin15/model/setting/extension.php on line 8
+2016-04-12 22:25:49 - PHP Notice:  Error: MySQL server has gone away<br />Error No: 2006<br />SELECT * FROM oc_extension WHERE `type` = 'module' in /home/footlounge/public_html/system/database/mysql.php on line 50
+2016-04-12 22:25:49 - PHP Notice:  Trying to get property of non-object in /home/footlounge/public_html/fladmin15/model/setting/extension.php on line 8
+2016-04-12 22:25:49 - PHP Warning:  Invalid argument supplied for foreach() in /home/footlounge/public_html/fladmin15/model/setting/extension.php on line 8
+2016-04-12 22:25:49 - PHP Notice:  Error: Could not load language file: /home/footlounge/public_html/catalog/language/english/.php! in /home/footlounge/public_html/vqmod/vqcache/vq2-system_library_language.php on line 65
+2016-04-12 22:25:49 - PHP Notice:  Error: MySQL server has gone away<br />Error No: 2006<br />SELECT * FROM oc_currency in /home/footlounge/public_html/system/database/mysql.php on line 50
+2016-04-12 22:25:49 - PHP Notice:  Trying to get property of non-object in /home/footlounge/public_html/vqmod/vqcache/vq2-system_library_currency.php on line 15
+2016-04-12 22:25:49 - PHP Warning:  Invalid argument supplied for foreach() in /home/footlounge/public_html/vqmod/vqcache/vq2-system_library_currency.php on line 15
+2016-04-12 22:25:49 - PHP Notice:  Error: MySQL server has gone away<br />Error No: 2006<br />SELECT * FROM oc_weight_class wc LEFT JOIN oc_weight_class_description wcd ON (wc.weight_class_id = wcd.weight_class_id) WHERE wcd.language_id = '0' in /home/footlounge/public_html/system/database/mysql.php on line 50
+2016-04-12 22:25:49 - PHP Notice:  Trying to get property of non-object in /home/footlounge/public_html/system/library/weight.php on line 11
+2016-04-12 22:25:49 - PHP Warning:  Invalid argument supplied for foreach() in /home/footlounge/public_html/system/library/weight.php on line 11
+2016-04-12 22:25:49 - PHP Notice:  Error: MySQL server has gone away<br />Error No: 2006<br />SELECT * FROM oc_length_class mc LEFT JOIN oc_length_class_description mcd ON (mc.length_class_id = mcd.length_class_id) WHERE mcd.language_id = '0' in /home/footlounge/public_html/system/database/mysql.php on line 50
+2016-04-12 22:25:49 - PHP Notice:  Trying to get property of non-object in /home/footlounge/public_html/system/library/length.php on line 11
+2016-04-12 22:25:49 - PHP Warning:  Invalid argument supplied for foreach() in /home/footlounge/public_html/system/library/length.php on line 11
+2016-04-12 22:25:49 - PHP Notice:  Error: MySQL server has gone away<br />Error No: 2006<br />SELECT * FROM oc_url_alias WHERE keyword = '500.shtml' in /home/footlounge/public_html/system/database/mysql.php on line 50
+2016-04-12 22:25:49 - PHP Notice:  Trying to get property of non-object in /home/footlounge/public_html/vqmod/vqcache/vq2-catalog_controller_common_seo_url.php on line 49
+2016-04-12 22:25:49 - PHP Notice:  Error: MySQL server has gone away<br />Error No: 2006<br />SELECT * FROM oc_layout_route WHERE 'error/not_found' LIKE CONCAT(route, '%') AND store_id = '0' ORDER BY route DESC LIMIT 1 in /home/footlounge/public_html/system/database/mysql.php on line 50
+2016-04-12 22:25:49 - PHP Notice:  Trying to get property of non-object in /home/footlounge/public_html/catalog/model/design/layout.php on line 6
+2016-04-12 22:25:49 - PHP Notice:  Error: MySQL server has gone away<br />Error No: 2006<br />SELECT * FROM oc_extension WHERE `type` = 'module' in /home/footlounge/public_html/system/database/mysql.php on line 50
+2016-04-12 22:25:49 - PHP Notice:  Trying to get property of non-object in /home/footlounge/public_html/vqmod/vqcache/vq2-catalog_model_setting_extension.php on line 58
+2016-04-12 22:25:49 - PHP Warning:  Invalid argument supplied for foreach() in /home/footlounge/public_html/catalog/controller/common/column_left.php on line 45
+2016-04-12 22:25:49 - PHP Notice:  Error: MySQL server has gone away<br />Error No: 2006<br />SELECT * FROM oc_layout_route WHERE 'error/not_found' LIKE CONCAT(route, '%') AND store_id = '0' ORDER BY route DESC LIMIT 1 in /home/footlounge/public_html/system/database/mysql.php on line 50
+2016-04-12 22:25:49 - PHP Notice:  Trying to get property of non-object in /home/footlounge/public_html/catalog/model/design/layout.php on line 6
+2016-04-12 22:25:49 - PHP Notice:  Error: MySQL server has gone away<br />Error No: 2006<br />SELECT * FROM oc_extension WHERE `type` = 'module' in /home/footlounge/public_html/system/database/mysql.php on line 50
+2016-04-12 22:25:49 - PHP Notice:  Trying to get property of non-object in /home/footlounge/public_html/vqmod/vqcache/vq2-catalog_model_setting_extension.php on line 58
+2016-04-12 22:25:49 - PHP Warning:  Invalid argument supplied for foreach() in /home/footlounge/public_html/catalog/controller/common/column_right.php on line 45
+2016-04-12 22:25:49 - PHP Notice:  Error: MySQL server has gone away<br />Error No: 2006<br />SELECT * FROM oc_layout_route WHERE 'error/not_found' LIKE CONCAT(route, '%') AND store_id = '0' ORDER BY route DESC LIMIT 1 in /home/footlounge/public_html/system/database/mysql.php on line 50
+2016-04-12 22:25:49 - PHP Notice:  Trying to get property of non-object in /home/footlounge/public_html/catalog/model/design/layout.php on line 6
+2016-04-12 22:25:49 - PHP Notice:  Error: MySQL server has gone away<br />Error No: 2006<br />SELECT * FROM oc_extension WHERE `type` = 'module' in /home/footlounge/public_html/system/database/mysql.php on line 50
+2016-04-12 22:25:49 - PHP Notice:  Trying to get property of non-object in /home/footlounge/public_html/vqmod/vqcache/vq2-catalog_model_setting_extension.php on line 58
+2016-04-12 22:25:49 - PHP Warning:  Invalid argument supplied for foreach() in /home/footlounge/public_html/catalog/controller/common/content_top.php on line 45
+2016-04-12 22:25:49 - PHP Notice:  Error: MySQL server has gone away<br />Error No: 2006<br />SELECT * FROM oc_layout_route WHERE 'error/not_found' LIKE CONCAT(route, '%') AND store_id = '0' ORDER BY route DESC LIMIT 1 in /home/footlounge/public_html/system/database/mysql.php on line 50
+2016-04-12 22:25:49 - PHP Notice:  Trying to get property of non-object in /home/footlounge/public_html/catalog/model/design/layout.php on line 6
+2016-04-12 22:25:49 - PHP Notice:  Error: MySQL server has gone away<br />Error No: 2006<br />SELECT * FROM oc_extension WHERE `type` = 'module' in /home/footlounge/public_html/system/database/mysql.php on line 50
+2016-04-12 22:25:49 - PHP Notice:  Trying to get property of non-object in /home/footlounge/public_html/vqmod/vqcache/vq2-catalog_model_setting_extension.php on line 58
+2016-04-12 22:25:49 - PHP Warning:  Invalid argument supplied for foreach() in /home/footlounge/public_html/catalog/controller/common/content_bottom.php on line 45
+2016-04-12 22:25:49 - PHP Notice:  Error: MySQL server has gone away<br />Error No: 2006<br />SELECT DISTINCT * FROM oc_information i LEFT JOIN oc_information_description id ON (i.information_id = id.information_id) LEFT JOIN oc_information_to_store i2s ON (i.information_id = i2s.information_id) WHERE i.information_id = '7' AND id.language_id = '0' AND i2s.store_id = '0' AND i.status = '1' in /home/footlounge/public_html/system/database/mysql.php on line 50
+2016-04-12 22:25:49 - PHP Notice:  Trying to get property of non-object in /home/footlounge/public_html/catalog/model/catalog/information.php on line 6
+2016-04-12 22:25:49 - PHP Notice:  Error: MySQL server has gone away<br />Error No: 2006<br />SELECT * FROM oc_information i LEFT JOIN oc_information_description id ON (i.information_id = id.information_id) LEFT JOIN oc_information_to_store i2s ON (i.information_id = i2s.information_id) WHERE id.language_id = '0' AND i2s.store_id = '0' AND i.status = '1' ORDER BY i.sort_order, LCASE(id.title) ASC in /home/footlounge/public_html/system/database/mysql.php on line 50
+2016-04-12 22:25:49 - PHP Notice:  Trying to get property of non-object in /home/footlounge/public_html/catalog/model/catalog/information.php on line 12
+2016-04-12 22:25:49 - PHP Warning:  Invalid argument supplied for foreach() in /home/footlounge/public_html/catalog/controller/common/footer.php on line 31
+2016-04-12 22:25:49 - PHP Notice:  Error: MySQL server has gone away<br />Error No: 2006<br />SELECT * FROM oc_extension WHERE `type` = 'module' in /home/footlounge/public_html/system/database/mysql.php on line 50
+2016-04-12 22:25:49 - PHP Notice:  Trying to get property of non-object in /home/footlounge/public_html/vqmod/vqcache/vq2-catalog_model_setting_extension.php on line 58
+2016-04-12 22:25:49 - PHP Notice:  Error: MySQL server has gone away<br />Error No: 2006<br />SELECT * FROM oc_layout_route WHERE 'error/not_found' LIKE CONCAT(route, '%') AND store_id = '0' ORDER BY route DESC LIMIT 1 in /home/footlounge/public_html/system/database/mysql.php on line 50
+2016-04-12 22:25:49 - PHP Notice:  Trying to get property of non-object in /home/footlounge/public_html/catalog/model/design/layout.php on line 6
+2016-04-12 22:25:49 - PHP Warning:  Invalid argument supplied for foreach() in /home/footlounge/public_html/catalog/view/theme/lexus_nextstore/development/libs/framework.php on line 572
+2016-04-12 22:25:49 - PHP Notice:  Undefined offset: 0 in /home/footlounge/public_html/catalog/view/javascript/adsmartsearch_repository/adsmartsearch_livesrc_js.php on line 831
+2016-04-12 22:25:49 - PHP Notice:  Undefined offset: 0 in /home/footlounge/public_html/catalog/view/javascript/adsmartsearch_repository/adsmartsearch_livesrc_js.php on line 883
+2016-04-12 22:25:49 - PHP Notice:  Error: MySQL server has gone away<br />Error No: 2006<br />SELECT * FROM oc_category c LEFT JOIN oc_category_description cd ON (c.category_id = cd.category_id) LEFT JOIN oc_category_to_store c2s ON (c.category_id = c2s.category_id) WHERE c.parent_id = '0' AND cd.language_id = '0' AND c2s.store_id = '0'  AND c.status = '1' ORDER BY c.sort_order, LCASE(cd.name) in /home/footlounge/public_html/system/database/mysql.php on line 50
+2016-04-12 22:25:49 - PHP Notice:  Trying to get property of non-object in /home/footlounge/public_html/catalog/model/catalog/category.php on line 12
+2016-04-12 22:25:49 - PHP Warning:  Invalid argument supplied for foreach() in /home/footlounge/public_html/vqmod/vqcache/vq2-catalog_controller_common_header.php on line 176
+2016-04-12 22:25:49 - PHP Notice:  Error: MySQL server has gone away<br />Error No: 2006<br />SELECT * FROM oc_extension WHERE `type` = 'total' in /home/footlounge/public_html/system/database/mysql.php on line 50
+2016-04-12 22:25:49 - PHP Notice:  Trying to get property of non-object in /home/footlounge/public_html/vqmod/vqcache/vq2-catalog_model_setting_extension.php on line 58
+2016-04-12 22:25:49 - PHP Warning:  Invalid argument supplied for foreach() in /home/footlounge/public_html/catalog/controller/module/cart.php on line 25
+2016-04-12 22:25:49 - PHP Warning:  array_multisort(): Argument #3 is expected to be an array or a sort flag in /home/footlounge/public_html/catalog/controller/module/cart.php on line 29
+2016-04-12 22:25:49 - PHP Warning:  Invalid argument supplied for foreach() in /home/footlounge/public_html/catalog/controller/module/cart.php on line 31
+2016-04-12 22:25:49 - PHP Notice:  Undefined index: INR in /home/footlounge/public_html/vqmod/vqcache/vq2-system_library_currency.php on line 55
+2016-04-12 22:25:49 - PHP Notice:  Undefined index: INR in /home/footlounge/public_html/vqmod/vqcache/vq2-system_library_currency.php on line 56
+2016-04-12 22:25:49 - PHP Notice:  Undefined index: INR in /home/footlounge/public_html/vqmod/vqcache/vq2-system_library_currency.php on line 57
+2016-04-12 22:25:49 - PHP Notice:  Undefined index: INR in /home/footlounge/public_html/vqmod/vqcache/vq2-system_library_currency.php on line 71
+2016-04-12 22:25:49 - PHP Notice:  Undefined variable: href_default in /home/footlounge/public_html/vqmod/vqcache/vq2-catalog_view_theme_lexus_nextstore_template_common_header.tpl on line 530
+2016-04-12 22:25:49 - PHP Notice:  Error: MySQL server has gone away<br />Error No: 2006<br />SELECT * FROM oc_category c LEFT JOIN oc_category_description cd ON (c.category_id = cd.category_id) LEFT JOIN oc_category_to_store c2s ON (c.category_id = c2s.category_id) WHERE c.parent_id = '0' AND cd.language_id = '0' AND c2s.store_id = '0'  AND c.status = '1' ORDER BY c.sort_order, LCASE(cd.name) in /home/footlounge/public_html/system/database/mysql.php on line 50
+2016-04-12 22:25:49 - PHP Notice:  Trying to get property of non-object in /home/footlounge/public_html/catalog/model/catalog/category.php on line 12
+2016-04-12 22:25:49 - PHP Warning:  Invalid argument supplied for foreach() in /home/footlounge/public_html/vqmod/vqcache/vq2-catalog_view_theme_lexus_nextstore_template_common_header.tpl on line 533
+2016-06-28 06:27:50 - Export/Import: Invalid number of worksheets, 8 worksheets expected
+2016-06-28 06:33:29 - Export/Import: Invalid number of worksheets, 8 worksheets expected
+2016-06-28 06:34:11 - Export/Import: Invalid number of worksheets, 8 worksheets expected
+2016-07-29 09:04:48 - Export/Import: Invalid number of worksheets, 8 worksheets expected
+2016-07-29 09:05:45 - Export/Import: Invalid number of worksheets, 8 worksheets expected

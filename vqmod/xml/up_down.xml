@@ -1,0 +1,29 @@
+<modification>
+  <id>Monitoring Online User</id>
+  <version>1.0</version>
+  <vqmver>2.1</vqmver>
+  <author>ashokhein</author>
+ 	<file name="catalog/controller/common/header.php">
+		<operation>
+			<search position="after"><![CDATA[$this->data['title'] = $this->document->getTitle();]]></search>
+			<add><![CDATA[
+			$this->document->addScript('catalog/view/javascript/scroll-startstop.events.jquery.js');
+			$this->document->addScript('catalog/view/javascript/up_down.js');	
+			if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/stylesheet/up_down.css')) {
+			$this->document->addStyle('catalog/view/theme/' . $this->config->get('config_template') . '/stylesheet/up_down.css');
+		} else {
+			$this->document->addStyle('catalog/view/theme/default/stylesheet/up_down.css');
+		}
+		]]></add>
+		</operation>
+	</file>
+	<file name="catalog/view/theme/*/template/common/header.tpl">
+		<operation>
+			<search position="after"><![CDATA[<div id="notification">]]></search>
+			<add><![CDATA[
+			<div style="display:none;" class="nav_up" id="nav_up"></div>
+			<div style="display:none;" class="nav_down" id="nav_down"></div>
+			]]></add>
+		</operation>
+	</file>
+</modification>

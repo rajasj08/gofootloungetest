@@ -1,0 +1,783 @@
+<!-- Created using vQmod XML Generator by UKSB - http://uksb.github.com/vqgen/ //-->
+<modification>
+	<id><![CDATA[Voucher On Purchase]]></id>
+	<version><![CDATA[1.2]]></version>
+	<vqmver><![CDATA[1.0.8]]></vqmver>
+	<author><![CDATA[Atir]]></author>
+		<file name="admin/controller/common/header.php">
+		<operation>
+			<search position="before"><![CDATA[$this->data['text_zone']]]></search>
+			<add><![CDATA[$this->data['text_purchasevoucher'] = $this->language->get('text_purchasevoucher');
+			$this->data['text_purchasevoucherpending'] = $this->language->get('text_purchasevoucherpending');
+			]]></add>
+		</operation>
+		<operation>
+			<search position="before"><![CDATA[$this->data['zone']]]></search>
+			<add><![CDATA[$this->data['purchasevoucher'] = $this->url->link('sale/purchasevoucher', 'token=' . $this->session->data['token'], 'SSL');
+			$this->data['purchasevoucherpending'] = $this->url->link('sale/purchasevoucher/pending', 'token=' . $this->session->data['token'], 'SSL');
+			
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/language/*/common/header.php">
+		<operation>
+			<search position="before"><![CDATA[$_['text_zone']]]></search>
+			<add><![CDATA[$_['text_purchasevoucher']     = 'Purchasevoucher Sold Vouchers';
+			$_['text_purchasevoucherpending']     = 'Purchasevoucher Pending Vouchers';
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/common/header.tpl">
+		<operation>
+			<search position="before"><![CDATA[<li><a href="<?php echo $contact; ?>">]]></search>
+			<add><![CDATA[<li><a href="<?php echo $purchasevoucher; ?>"><?php echo $text_purchasevoucher; ?></a></li>
+			<li><a href="<?php echo $purchasevoucherpending; ?>"><?php echo $text_purchasevoucherpending; ?></a></li>
+			]]></add>
+		</operation>
+	</file>
+		<file name="admin/language/*/sale/order.php">
+		<operation>
+			<search position="after"><![CDATA[php]]></search>
+			<add><![CDATA[
+			$_['column_vouchercode']         = 'Voucher';
+             $_['column_voucheramount']         = 'Voucher Amount';
+			 $_['button_sendvoucher']         = 'Send Voucher';
+	    ]]></add>
+		</operation>
+	</file>
+	<file name="admin/controller/sale/order.php">
+		<operation>
+			<search position="before"><![CDATA[$this->data['vouchers'] = array();]]></search>
+			<add><![CDATA[
+			$_SESSION["voucherproduct"] = "false" ;
+					foreach ($this->data['products']  as $productstemp) {
+			
+			if (($productstemp['isvoucher'] != "1") && ($_SESSION["voucherproduct"] == "true") && ($productstemp['pvouchercode']) )						
+				
+{
+$_SESSION["voucherproduct"] = "false" ;
+$_SESSION["voucherproductemail"] = "false" ;
+
+}	elseif (($productstemp['isvoucher'] != "1") && ($_SESSION["voucherproduct"] == "false"))
+			{
+$_SESSION["voucherproduct"] = "false" ;
+$_SESSION["voucherproductemail"] = "false" ;
+}											
+										
+elseif (($productstemp['isvoucher'] == "1") && (!$productstemp['pvouchercode'])) {
+	$_SESSION["voucherproduct"] = "true" ;
+$_SESSION["voucherproductemail"] = "true" ;			
+
+}				
+}
+	    ]]></add>
+		</operation>
+		<operation>
+			<search position="after"><![CDATA['name'     => $product['name'],]]></search>
+			<add><![CDATA[
+		'pvouchercode'   => (isset($productvoucher['code']))?$productvoucher['code']:'',
+					'pvoucheramount'   => (isset($productvoucher['amount']))? $this->currency->format($productvoucher['amount'], $order_info['currency_code'], $order_info['currency_value']):'',
+	    ]]></add>
+		</operation>
+		<operation>
+			<search position="after"><![CDATA['product_id'       => $product['product_id'],]]></search>
+			<add><![CDATA[
+		'pvouchercode'   => (isset($productvoucher['code']))?$productvoucher['code']:'',
+					'pvoucheramount'   => (isset($productvoucher['amount']))? $this->currency->format($productvoucher['amount'], $order_info['currency_code'], $order_info['currency_value']):'',
+					'isvoucher'   => (isset($isvoucher['voucher']))?$isvoucher['voucher']:'0',
+					'isvoucheramount'   => (isset($isvoucher['voucheramount']))?$isvoucher['voucheramount']:'',
+	    ]]></add>
+		</operation>
+		<operation>
+			<search position="before"><![CDATA[$this->data['column_comment'] = $this->language->get('column_comment');]]></search>
+			<add><![CDATA[
+		$this->data['column_vouchercode'] = $this->language->get('column_vouchercode');
+			$this->data['column_voucheramount'] = $this->language->get('column_voucheramount');
+			$this->data['button_sendvoucher'] = $this->language->get('button_sendvoucher');
+			$this->data['linkhttp']=HTTP_CATALOG;
+	   ]]></add>
+		</operation>
+		<operation>
+			<search position="before"><![CDATA[$this->data['token'] = $this->session->data['token'];]]></search>
+			<add><![CDATA[
+		$this->data['column_vouchercode'] = $this->language->get('column_vouchercode');
+			$this->data['column_voucheramount'] = $this->language->get('column_voucheramount');
+				$this->data['button_sendvoucher'] = $this->language->get('button_sendvoucher');
+				$this->data['linkhttp']=HTTP_CATALOG;
+	   ]]></add>
+		</operation>		
+		<operation>
+			<search position="after"><![CDATA[foreach ($products as $product) {]]></search>
+			<add><![CDATA[
+		$productvoucher = $this->model_sale_order->getOrdervoucherproducts($this->request->get['order_id'],$product['product_id']);
+		$isvoucher = $this->model_sale_order->getOrdervProducts($product['product_id']);
+		
+		
+	   ]]></add>
+		</operation>
+	</file>
+	<file name="admin/model/sale/order.php">
+		<operation>
+			<search position="replace"><![CDATA[$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_voucher WHERE order_id = '" . (int)$order_id . "'");]]></search>
+			<add><![CDATA[
+			$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_voucher WHERE order_id = '" . (int)$order_id . "' AND product_id IS NULL ");
+		
+	 ]]></add>
+		</operation>
+		<operation>
+			<search position="before"><![CDATA[public function getOrderVouchers($order_id) {]]></search>
+			<add><![CDATA[
+			public function getOrdervProducts($product_id) {
+		$query = $this->db->query("SELECT voucher,voucheramount FROM " . DB_PREFIX . "product WHERE product_id = '" . (int)$product_id . "'");
+		
+		return $query->row;
+	}
+			public function getOrdervoucherproducts($order_id,$product_id) {
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_voucher` WHERE order_id = '" . (int)$order_id . "' AND product_id = '" . (int)$product_id . "' ");
+		
+		return $query->row;
+	}
+	 ]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/sale/order_info.tpl">
+		<operation>
+			<search position="before"><![CDATA[<?php foreach ($vouchers as $voucher) { ?>]]></search>
+			<add><![CDATA[
+			<?php $x=1; ?>
+	  <?php foreach ($products as $product) { ?>
+	   <?php if ($product['pvouchercode']) { ?>
+	  
+	  
+	   <?php if ($x==1) { ?>
+	        <tr>
+        <td class="left"><span style="font-weight:bold"><?php echo $column_vouchercode; ?></span></td>
+        <td class="left"><span style="font-weight:bold"><?php echo $column_voucheramount; ?></span></td>
+        <td class="right"></td>
+        <td class="right"></td>
+        <td class="right"></td>
+        <td class="right"></td>
+      </tr>
+	   <?php } ?>
+	        <tr>
+        <td class="left"><?php echo $product['pvouchercode']; ?></td>
+        <td class="left"><?php echo $product['pvoucheramount']; ?></td>
+        <td class="right"></td>
+        <td class="right"></td>
+        <td class="right"></td>
+        <td class="right"></td>
+	    </tr>
+	  <?php $x=2; ?>
+	  <?php } ?>
+	   <?php } ?>
+	    ]]></add>
+		</operation>
+		<operation>
+			<search position="replace"><![CDATA[<a href="<?php echo $invoice; ?>]]></search>
+			<add><![CDATA[
+			
+			<?php if ($_SESSION["voucherproduct"]=="true") { ?>
+	    
+		<a class="button" style="background:#0033c3" id="sendvc" onclick="sendvoucher()"><?php echo $button_sendvoucher; ?></a>
+		
+	   <?php } ?><a href="<?php echo $invoice; ?>
+	    ]]></add>
+		</operation>
+		<operation>
+			<search position="before"><![CDATA[<?php echo $footer; ?>]]></search>
+			<add><![CDATA[
+			
+	  <script type="text/javascript"><!--
+	function sendvoucher(){
+	$( "#sendvc" ).hide();
+	$.ajax({
+			type: 'post',
+			url: '<?php echo $linkhttp; ?>/index.php?route=module/purchasevoucher/admincall&order_id=<?php echo $this->request->get['order_id']; ?>',
+			dataType: 'html',
+            
+			success: function (html) {
+				eval(html);
+				
+				location.reload(); 
+			}}); 
+}
+//--></script>
+	  
+	    ]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/sale/order_invoice.tpl">
+		<operation>
+			<search position="before"><![CDATA[<?php foreach ($order['voucher'] as $voucher) { ?>]]></search>
+			<add><![CDATA[
+			<?php $x=1; ?>
+			
+	  <?php foreach ($order['product'] as $product) { ?>
+	   <?php if ($product['pvouchercode']) { ?>
+	  
+	  
+	   <?php if ($x==1) { ?>
+	        <tr>
+        <td class="left"><span style="font-weight:bold"><?php echo $column_vouchercode; ?></span></td>
+        <td class="left"><span style="font-weight:bold"><?php echo $column_voucheramount; ?></span></td>
+        <td class="right"></td>
+        <td class="right"></td>
+        <td class="right"></td>
+        <td class="right"></td>
+      </tr>
+	   <?php } ?>
+	        <tr>
+        <td class="left"><?php echo $product['pvouchercode']; ?></td>
+        <td class="left"><?php echo $product['pvoucheramount']; ?></td>
+        <td class="right"></td>
+        <td class="right"></td>
+        <td class="right"></td>
+        <td class="right"></td>
+	    </tr>
+	  <?php $x=2; ?>
+	  <?php } ?>
+	   <?php } ?>
+	    ]]></add>
+		</operation>
+	</file>
+	<file name="catalog/language/*/account/order.php">
+		<operation>
+			<search position="after"><![CDATA[php]]></search>
+			<add><![CDATA[
+			$_['column_vouchercode']         = 'Voucher';
+             $_['column_voucheramount']         = 'Voucher Amount';
+	    ]]></add>
+		</operation>
+	</file>
+	<file name="catalog/view/theme/*/template/account/order_info.tpl">
+		<operation>
+			<search position="before"><![CDATA[<?php foreach ($vouchers as $voucher) { ?>]]></search>
+			<add><![CDATA[
+			<?php $x=1; ?>
+	  <?php foreach ($products as $product) { ?>
+	   <?php if ($product['pvouchercode']) { ?>
+	  
+	  
+	   <?php if ($x==1) { ?>
+	        <tr>
+        <td class="left"><span style="font-weight:bold"><?php echo $column_vouchercode; ?></span></td>
+        <td class="left"><span style="font-weight:bold"><?php echo $column_voucheramount; ?></span></td>
+        <td class="right"></td>
+        <td class="right"></td>
+        <td class="right"></td>
+        <td class="right"></td>
+      </tr>
+	   <?php } ?>
+	        <tr>
+        <td class="left"><?php echo $product['pvouchercode']; ?></td>
+        <td class="left"><?php echo $product['pvoucheramount']; ?></td>
+        <td class="right"></td>
+        <td class="right"></td>
+        <td class="right"></td>
+        <td class="right"></td>
+	    </tr>
+	  <?php $x=2; ?>
+	  <?php } ?>
+	   <?php } ?>
+	    ]]></add>
+		</operation>
+		<operation>
+			<search position="replace"><![CDATA[<a href="<?php echo $product['return']; ?>"><img src="catalog/view/theme/default/image/return.png" alt="<?php echo $button_return; ?>" title="<?php echo $button_return; ?>" /></a>]]></search>
+			<add><![CDATA[
+		<?php if (!$product['pvouchercode']) { ?>
+		<a href="<?php echo $product['return']; ?>"><img src="catalog/view/theme/default/image/return.png" alt="<?php echo $button_return; ?>" title="<?php echo $button_return; ?>" /></a><?php } ?>
+	    ]]></add>
+		</operation>
+	</file>
+	<file name="catalog/controller/account/order.php">
+		<operation>
+			<search position="after"><![CDATA['name'     => $product['name'],]]></search>
+			<add><![CDATA[
+		'pvouchercode'   => (isset($productvoucher['code']))?$productvoucher['code']:'',
+					'pvoucheramount'   => (isset($productvoucher['amount']))? $this->currency->format($productvoucher['amount'], $order_info['currency_code'], $order_info['currency_value']):'',
+	    ]]></add>
+		</operation>
+				<operation>
+			<search position="before"><![CDATA[$this->data['column_comment']]]></search>
+			<add><![CDATA[
+		$this->data['column_vouchercode'] = $this->language->get('column_vouchercode');
+			$this->data['column_voucheramount'] = $this->language->get('column_voucheramount');
+	   ]]></add>
+		</operation>
+				
+		<operation>
+			<search position="after"><![CDATA[foreach ($products as $product) {]]></search>
+			<add><![CDATA[
+		$productvoucher = $this->model_account_order->getOrdervoucherproducts($this->request->get['order_id'],$product['product_id']);
+	   ]]></add>
+		</operation>
+	</file>
+	<file name="catalog/model/account/order.php">
+		<operation>
+			<search position="replace"><![CDATA[$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_voucher` WHERE order_id = '" . (int)$order_id . "'");]]></search>
+			<add><![CDATA[
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_voucher` WHERE order_id = '" . (int)$order_id . "' AND product_id IS NULL ");
+	 ]]></add>
+		</operation>
+		<operation>
+			<search position="before"><![CDATA[public function getOrderVouchers($order_id) {]]></search>
+			<add><![CDATA[
+			public function getOrdervoucherproducts($order_id,$product_id) {
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "order_voucher` WHERE order_id = '" . (int)$order_id . "' AND product_id = '" . (int)$product_id . "' ");
+		
+		return $query->row;
+	}
+	 ]]></add>
+		</operation>
+	</file>
+	<file name="admin/view/template/catalog/product_form.tpl">
+		<operation>
+			<search position="before"><![CDATA[<td><span class="required">*</span> <?php echo $entry_model; ?></td>]]></search>
+			<add><![CDATA[            
+			 <td><?php echo $entry_voucher; ?></td>
+			       <td id="vc"><?php if ($voucher) { ?>
+                <input type="radio" name="voucher" value="1" checked="checked" />
+                <?php echo $text_yes; ?>
+                <input type="radio" name="voucher" value="0" />
+                <?php echo $text_no; ?>
+                <?php } else { ?>
+                <input type="radio" name="voucher" value="1" />
+                <?php echo $text_yes; ?>
+                <input type="radio" name="voucher" value="0" checked="checked" />
+                <?php echo $text_no; ?>
+                <?php } ?></td>
+			</tr>  
+			<tr id="vc2">	
+              <td><?php echo $entry_voucheramount; ?></td>
+              <td><input type="text" name="voucheramount" value="<?php echo $voucheramount; ?>" /></td>
+            </tr>
+<script>
+					$(function() {
+					  
+					    var $toggleArea2 = $('#vc2');
+					   
+						
+						  if ($('#vc :checked').val() === '1') {
+					            $toggleArea2.show(); 
+					        
+					        }
+					        else {
+					            $toggleArea2.hide(); 
+					           
+					        }
+					    $('#vc').change(function(){
+						
+					        if ($('#vc :checked').val() === '1') {
+					            $toggleArea2.show(400); 
+					       
+					        }
+					        else {
+					            $toggleArea2.hide(400); 
+					          
+					        }
+					    });
+					});
+				</script>             
+            <tr>]]></add>
+		</operation>
+		
+	</file>
+	<file name="admin/language/english/catalog/product.php">
+		<operation>
+			<search position="before"><![CDATA[$_['entry_reward']]]></search>
+			<add><![CDATA[$_['entry_voucheramount']           = 'Voucher Amount:<br/><span class="help">Sent Automatically On sale in email with Voucher Code</span>';
+			$_['entry_voucher']           = 'Set as Voucher';
+			]]></add>
+		</operation>
+	</file>
+	<file name="admin/controller/catalog/product.php">
+		<operation>
+			<search position="before"><![CDATA[$this->data['entry_reward']]]></search>
+			<add><![CDATA[$this->data['entry_voucher'] = $this->language->get('entry_voucher');
+			$this->data['entry_voucheramount'] = $this->language->get('entry_voucheramount');
+			]]></add>
+		</operation>
+		<operation>
+			<search position="before"><![CDATA[if (isset($this->request->post['sku']))]]></search>
+			<add><![CDATA[if (isset($this->request->post['voucheramount'])) {
+      		$this->data['voucheramount'] = $this->request->post['voucheramount'];
+    	} elseif (!empty($product_info)) {
+			$this->data['voucheramount'] = $product_info['voucheramount'];
+		} else {
+      		$this->data['voucheramount'] = '';
+    	}
+		if (isset($this->request->post['voucher'])) {
+      		$this->data['voucher'] = $this->request->post['voucher'];
+    	} elseif (!empty($product_info)) {
+			$this->data['voucher'] = $product_info['voucher'];
+		} else {
+      		$this->data['voucher'] = '';
+    	}
+		
+		]]></add>
+		</operation>
+	</file>
+	<file name="admin/model/catalog/product.php">
+		<operation>
+			<search position="replace"><![CDATA[model = '" . $this->db->escape($data['model']) . "',]]></search>
+			<add><![CDATA[model = '" . $this->db->escape($data['model']) . "', voucheramount = '" . (float)$data['voucheramount'] . "', voucher = '" . (int)$data['voucher'] . "',]]></add>
+		</operation>
+	</file>
+	<file name="system/library/cart.php">
+		<operation>
+			<search position="after"><![CDATA[$product_query->row['model'],]]></search>
+			<add><![CDATA[
+			'voucher'                     => ($product_query->row['voucher'] ? $product_query->row['voucher']: 0),
+			
+	 ]]></add>
+		</operation>
+	</file>
+	<file name="catalog/view/theme/*/template/checkout/checkout.tpl">
+		<operation>
+			<search position="after"><![CDATA[<h1><?php echo $heading_title; ?></h1>]]></search>
+			<add><![CDATA[<?php if (isset($_SESSION["voucherproductemail"])) { ?>
+
+ 	
+	<?php if ($_SESSION["voucherproductemail"] == "true") { ?>
+
+
+<?php echo $text_giftemail; ?><br />
+
+  <form name="vemailid" id="vemailid" >
+<?php if (isset($_SESSION['vemail'])) { ?>
+<input id="vemail" name="vemail" size="30" value="<?php echo $_SESSION['vemail'];?>" />
+<?php } else { ?>
+<input type="text" id="vemail" name="vemail" placeholder="<?php echo $text_vemail; ?>">
+
+<?php } ?>
+
+<?php if (isset($_SESSION['vname'])) { ?>
+<input id="vname" name="vname" size="30" value="<?php echo $_SESSION['vname'];?>" />
+<?php } else { ?>
+<input type="text" id="vname" name="vname" placeholder="<?php echo $text_vname; ?>">
+<?php } ?>
+
+ <a class="button" onclick="vemail_gift()"><span><?php echo $text_vsubmit; ?></span></a>
+<p id="email_result"></p>
+</form>
+
+
+ <?php } ?>  <?php } ?>
+
+
+
+<script type="text/javascript"> 
+
+
+function vemail_gift(){
+	$.ajax({
+			type: 'post',
+		url: 'index.php?route=module/purchasevoucher/emailid',
+			dataType: 'html',
+            data:$("#vemailid").serialize(),
+			success: function (html) {
+				eval(html);
+			}}); 
+}
+
+</script>
+	 ]]></add>
+		</operation>
+	</file>
+		<file name="catalog/controller/checkout/cart.php">
+		<operation>
+			<search position="before"><![CDATA[$this->data['totals'] = $total_data;]]></search>
+			<add><![CDATA[
+				$query = $this->db->query("SELECT `value` FROM ".DB_PREFIX."setting WHERE `key` LIKE 'purchasevoucher_total_methods'");
+			
+$arr = explode('|',$query->row['value']);
+
+$_SESSION["voucherproduct"] = "false" ;	
+
+foreach($arr as $tot) {
+
+	$variable = "$tot"."_".'status';
+
+ 	foreach($products as $product) {
+		
+if (($product['voucher'] != "1") && ($_SESSION["voucherproduct"] == "true"))						
+				
+{
+$_SESSION["voucherproduct"] = "false" ;
+
+}	elseif ($product['voucher'] != "1")
+			{
+$_SESSION["voucherproduct"] = "false" ;
+}											
+										
+else {
+	$_SESSION["voucherproduct"] = "true" ;
+$_SESSION["voucherproductemail"] = "true" ;			
+$this->data[$variable] = 0;
+}				
+}
+
+}]]></add>
+		</operation>
+		<operation>
+			<search position="after"><![CDATA[$product['model'],]]></search>
+			<add><![CDATA[
+			'voucher'                     => ($product['voucher'] ? $product['voucher']: 0),
+			
+	 ]]></add>
+		</operation>
+	</file>
+		
+	<file name="catalog/model/checkout/voucher.php">
+		<operation>
+			<search position="after"><![CDATA[public function redeem($voucher_id, $order_id, $amount) {]]></search>
+			<add><![CDATA[		
+			if($this->config->get('purchasevoucher_status')=='Enabled'){
+			
+			$email = $this->db->query("SELECT from_email FROM " . DB_PREFIX . "voucher WHERE `voucher_id` ='" . (int)$voucher_id . "'");
+			$email = $email->row['from_email'];
+	
+		$customer_id = $this->db->query("SELECT customer_id FROM " . DB_PREFIX . "customer WHERE `email` = '" . $email . "'");
+		$customer_id = $customer_id->row['customer_id'];
+		
+	$amount1=str_replace('-','',$amount);
+
+	$amount1= $this->config->get('purchasevoucher_points')*$amount1;
+		
+				$this->db->query("INSERT INTO `" . DB_PREFIX . "customer_reward` SET customer_id = '" . $customer_id . "', description= 'Voucher Redeem', order_id = '" . (int)$order_id . "', points = '" . (int)$amount1 . "', date_added = NOW()");
+		}
+			]]></add>
+		</operation>
+	</file>
+	<file name="catalog/model/checkout/order.php">
+		<operation>
+			<search position="before" offset="2"><![CDATA[public function update]]></search>
+			<add><![CDATA[
+					
+		$this->load->model('module/purchasevoucher');
+
+       $call="1"; $this->model_module_purchasevoucher->sendvoucher($order_id,$order_info['email'],$order_info['payment_firstname'],$order_info['store_name'],$order_status_id,$order_info['currency_code'], $order_info['currency_value'],$this->config->get('config_language_id'),$this->config->get('config_url'),$this->config->get('config_email'),$call);
+			]]></add>
+		</operation>
+	</file>
+	<!-- old code //-->
+
+	<file name="catalog/model/setting/extension.php">
+		<operation>
+			<search position="replace"><![CDATA[$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "extension WHERE `type` = '" . $this->db->escape($type) . "'");]]></search>
+			<add><![CDATA[if (!isset($_SESSION["voucherproduct"]))
+	 {
+	 $_SESSION["voucherproduct"] = "false" ;
+	 }
+	
+		if (($_SESSION["voucherproduct"] == "true") && 	($type=="payment") )
+
+	{
+	
+	
+	$query = $this->db->query("SELECT `value` FROM ".DB_PREFIX."setting WHERE `key` LIKE 'purchasevoucher_payment_methods'");
+			
+$arr = explode('|',$query->row['value']);
+
+$message = 'AND `code` = ';
+
+$count=0;
+foreach($arr as $temp2) {
+ 
+$count = $count + 1;
+}
+
+
+foreach($arr as $temp) {
+$pcount = $count-1;
+if ($pcount >= 1)
+{
+
+ if ($temp)
+    {
+	 $message .= "'".$temp."'".' ';
+	$message .= 'OR `code` = ';	
+	 
+	}
+	}
+	else
+	{
+	$message .= "'".$temp."'".' ';
+	}
+	$count = $pcount;
+	
+}
+
+
+	$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "extension WHERE `type` = 'payment' $message");
+	}
+
+	
+	else {
+	
+		
+		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "extension WHERE `type` = '" . $this->db->escape($type) . "'");
+}]]></add>
+		</operation>
+	</file>
+	<file name="catalog/controller/checkout/success.php">
+		<operation>
+			<search position="after"><![CDATA[$this->data['continue'] = $this->url->link('common/home');]]></search>
+			<add><![CDATA[if (isset($_SESSION["voucherproduct"]))
+{
+				
+		$_SESSION["voucherproduct"] = "false" ;
+		$_SESSION["voucherproductemail"] = "false" ;
+
+		}]]></add>
+		</operation>
+	</file>
+	<file name="catalog/controller/checkout/checkout.php">
+		<operation>
+			<search position="after"><![CDATA[$products = $this->cart->getProducts();]]></search>
+			<add><![CDATA[if (!isset($_SESSION["voucherproduct"]))
+	 {
+	 $_SESSION["voucherproduct"] = "false" ;
+	 $_SESSION["voucherproductemail"] = "false" ;
+	 }
+	 foreach ($products as $product) {
+		if (($product['voucher'] == 1) )	{
+		$_SESSION["voucherproductemail"] = "true" ;
+
+	}
+		}
+	 
+	 ]]></add>
+		</operation>
+		<operation>
+			<search position="before"><![CDATA[$this->data['text_modify']]]></search>
+			<add><![CDATA[
+				$this->language->load('module/purchasevoucher');
+			$this->data['text_giftemail'] = $this->language->get('text_giftemail');
+			$this->data['text_vname'] = $this->language->get('text_vname');
+			$this->data['text_vemail'] = $this->language->get('text_vemail');
+			$this->data['text_vsubmit'] = $this->language->get('text_vsubmit');
+	 ]]></add>
+		</operation>
+		<operation>
+			<search position="after"><![CDATA[$product_total = 0;]]></search>
+			<add><![CDATA[if (($product['voucher'] != 1) && ($_SESSION["voucherproduct"] == "true"))						
+				
+			{
+$_SESSION["voucherproduct"] = "false" ;
+
+
+										}	elseif ($product['voucher'] != 1)
+			{
+$_SESSION["voucherproduct"] = "false" ;
+
+										}											
+										
+									else {
+	$_SESSION["voucherproduct"] = "true" ;	
+
+}]]></add>
+		</operation>
+	</file>
+	<file name="catalog/controller/checkout/checkout_two.php">
+		<operation>
+			<search position="after"><![CDATA[$this->data['products'] = array();]]></search>
+			<add><![CDATA[if (!isset($_SESSION["voucherproduct"]))
+	 {
+	 $_SESSION["voucherproduct"] = "false" ;
+	 $_SESSION["voucherproductemail"] = "false" ;
+	 }
+	 	foreach ($this->cart->getProducts() as $product) {
+		if (($product['voucher'] == 1) )	{
+		$_SESSION["voucherproductemail"] = "true" ;
+
+	}
+		}
+	 
+	 
+	 ]]></add>
+		</operation>
+		<operation>
+			<search position="before"><![CDATA[$this->data['heading_title']]]></search>
+			<add><![CDATA[
+				$this->language->load('module/purchasevoucher');
+			$this->data['text_giftemail'] = $this->language->get('text_giftemail');
+			$this->data['text_vname'] = $this->language->get('text_vname');
+			$this->data['text_vemail'] = $this->language->get('text_vemail');
+			$this->data['text_vsubmit'] = $this->language->get('text_vsubmit');
+	 ]]></add>
+		</operation>
+		<operation>
+			<search position="after"><![CDATA[foreach ($this->cart->getProducts() as $product) {]]></search>
+			<add><![CDATA[if (($product['voucher'] != 1) && ($_SESSION["voucherproduct"] == "true"))						
+				
+			{
+$_SESSION["voucherproduct"] = "false" ;
+	
+
+										}	elseif ($product['voucher'] != 1)
+			{
+$_SESSION["voucherproduct"] = "false" ;
+	
+										}											
+										
+									else {
+	$_SESSION["voucherproduct"] = "true" ;	
+
+}]]></add>
+		</operation>
+	</file>
+	<file name="catalog/view/theme/*/template/checkout/checkout_two.tpl">
+		<operation>
+			<search position="after"><![CDATA[<div class="content">]]></search>
+			<add><![CDATA[<?php if (isset($_SESSION["voucherproductemail"])) { ?>
+
+ 	
+	<?php if ($_SESSION["voucherproductemail"] == "true") { ?>
+
+
+<?php echo $text_giftemail; ?><br />
+
+  <form name="vemailid" id="vemailid" >
+<?php if (isset($_SESSION['vemail'])) { ?>
+<input id="vemail" name="vemail" size="30" value="<?php echo $_SESSION['vemail'];?>" />
+<?php } else { ?>
+<input type="text" id="vemail" name="vemail" placeholder="<?php echo $text_vemail; ?>">
+
+<?php } ?>
+
+<?php if (isset($_SESSION['vname'])) { ?>
+<input id="vname" name="vname" size="30" value="<?php echo $_SESSION['vname'];?>" />
+<?php } else { ?>
+<input type="text" id="vname" name="vname" placeholder="<?php echo $text_vname; ?>">
+<?php } ?>
+
+ <a class="button" onclick="vemail_gift()"><span><?php echo $text_vsubmit; ?></span></a>
+<p id="email_result"></p>
+</form>
+
+
+ <?php } ?>  <?php } ?>
+
+
+
+<script type="text/javascript"> 
+
+
+function vemail_gift(){
+	$.ajax({
+			type: 'post',
+		url: 'index.php?route=module/purchasevoucher/emailid',
+			dataType: 'html',
+            data:$("#vemailid").serialize(),
+			success: function (html) {
+				eval(html);
+			}}); 
+}
+
+</script>
+	 ]]></add>
+		</operation>
+	</file>
+	<!-- old code end-->
+</modification>

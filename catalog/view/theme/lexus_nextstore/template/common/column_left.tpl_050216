@@ -1,0 +1,50 @@
+<?php 
+/******************************************************
+ * @package Pav Megamenu module for Opencart 1.5.x
+ * @version 1.0
+ * @author http://www.pavothemes.com
+ * @copyright	Copyright (C) Feb 2013 PavoThemes.com <@emai:pavothemes@gmail.com>.All rights reserved.
+ * @license		GNU General Public License version 2
+*******************************************************/
+?>
+
+<?php if ($modules) { 
+
+	//print_r('<pre>'); print_r($modules); 	 
+ 
+	?>
+
+	<div class="mobilemenu">    
+
+<a href="javascript:;" data-target="#navbar-collapseid" data-toggle="collapse" class="navbar-toggle" style="float:right !important; background-color:rgb(245, 134, 52) !important; bottom:18px !important; width:100% !important; padding:5px !imporatant; margin-top:10px !important; text-align:center; left:8px !important; margin-bottom:0px !important;"> 	    
+			        <span class="menucol">FILTER</span><span class="fa fa-bars" style="color:#FFF;"></span>		         
+			     </a>       
+
+  
+			     <div class="collapse navbar-collapse navbar-ex1-collapse" id="navbar-collapseid" style="overflow:scroll !important; max-height:150px !important; "> 
+							<?php foreach ($modules as $module) { ?>   
+								<?php echo $module; ?>
+									<?php } ?>
+							</div>	  
+
+</div>
+
+
+	 
+<div id="column-left" class="sidebar">
+
+	  
+
+
+<div class="normalmenu"> 
+
+				
+	<?php foreach ($modules as $module1) { ?>
+		<?php echo $module1; ?>    
+	<?php } ?>   
+</div> 
+
+
+
+
+<?php } ?> 

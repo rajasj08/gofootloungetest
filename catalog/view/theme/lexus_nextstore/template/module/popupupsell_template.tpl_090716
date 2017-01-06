@@ -1,0 +1,53 @@
+<div class="product_newpopup">
+<div class="product-thumb transition">
+	<div class="product-info">
+		<div class="col-lg-3 col-md-3 col-sm-4 col-sm-6">
+		<div class="product-block">
+		<div class="left">
+			<?php if( $special )  { ?>          
+							<span class="product-label product-label-special"><span><?php echo $saving; ?>%</span></span>
+						<?php } ?>
+
+			<div class="image">
+				<a href="<?= $product['href'] ?>"><img src="<?= $product['thumb'] ?>" alt="<?= $product['name'] ?>" title="<?= $product['name'] ?>" class="img-responsive" /></a>
+			</div>
+		</div>
+
+
+
+		<div class="right">
+<div class="product-meta">
+			<div class="text-center">
+				<h3 class="name"><a href="<?php echo $product['href']; ?>"><?php echo $product['name']; ?></a></h3>	
+	    	<?php if ($product['price']) { ?>
+			  	<div class="price"><?= $text_price ?>
+				   	<?php if (!$product['special']) { ?>
+				    	<?= $product['price'] ?>
+				    <?php } else { ?>
+				    	<span class="price-old"><?= $product['price'] ?></span> <span class="price-new"><?= $product['special'] ?></span>
+				    <?php } ?>
+				    <br />
+				   
+				    <?php if ($product['points']) { ?>
+				    	<span class="reward"><small><?= $text_points.'&nbsp;'.$product['points'] ?></small></span><br />
+				    <?php } ?>
+				    <?php if ($product['discounts']) { ?>
+				    <br />
+				    <div class="discount">
+				      <?php foreach ($product['discounts'] as $discount) { ?>
+				      	<?php sprintf($text_discount, $discount['quantity'], $discount['price']) ?><br />
+				      <?php } ?>
+				    </div>
+				    <?php } ?>
+			  	</div>
+			<?php } ?>
+			
+			</div>
+
+			</div>
+		</div>
+		</div>
+	</div>
+	</div>
+</div>
+</div>

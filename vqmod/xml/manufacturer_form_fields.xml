@@ -1,0 +1,82 @@
+<modification>
+    <id>Add form fields on manufacturer</id>
+    <version>2.2 for OpenCart 1.5.0.x - 1.5.6.x</version>
+    <vqmver>2.x</vqmver>
+    <author>Hanish Singla -- hksingla92@gmail.com</author>
+<!-- ALTER TABLE  `oc_manufacturer` ADD  `seo_title` VARCHAR( 255 ) NOT NULL AFTER  `name` ,
+ADD  `seo_description` TEXT NOT NULL AFTER  `seo_title` ; -->
+
+    <file name="fladmin15/controller/catalog/manufacturer.php">
+        <operation>
+            <search position="before"><![CDATA[
+				if (isset($this->request->post['keyword'])) {
+			]]></search>
+            <add><![CDATA[
+                
+                        if (isset($this->request->post['seo_title'])) {
+                                $this->data['seo_title'] = $this->request->post['seo_title'];
+                        } elseif (!empty($manufacturer_info)) {
+                                $this->data['seo_title'] = $manufacturer_info['seo_title'];
+                        } else {
+                                $this->data['seo_title'] = '';
+                        }
+                
+                        if (isset($this->request->post['seo_description'])) {
+                                $this->data['seo_description'] = $this->request->post['seo_description'];
+                        } elseif (!empty($manufacturer_info)) {
+                                $this->data['seo_description'] = $manufacturer_info['seo_description'];
+                        } else {
+                                $this->data['seo_description'] = '';
+                        }
+                
+			]]></add>
+        </operation>
+    </file>
+    
+    <file name="fladmin15/model/catalog/manufacturer.php">
+        <operation>
+            <search position="replace"><![CDATA[
+				$this->db->query("INSERT INTO " . DB_PREFIX . "manufacturer SET name = '" . $this->db->escape($data['name']) . "', sort_order = '" . (int)$data['sort_order'] . "'");
+			]]></search>
+            <add><![CDATA[
+				$this->db->query("INSERT INTO " . DB_PREFIX . "manufacturer SET name = '" . $this->db->escape($data['name']) . "', seo_title = '" . $this->db->escape($data['seo_title']) . "', seo_description = '" . $this->db->escape($data['seo_description']) . "', sort_order = '" . (int)$data['sort_order'] . "'");
+			]]></add>
+        </operation>
+        <operation>
+            <search position="replace"><![CDATA[
+				$this->db->query("UPDATE " . DB_PREFIX . "manufacturer SET name = '" . $this->db->escape($data['name']) . "', sort_order = '" . (int)$data['sort_order'] . "' WHERE manufacturer_id = '" . (int)$manufacturer_id . "'");
+			]]></search>
+            <add><![CDATA[
+				$this->db->query("UPDATE " . DB_PREFIX . "manufacturer SET name = '" . $this->db->escape($data['name']) . "', seo_title = '" . $this->db->escape($data['seo_title']) . "', seo_description = '" . $this->db->escape($data['seo_description']) . "', sort_order = '" . (int)$data['sort_order'] . "' WHERE manufacturer_id = '" . (int)$manufacturer_id . "'");
+			]]></add>
+        </operation>
+    </file>
+
+    <file name="fladmin15/view/template/catalog/manufacturer_form.tpl">
+        <operation>
+            <search position="replace"><![CDATA[<td><input type="text" name="keyword" value="<?php echo $keyword; ?>" /></td>]]></search>
+            <add><![CDATA[
+                            <td><input type="text" name="keyword" value="<?php echo $keyword; ?>" /></td>
+                        </tr>	
+                        <tr>
+                            <td>SEO Title:</td>
+                            <td><input type="text" size="100" name="seo_title" value="<?php echo $seo_title ?>" /></td>
+                        </tr>	
+                        <tr>
+                            <td>SEO Description:</td>
+                            <td><input type="text" size="100" name="seo_description" value="<?php echo $seo_description ?>" /></td>                        
+			]]></add>
+        </operation>
+    </file>
+    
+    <file name="catalog/controller/product/manufacturer.php">
+        <operation>
+            <search position="replace"><![CDATA[$this->document->setTitle($manufacturer_info['name']);]]></search>
+            <add><![CDATA[          
+                        $this->document->setTitle($manufacturer_info['seo_title']);                      
+			$this->document->setDescription($manufacturer_info['seo_description']);			                   
+			]]></add>
+        </operation>
+    </file>
+	
+</modification>

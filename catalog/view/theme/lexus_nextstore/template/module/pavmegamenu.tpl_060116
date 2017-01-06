@@ -1,0 +1,73 @@
+	<div class="pav-megamenu">
+	<div class="navbar navbar-default">
+		<div id="mainmenutop" class="megamenu" role="navigation">
+			<div class="navbar-header">
+				<a href="javascript:;" data-target=".navbar-collapse" data-toggle="" class="navbar-toggle" >       
+			        <span class="menucol">MENU</span><span class="fa fa-bars"></span>		        
+			     </a> 
+				<div class="collapse navbar-collapse navbar-ex1-collapse">
+				<?php echo $treemenu; ?>
+				</div>        
+			</div> 
+			<div  id="footsizedone" class="header-foot-size pull-right">
+				<a href="javascript:void(0);" title="Know Your Foot Size" data-toggle="modal" data-target="#knowYourSize">
+					<span class="fs-img">&nbsp;</span>
+					<span class="text">Size</span>
+				</a>
+			</div>
+			<div id="footsizeblock" class="header-foot-size pull-right">
+				<a href="https://gofootlounge.in/know-your-size">
+					<span class="fs-img">&nbsp;</span>
+					<span class="text">Size</span>
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	
+	$( document ).ready(function() {
+    if($( window ).width()<361)
+	    {
+	    	$(".secondlink .cumenu:nth-of-type(1) ul li:first-child").css('display','none');  
+	    	$(".thirdlink .cumenu:nth-of-type(1) ul li:first-child").css('display','none'); 
+	    	$(".four .cumenu1:nth-of-type(1) ul li:first-child").css('display','none'); 
+	    	$(".secondlink a").removeAttr('data-toggle');
+	    	$(".thirdlink a").removeAttr('data-toggle');
+	    	$(".four a").removeAttr('data-toggle');
+	    	$(".main-menu-brand a").removeAttr('data-toggle');  
+	    	
+	    	$( ".secondlink .caret" ).click(function() {
+	    		if( $(".secondlink div.dropdown-menu").css('display') == 'block') {
+	    		$(".secondlink div.dropdown-menu").hide(); 
+	    		}else{$(".secondlink div.dropdown-menu").show();  }
+			 
+			}); 
+			$( ".thirdlink .caret" ).click(function() {
+	    		if( $(".thirdlink div.dropdown-menu").css('display') == 'block') {
+	    		$(".thirdlink div.dropdown-menu").hide(); 
+	    		}else{$(".thirdlink div.dropdown-menu").show();  }
+			 
+			});  
+			$( ".four .caret" ).click(function() {
+	    		if( $(".four div.dropdown-menu").css('display') == 'block') {
+	    		$(".four div.dropdown-menu").hide(); 
+	    		}else{$(".four div.dropdown-menu").show();  }
+			 
+			});   
+			$( ".main-menu-brand .caret" ).click(function() {
+	    		if( $(".main-menu-brand div.dropdown-menu").css('display') == 'block') {
+	    		$(".main-menu-brand div.dropdown-menu").hide(); 
+	    		}else{$(".main-menu-brand div.dropdown-menu").show();  }
+			 
+			});   
+	    } 
+	}); 
+
+	function showlink(link)//show link
+	{
+		window.location.href='https://gofootlounge.in/'+link;  
+		
+	}
+</script> 

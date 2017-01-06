@@ -1,0 +1,344 @@
+h1 , h2{
+
+
+color: #f47116;
+
+}
+.clear{
+    clear:both;
+}
+.breadcrumb.container span{
+    color: #f47116;
+}
+.menu-offcanvas-inner{
+    background-color:#252b3d;
+}
+.box.extra {
+    min-height: 134px;
+}
+
+@media screen and (min-width: 320px) {
+    .quickaccess-toggle {
+    display: block;
+}
+    #sidebarmenu1 li a{
+font-size:13.4px !important;
+    }
+    #sidebarmenu1:hover .subcat{
+        display:block !important;
+
+    }
+       #sidebarmenu1 .subcat{
+        display:none !important;
+
+    }
+    .row.footer-links {
+    text-align: center;
+}
+
+.widget-inner img{
+width:auto;
+}
+  .subcat{
+    font-weight:normal;
+    color:#fff !important;
+    font-size: 12px !important;
+    padding-left:30px !important;
+}
+ .mainmenu{
+        padding-left:20px !important;
+    }
+    .cumenu1 {
+    
+    width: 100%;
+}
+    .cumenu {
+   
+    width: 100%;
+}
+
+
+	#logo {
+		float:none;
+		text-align:center;
+	}
+	#header-main .left-cont {
+    float: none;
+}
+#header-main .right-cont {
+  text-align:center !important;
+    width: 100% !important;
+}
+#header-main .search-left {
+    float: none;
+    width: 100% !important;
+    text-align:center;
+}
+#header-main .login-register {
+    background: #bebfc1 none repeat scroll 0 0;
+    display: inline-block;
+    float: none;
+}
+.navbar-header {
+    float: left;
+     padding-left: 10px;
+}
+	#header-main .right-cont {
+    margin-top: 14px;
+    margin-bottom:10px;
+}
+.social-links span{
+		width:100%;
+		margin-bottom:10px;
+	}
+	.social-links a span.circle {
+    color: #4b4b4d;
+    margin-left: 3px;
+    margin-top: 14px;
+}
+#menu-offcanvas .dropdown .dropdown-menu {
+    background-color: transparent;
+    border: 0 none;
+    border-radius: 0;
+    box-shadow: none;
+
+    float: none;
+    margin: 0;
+    min-width: inherit;
+    padding: 0;
+    position: relative;
+    width: 100% !important;
+}
+   #pav-mainnav .navbar-nav > li > a{
+        padding:20px 25px;
+    }
+}
+@media screen and (min-width: 768px) {
+    .box.customer-service {
+    text-align: right;
+}
+.box.extra {
+    text-align: right;
+}
+    .box.banner.hidden-xs.hidden-sm {
+    display: none !important;
+}
+    .hidden-xs.hidden-sm {
+    display: block !important;
+}
+ .quickaccess-toggle {
+    display: none;
+}   
+    #header-main .cart-mini-right {
+    float: right;
+    margin-left: 15px;
+    margin-bottom: 10px;
+}
+    .box.pav-verticalmenu.highlighted.hidden-xs.hidden-sm{
+        display:block !important;
+    }
+    .box.extra {
+    min-height: 197px;
+  
+}
+.box.account {
+    
+}
+    .product-block .action .wishlist {
+    left: 21px;
+}
+.product-block .action .compare {
+    right: 21px;
+}
+    .four.parent.dropdown .dropdown-menu{
+        width:430px !important;
+    }
+   #sidebarmenu1 li a{
+font-size:10.4px !important;
+    }
+       #sidebarmenu1 .subcat{
+        display:block !important;
+
+    }
+    
+    .row.footer-links {
+    text-align: left;
+}
+    .front {
+    width: 100%;
+}
+    .mainmenu{
+        font-size:10.4px !important;
+      
+    }
+    .secondlink.parent.dropdown .dropdown-menu{
+        width:597px !important;
+    }
+        .thirdlink.parent.dropdown .dropdown-menu{
+        width:537px !important;
+    }
+.full-width.parent.dropdown .dropdown-menu{
+        width:720px !important;
+    }
+    .widget-inner img{
+width:100%;
+}
+        .subcat{
+    color:#666 !important;
+    font-size: 10px !important;
+    padding-left:10px !important;
+}
+.sidebarmenu ul li{
+position: relative;
+/*border-right: 1px solid #ccc;
+*/
+}
+    .cumenu1 {
+    float: left;
+    width: 33%;
+}
+     #pav-mainnav .navbar-nav > li > a{
+        padding:20px 14px;
+    }
+    .cumenu {
+        border-left:block !important;
+    float: left;
+    width: 20%;
+}
+
+	#menu-offcanvas .dropdown .dropdown-menu {
+    background-color: transparent;
+    border: 0 none;
+    border-radius: 0;
+    box-shadow: none;
+  
+    float: none;
+    margin: 0;
+    min-width: inherit;
+    padding: 0;
+    position: relative;
+    width: 100% !important;
+}
+	.social-links a span.circle {
+    color: #4b4b4d;
+    margin-left: 15px;
+    margin-top: 14px;
+}
+	.social-links span{
+		margin-bottom:0px;
+		width:auto;
+	}
+
+	#logo {
+		float:left;
+		text-align:center;
+	}
+	#header-main .left-cont {
+    float: left;
+}
+    #header-main .right-cont {
+    margin-top: 20px;
+    margin-bottom:10px;
+}
+#header-main .right-cont {
+    float: right !important;
+      
+    width: 67% !important;
+}
+#header-main .search-left {
+	 text-align:right;
+    float: right;
+    width: 100% !important;
+}
+#header-main .login-register {
+    background: #bebfc1 none repeat scroll 0 0;
+    display: inline-block;
+    float: right;
+}
+.navbar-header {
+    float: left;
+     padding-left: 0px;
+}
+}
+@media screen and (min-width: 1040px) {
+       .box.customer-service {
+    text-align: left;
+}
+.box.extra {
+    text-align: left;
+}
+  .box.banner.hidden-xs.hidden-sm {
+    display: block !important;
+}
+    #header-main .cart-mini-right {
+    float: right;
+    margin-left: 15px;
+    margin-bottom: 0px;
+}
+    #header-main .search-left {
+     text-align:right;
+    float: right;
+    width: 70% !important;
+}
+        .box.extra {
+    min-height: 197px;
+    float:left;
+}
+        .product-block .action .wishlist {
+    left: 54px;
+}
+.product-block .action .compare {
+    right: 54px;
+}
+       #sidebarmenu1 li a{
+font-size:13.4px !important;
+    }
+ 
+    .front {
+    width: auto;
+}
+.four.parent.dropdown .dropdown-menu{
+        width:430px !important;
+    }
+     .secondlink.parent.dropdown .dropdown-menu{
+        width:850px !important;
+    }
+    .thirdlink.parent.dropdown .dropdown-menu{
+        width:795px !important;
+    }
+.full-width.parent.dropdown .dropdown-menu{
+        width:1022px !important;
+    }
+    .widget-inner img{
+width:auto;
+}
+    .subcat{
+    color:#666 !important;
+    font-size: 12px !important;
+    padding-left:10px !important;
+}
+     #sidebarmenu1 li  a .subcat{
+        padding-left:10px !important;
+    }
+    .mainmenu{
+        font-size:13.4px !important;
+        padding-left:6px !important;
+    }
+        .cumenu {
+        border-left:block !important;
+    float: left;
+    width: 20%;
+}
+   #pav-mainnav .navbar-nav > li > a{
+        padding:20px 25px;
+    }
+       #header-main .right-cont {
+    margin-top: 24px;
+    margin-bottom:0px;
+}
+#header-main .right-cont {
+    float: right !important;
+      
+    width: 74% !important;
+}
+    }

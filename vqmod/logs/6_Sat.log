@@ -1,0 +1,27 @@
+---------- Date: 2016-09-24 07:05:11 ~ IP : 104.130.207.148 ----------
+REQUEST URI : /seo_key_word/running-shoes/apparel/travel-needs/reebok-twistform-3.0-hthr-blue-running-shoes&amp;C=INR
+MOD DETAILS:
+   modFile   : /home/footlounge/public_html/vqmod/xml/getproduct_category.xml
+   id        : Add google analytics ecommerce tracking code
+   version   : 2.2 for OpenCart 1.5.0.x - 1.5.6.x
+   vqmver    : 2.x
+   author    : support@extensadev.com
+
+File Name    : catalog/view/theme/*/template/product/product.tpl(0)
+VQModObject::applyMod - SEARCH NOT FOUND (ABORTING MOD): 'http://www.footlounge.in/index.php?route=information/information&information_id=7#<?php echo $manufacturer; ?>'
+
+File Name    : catalog/view/theme/*/template/product/product.tpl(0)
+VQModObject::applyMod - SEARCH NOT FOUND (ABORTING MOD): 'http://www.footlounge.in/betademo/index.php?route=information/information&information_id=7#<?php echo $manufacturer; ?>'
+MOD DETAILS:
+   modFile   : /home/footlounge/public_html/vqmod/xml/pavdeals.xml
+   id        : Pavo Deals
+   version   : 1.0.0
+   vqmver    : 2.3.0
+   author    : Themes
+
+File Name    : catalog/view/theme/*/template/product/product.tpl(0)
+VQModObject::applyMod - SEARCH NOT FOUND (ABORTING MOD): <?php if ($profiles): ?>
+
+----------------------------------------------------------------------
+
+

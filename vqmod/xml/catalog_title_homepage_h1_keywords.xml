@@ -1,0 +1,64 @@
+<modification>
+	<id>Meta keywords,Other meta details</id>
+	<version>1.0</version>
+	<vqmver>2.1.7</vqmver>
+	<author>picco</author>
+
+<file name="admin/view/template/setting/setting.tpl">
+<operation>
+		 <search position="before"><![CDATA[<td><span class="required">*</span> <?php echo $entry_title; ?></td>]]></search>
+		    <add trim="true"><![CDATA[</tr>
+             <tr>
+              <td>Keywords</td>
+              <td><input type="text" name="config_keywords" value="<?php echo $config_keywords; ?>" />
+               </td>
+            </tr>
+			
+			
+            <tr>
+		    ]]></add>
+		</operation>		
+</file>
+
+<file name="admin/controller/setting/setting.php">
+<operation>
+		 <search position="before"><![CDATA[if (isset($this->request->post['config_title'])) {]]></search>
+		    <add trim="true"><![CDATA[if (isset($this->request->post['config_keywords'])) {
+			$this->data['config_keywords'] = $this->request->post['config_keywords'];
+		} else {
+			$this->data['config_keywords'] = $this->config->get('config_keywords');
+		}
+		
+		
+		
+		]]></add>
+		</operation>		
+</file>
+
+<file name="catalog/controller/common/home.php">
+<operation>
+		 <search position="replace"><![CDATA[$this->data['heading_title'] = $this->config->get('config_title');]]></search>
+		    <add trim="true"><![CDATA[if ($this->config->get('config_keywords')) {
+			$this->document->setKeywords($this->config->get('config_keywords'));
+		
+		}
+		]]></add>
+		</operation>		
+</file>
+
+<file name="catalog/view/theme/*/template/common/header.tpl">
+<operation>
+		 <search position="after"><![CDATA[<meta name="viewport" content="width=device-width">]]></search>
+		 <add trim="true"><![CDATA[<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />	
+		<meta name="robots" content="index,follow,noodp">
+		]]></add>
+		</operation>		
+</file>
+
+
+
+
+
+	
+</modification>

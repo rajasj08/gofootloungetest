@@ -1,0 +1,29 @@
+<modification>
+  <id>Advanced Menu V3 multilanguage FIX - vqmod for opencart V1.5.3 or greater</id>
+  <version>1.1.0</version>
+  <vqmver>2.3</vqmver>
+  <author>www.ocmodules.com</author>
+ 
+ <!-- fix for multilanguage store we need to reset the filter -->
+ 
+ <file name="catalog/controller/module/language.php">
+    <operation>
+      <search position="replace">
+        <![CDATA[$this->data['redirect'] = $this->url->link($route, $url, $connection);]]>
+      </search>
+      <add>
+        <![CDATA[
+		if(count($results) > 1){ 
+		 $this->data['redirect'] = $this->url->link('common/home');
+		
+		}else{
+		$this->data['redirect'] = $this->url->link($route, $url, $connection);
+		}
+		
+		]]>
+      </add>
+    </operation>
+ 
+ 
+</file>
+</modification>

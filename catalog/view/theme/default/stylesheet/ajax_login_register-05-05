@@ -1,0 +1,234 @@
+/* This module is copywrite to ozxmod
+ * Author: ozxmod(ozxmod@gmail.com)
+ * It is illegal to remove this comment without prior notice to ozxmod(ozxmod@gmail.com)
+*/ 
+@CHARSET "ISO-8859-1";
+/* Style code for login */
+#cross_icon_login, #cross_icon_signup, #cross_icon_track, #cross_icon_image
+{
+	width: 20px;
+float: right;
+cursor: pointer;
+right: 20px;
+position: relative;
+}
+#cross_icon_login, #cross_icon_signup  {
+top: -30px;
+right: -3px;
+}
+#cross_icon_track {
+	margin-top: -20px;
+	margin-right: -40px;
+}
+#ajax_login, #ajax_signup
+{
+	background-color: white;
+	padding-top: 35px;
+	width: 600px; 
+	border: 10px solid rgba(51,51,51,0.3);  
+}
+
+#ajax_login .login_footer {
+	clear: both;
+background-color: #ddd;
+/* width: 600px; */
+height: 25px;
+}
+
+#ajax_login .footer_close {
+	float: right;
+margin: 3px 7px 0;
+background-color: #BBB;
+padding: 2px 2px 0px 2px;
+border-radius: 5px;
+cursor: pointer;
+}
+
+#login_title, #signup_title
+{
+	font-size: 22px;
+	border-bottom: 2px solid #ddd;
+	padding-bottom: 10px;
+	margin-bottom: 20px;
+}
+.login_display, .signup_display
+{
+	font-size: 14px;
+}
+#login_details input[type="text"],#login_details input[type="password"]
+{
+	width: 235px;
+	height: 10px;
+	margin: 10px 0 10px 0;
+	height: 19px;
+	padding: 4px 4px;
+}
+#signup_details input[type="text"], #signup_details input[type="password"]
+{
+	width: 235px;
+	height: 10px;
+	margin: 10px 0 10px 0;
+	height: 19px;
+	padding: 4px 4px;
+}
+#signup-link, #login-link
+{
+	margin-left: 7px;
+	font-size: 18px;
+	font-weight: bold;
+	color: #008000;
+	cursor: pointer;
+}
+
+
+.main-link
+{
+	width: auto;
+	float: left;
+	padding-right: 20px;
+}
+
+#button-forgot-password {
+	margin-left: 73px;
+width: 86px;
+font-size: 12px;
+}
+#button-login-pop {
+	font-size: 12px;
+}
+
+.ajax_login {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #3e7ec2), color-stop(1, #335996) );
+	background:-moz-linear-gradient( center top, #3e7ec2 5%, #335996 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#3e7ec2', endColorstr='#335996');
+	background-color:#3e7ec2;
+	-webkit-border-top-left-radius:0px;
+	-moz-border-radius-topleft:0px;
+	border-top-left-radius:0px;
+	-webkit-border-top-right-radius:0px;
+	-moz-border-radius-topright:0px;
+	border-top-right-radius:0px;
+	-webkit-border-bottom-right-radius:0px;
+	-moz-border-radius-bottomright:0px;
+	border-bottom-right-radius:0px;
+	-webkit-border-bottom-left-radius:0px;
+	-moz-border-radius-bottomleft:0px;
+	border-bottom-left-radius:0px;
+	text-indent:0;
+	border:1px solid #337fed;
+	display:inline-block;
+	color:#f0edf0;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:normal;
+	font-style:normal;
+	height:30px;
+	line-height:30px;
+	width:68px;
+	text-decoration:none;
+	text-align:center;
+cursor:pointer;
+}
+.ajax_login:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #335996), color-stop(1, #3e7ec2) );
+	background:-moz-linear-gradient( center top, #335996 5%, #3e7ec2 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#335996', endColorstr='#3e7ec2');
+	background-color:#335996;
+}.ajax_login:active {
+	position:relative;
+	top:1px;
+}
+
+.ajax_signup {
+	-moz-box-shadow:inset 0px 1px 0px 0px #97db5c;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #97db5c;
+	box-shadow:inset 0px 1px 0px 0px #97db5c;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #589c1c), color-stop(1, #499908) );
+	background:-moz-linear-gradient( center top, #589c1c 5%, #499908 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#589c1c', endColorstr='#499908');
+	background-color:#589c1c;
+	-webkit-border-top-left-radius:0px;
+	-moz-border-radius-topleft:0px;
+	border-top-left-radius:0px;
+	-webkit-border-top-right-radius:0px;
+	-moz-border-radius-topright:0px;
+	border-top-right-radius:0px;
+	-webkit-border-bottom-right-radius:0px;
+	-moz-border-radius-bottomright:0px;
+	border-bottom-right-radius:0px;
+	-webkit-border-bottom-left-radius:0px;
+	-moz-border-radius-bottomleft:0px;
+	border-bottom-left-radius:0px;
+	text-indent:0;
+	border:1px solid #1d800c;
+	display:inline-block;
+	color:#fcfffa;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:normal;
+	font-style:normal;
+	height:27px;
+	line-height:27px;
+	width:100px;
+	text-decoration:none;
+	text-align:center;
+	text-shadow:1px 1px 0px #518c19;
+	cursor: pointer;
+}
+.ajax_signup:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #499908), color-stop(1, #589c1c) );
+	background:-moz-linear-gradient( center top, #499908 5%, #589c1c 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#499908', endColorstr='#589c1c');
+	background-color:#499908;
+	cursor: pointer;
+}.ajax_signup:active {
+	position:relative;
+	top:1px;
+}
+
+#ajax_login .my-htabs {height:30px; line-height: 16px; padding-left:10px; border-bottom:2px solid #ddd; }
+#ajax_login .my-htabs a {padding:7px 15px 6px 15px; float:left; font-size: 13px; font-weight: normal; text-align: center; text-decoration:none; color:#333; display:none;}
+#ajax_login .my-htabs a.selected {color:#111; padding-bottom:7px; background:#FFFFFF; border-top: 2px solid #ddd; border-left:2px solid #ddd; border-right:2px solid #ddd; font-weight: bold;}
+#ajax_login .my-tab-content{padding:15px 15px 10px; margin-bottom: 20px; z-index:2; border-top:0px; }
+
+.login-divider-or {
+width: 42px;
+height: 42px;
+background: url("../image/login_or.png") no-repeat transparent;
+position: absolute;
+top: 92px;
+right: 186px;
+}
+.forgot_text {
+	font-size: 11px;
+}
+
+#button-register-pop {
+	width: 111px !important;
+	line-height: 2px !important;
+}
+
+#tab-login {
+	width: 334px;
+	float:left;
+	clear: both;
+}
+
+#tab-register {
+	width: 334px; 
+	float:left;
+	clear: both;
+}
+
+#button-login-pop {
+	line-height: 5px;
+}
+
+#button-forgot-password {
+	line-height: 5px;
+}
+
+/* This module is copywrite to ozxmod
+ * Author: ozxmod(ozxmod@gmail.com)
+ * It is illegal to remove this comment without prior notice to ozxmod(ozxmod@gmail.com)
+*/ 

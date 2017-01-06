@@ -1,0 +1,15 @@
+---------- Date: 2016-09-29 09:45:37 ~ IP : 66.249.64.150 ----------
+REQUEST URI : /adidas-gladi-w-black-sandals
+MOD DETAILS:
+   modFile   : /home/footlounge/public_html/vqmod/xml/catalog_title_homepage_h1_keywords.xml
+   id        : Meta keywords,Other meta details
+   version   : 1.0
+   vqmver    : 2.1.7
+   author    : picco
+
+File Name    : catalog/view/theme/*/template/common/header.tpl(0)
+VQModObject::applyMod - SEARCH NOT FOUND (ABORTING MOD): <meta name="viewport" content="width=device-width">
+
+----------------------------------------------------------------------
+
+

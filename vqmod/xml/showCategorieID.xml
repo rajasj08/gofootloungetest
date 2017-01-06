@@ -1,0 +1,27 @@
+<modification>
+    <id><![CDATA[Allard Keij]]></id>
+    <version><![CDATA[1]]></version>
+    <author><![CDATA[Allard Keij]]></author>
+	<file name="admin/view/template/catalog/category_list.tpl">
+	<operation>
+			<search position="replace" offset='1'><![CDATA[
+				<td width="1" style="text-align: center;"><input type="checkbox" onclick="$('input[name*=\'selected\']').attr('checked', this.checked);" /></td>
+				]]></search>
+			<add><![CDATA[
+				<td width="1" style="text-align: center;"><input type="checkbox" onclick="$('input[name*=\'selected\']').attr('checked', this.checked);" /></td>
+				<td width="40"><center>ID</center></td>
+				]]></add>
+		</operation>
+		
+			<operation>
+				<search position="replace" offset='1'><![CDATA[
+					<td class="left"><?php echo $category['name']; ?></td>
+					]]></search>
+				<add><![CDATA[
+					  <td width="40"><center><?php echo $category['category_id']; ?></center></td>
+					  <td class="left"><?php echo $category['name']; ?></td>
+					]]></add>
+			</operation>
+		
+	</file>
+</modification>

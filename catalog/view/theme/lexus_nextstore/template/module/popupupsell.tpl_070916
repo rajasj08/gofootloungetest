@@ -1,0 +1,70 @@
+<script type="text/javascript">
+	var timeout = 500;
+	if (!$.fancybox) {
+		$('head').append('<link rel="stylesheet" type="text/css" href="catalog/view/javascript/jquery/fancybox/jquery.fancybox.min.css" />');
+		$('head').append('<script type="text/javascript" src="catalog/view/javascript/jquery/fancybox/jquery.fancybox.min.js"><'+'/script>');
+	}
+	
+	var product_ids = [];
+	var product_id = ["Empty"];
+
+	var showPopupUpsell = function (content,width,height) { 
+		setTimeout(function() {
+			$.fancybox.open({
+			content: content,
+			width: width,
+			height: height,
+			autoSize: false,
+			openEffect : 'fade',
+			openSpeed  : 150,
+			closeBtn  : true,
+			wrapCSS : 'popupupsell',
+			afterShow : function() {
+				$('.popupupsell [onclick^=]').on('click', function() {
+					$.fancybox.close();
+				});
+			}
+			});											
+		}, timeout);
+	};
+
+	$(document).ready(function() {
+		$('#button-cart').on('click', function() {
+			<?php if(isset($product_id)) { ?>
+				product_id = '<?php echo $product_id; ?>';
+			<?php } else { ?>
+				product_id = 0;
+			<?php } ?>
+
+		});
+
+		$(document).ajaxSuccess(function(event, xhr, settings) {
+
+			if(xhr.responseText) {
+				
+				if(xhr.responseText.indexOf('success')==2 && product_ids.indexOf(product_id)==-1) {
+					product_ids.push(product_id);
+					if(product_id) {
+						$.ajax({
+							url: '<?php echo $showUpsellOffer; ?>',
+							type: 'post',
+							data: 'product_id=' + product_id,
+							dataType: 'json',
+							success: function(json) {
+								if(json)
+									showPopupUpsell(json.content, json.width, json.height);
+							}
+						});
+					}
+				}
+			}
+
+		});
+
+		$('[onclick^="addToCart"]').on('click',function(i,e){
+				var params = $(this).attr('onclick').match(/\d+/);
+				product_id = params[0];
+		});
+		
+	});
+</script>

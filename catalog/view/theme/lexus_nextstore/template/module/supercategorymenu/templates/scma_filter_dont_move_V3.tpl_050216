@@ -1,0 +1,28 @@
+<?php if ($menu) { ?>
+<div id="menuscm">
+  <?php $i=1; ?>
+  <div class="box">
+    <div class="filter_box">
+      <?php if (!empty($all_values)) { 
+         ksort($all_values);
+      ?>
+      <?php foreach ($all_values as $all_value) { ?>
+      <?php foreach ($all_value as $all_val) { ?>
+      <?php  $i==1 ? $liclass="first upper" : $liclass="upper";?>
+      <dl id="filter_p<?php echo $i; ?>" class="filters <?php echo $all_val['initval']; ?>">
+      <dt class="<?php echo $liclass; ?>"><span><em>&nbsp;</em><?php echo $all_val['name']; ?></span><?php echo $all_val['tip_code']; ?></dt>
+       <?php echo html_entity_decode(nl2br($all_val['tip_div'])); ?>
+      <dd class="page_preload"><?php echo $all_val['html']; ?></dd>
+      </dl>
+      <?php $i++; } ?>
+      <?php } ?>
+      <?php } ?>
+     
+      <!-- <dl class="filters">
+        <dt class="last"><span>&nbsp;</span></dt>
+      </dl> -->
+    </div>
+  </div>
+</div>
+<!!!!!! INSERT JAVASCRIPT VQMOD !!!!!!!!!!!>
+<?php  } ?>

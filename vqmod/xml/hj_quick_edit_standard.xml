@@ -1,0 +1,254 @@
+<modification>
+	<id>hj_quick_edit_standard</id>
+	<version>0.2</version>
+	<vqmver>2.3.2</vqmver>
+	<author>himurajun@live.com</author>
+
+	<file name="admin/controller/catalog/product.php">
+		<operation>
+			<search position="after"><![CDATA[
+				$this->data['delete'] = $this->url->link('catalog/product/delete', 'token=' . $this->session->data['token'] . $url, 'SSL');
+			]]></search>
+			<add><![CDATA[
+				$this->data['quick_edit'] = $this->url->link('catalog/product/quick_edit', 'token=' . $this->session->data['token'] . $url, 'SSL');
+			]]></add>
+		</operation>
+		<operation>
+			<search position="before"><![CDATA[
+				public function index()
+			]]></search>
+			<add><![CDATA[
+				public function quick_edit()
+				{
+					if ( $this->request->post['product_id'] && $this->request->post['action'] && isset($this->request->post['value']) ) {
+						$product_id = $this->request->post['product_id'];
+						$action = $this->request->post['action'];
+						$value = $this->request->post['value'];
+
+						switch ($action) {
+							case 'name':
+								$sql = "SELECT language_id FROM ".DB_PREFIX."language l LEFT JOIN ".DB_PREFIX."setting s ON(l.code = s.value) WHERE s.key = 'config_admin_language'";
+								$query = $this->db->query($sql);
+								$language_id = $query->row['language_id'];
+
+								$sql = "UPDATE ".DB_PREFIX."product_description SET name = '". $this->db->escape($value)."' WHERE product_id = $product_id AND language_id = $language_id";
+								break;
+							case 'model':
+								$sql = "UPDATE ".DB_PREFIX."product SET model = '$value' WHERE product_id = $product_id";
+								break;
+							case 'quantity':
+								$sql = "UPDATE ".DB_PREFIX."product SET quantity = $value WHERE product_id = $product_id";
+								break;
+							case 'price':
+								$sql = "UPDATE ".DB_PREFIX."product SET price = $value WHERE product_id = $product_id";
+								break;
+							case 'special':
+								$sql = "UPDATE ".DB_PREFIX."product_special SET price = $value WHERE product_id = $product_id ORDER BY priority, price LIMIT 1";
+								break;
+							case 'status':
+								$sql = "UPDATE ".DB_PREFIX."product SET status = $value WHERE product_id = $product_id";
+								break;
+							default:
+								$sql = '';
+								break;
+						}
+						if ($sql != '') {
+							$query = $this->db->query($sql);
+							echo '1';
+							$this->cache->delete('product');
+						}else{
+							echo $product_id.' '.$action. ' '.$value;
+						}
+					}
+				}
+			]]></add>
+		</operation>
+	</file>
+
+	<file name="admin/view/template/catalog/product_list.tpl">
+		<operation>
+			<search position="replace"><![CDATA[
+				<td style="text-align: center;"><?php if ($product['selected']) { ?>
+			]]></search>
+			<add><![CDATA[
+				<td class="product-id" style="text-align: center;"><?php if ($product['selected']) { ?>>
+			]]></add>
+		</operation>
+		<operation>
+			<search position="replace"><![CDATA[
+				<td class="left"><?php echo $product['name']; ?></td>
+			]]></search>
+			<add><![CDATA[
+				<td class="left"><span data-action='name' class="editable"><?php echo $product['name']; ?></span></td>
+			]]></add>
+		</operation>
+		<operation>
+			<search position="replace"><![CDATA[
+				<td class="left"><?php echo $product['model']; ?></td>
+			]]></search>
+			<add><![CDATA[
+				<td class="left"><span data-action='model' class="editable"><?php echo $product['model']; ?></span></td>
+			]]></add>
+		</operation>
+		<operation>
+			<search position="replace"><![CDATA[
+				<span style="text-decoration: line-through;"><?php echo $product['price']; ?></span><br/>
+			]]></search>
+			<add><![CDATA[
+				<span data-action='price' class="editable" style="text-decoration: line-through;"><?php echo $product['price']; ?></span><br/>
+			]]></add>
+		</operation>
+		<operation>
+			<search position="replace"><![CDATA[
+				<span style="color: #b00;"><?php echo $product['special']; ?></span>
+			]]></search>
+			<add><![CDATA[
+				<span data-action='special' class="editable" style="color: #b00;"><?php echo $product['special']; ?></span>
+			]]></add>
+		</operation>
+		<operation>
+			<search position="replace" index="2"><![CDATA[
+				<?php echo $product['price']; ?>
+			]]></search>
+			<add><![CDATA[
+				<span data-action='price' class="editable"><?php echo $product['price']; ?></span>
+			]]></add>
+		</operation>
+		<operation>
+			<search position="replace"><![CDATA[
+				<span style="color: #FF0000;"><?php echo $product['quantity']; ?></span>
+			]]></search>
+			<add><![CDATA[
+				<span data-action='quantity' class="editable" style="color: #FF0000;"><?php echo $product['quantity']; ?></span>
+			]]></add>
+		</operation>
+		<operation>
+			<search position="replace"><![CDATA[
+				<span style="color: #FFA500;"><?php echo $product['quantity']; ?></span>
+			]]></search>
+			<add><![CDATA[
+				<span data-action='quantity' class="editable" style="color: #FFA500;"><?php echo $product['quantity']; ?></span>
+			]]></add>
+		</operation>
+		<operation>
+			<search position="replace"><![CDATA[
+				<span style="color: #008000;"><?php echo $product['quantity']; ?></span>
+			]]></search>
+			<add><![CDATA[
+				<span data-action='quantity' class="editable" style="color: #008000;"><?php echo $product['quantity']; ?></span>
+			]]></add>
+		</operation>
+		<operation>
+			<search position="replace"><![CDATA[
+				<td class="left"><?php echo $product['status']; ?></td>
+			]]></search>
+			<add><![CDATA[
+				<td class="left"><span class='quick-status'><?php echo $product['status']; ?></span></td>
+			]]></add>
+		</operation>
+
+		<operation>
+			<search position="before"><![CDATA[
+				<?php echo $footer; ?>
+			]]></search>
+			<add><![CDATA[
+				<script>
+					var quick_edit_url = '<?php echo str_ireplace("amp;", "", $quick_edit); ?>';
+					$('span.quick-status').hover(function(){
+						$(this).css('cursor', 'pointer')
+								.css('background-color', 'grey');
+					}, function(){
+						$(this).css('background-color', '');
+					});
+					$('span.quick-status').on('click', function(){
+						var elm = $(this);
+						var product_id = elm.closest('tr').find('td.product-id').find('input').val();
+						if(elm.text() == '<?php echo $text_enabled; ?>'){
+							var value = '0';
+						}else{
+							var value = '1';
+						}
+						$.ajax({
+							url: quick_edit_url,
+							type: 'POST',
+							data: {'product_id':product_id, 'action':'status', 'value':value},
+							beforeSend: function(){
+								elm.siblings('.waiting-quick-edit').remove();
+								elm.after('<img class="waiting-quick-edit" src="view/image/loading.gif">');
+							},
+							success: function(result){
+								if (result === '1') {
+									if(value === '0'){
+										elm.text('<?php echo $text_disabled; ?>');
+									}else{
+										elm.text('<?php echo $text_enabled; ?>');
+									}
+								}else{
+									alert(result);
+								};
+								elm.siblings('.waiting-quick-edit').remove();
+							}
+						})
+					});
+					$('span.editable').hover(function(){
+						$(this).css('cursor', 'pointer')
+								.css('background-color', 'grey');
+					}, function(){
+						$(this).css('background-color', '');
+					});
+					$('span.editable').on('click', function(){
+						var elm = $(this);
+						if (elm.hasClass('editable')) {
+							elm.hide()
+								.after('<input type="text" name="quick-input" value="'+elm.text().replace('"', '&quot;')+'">')
+								.siblings('input[name="quick-input"]').focus();
+						};
+					})
+					$("input[name='quick-input']").live('keydown', function(e){
+						var elm = $(this),
+								elm_span = $(this).prev('span');
+						var product_id = elm_span.closest('tr').find('td.product-id').find('input').val();
+						switch(e.keyCode){
+							case 13: /*enter key*/
+								var value = elm.val(),
+										action = elm_span.data('action');
+
+								if (value === '') {
+									alert('Error: empty value');
+									return false;
+								};
+								$.ajax({
+									url: '<?php echo str_ireplace("amp;", "", $quick_edit); ?>',
+									type: 'POST',
+									data: {'product_id':product_id, 'action':action, 'value':value},
+									beforeSend: function(){
+										elm.siblings('.waiting-quick-edit').remove();
+										elm.after('<img class="waiting-quick-edit" src="view/image/loading.gif">');
+									},
+									success: function(result){
+										if (result === '1') {
+											elm_span.text(elm.val())
+													.show();
+											elm.siblings('.waiting-quick-edit').remove();
+											elm.remove();
+
+										}else{
+											alert(result);
+										};
+									}
+								})
+
+								break;
+							case 27: /*esc key*/
+								elm_span.show();
+								elm.remove();
+								break;
+							default:
+						}
+					})
+				</script>
+			]]></add>
+		</operation>
+	</file>
+
+</modification>

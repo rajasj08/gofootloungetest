@@ -1,0 +1,2294 @@
+<?xml version="1.0"?>
+<modification>
+	<id>Advanced Professional Email Template</id>
+	<author>opencart-templates.co.uk</author>
+	<modified>09:55 - 17th Aug 2016</modified>
+	<version>2.4.7</version>
+	
+
+<!-- customer.register -->
+<file name="catalog/model/account/customer.php">
+	<operation>
+		<search position="after"><![CDATA[ $this->language->load('mail/customer'); ]]></search>
+		<add><![CDATA[
+		$template = new EmailTemplate($this->request, $this->registry);
+					
+		$template->addData($data); 
+
+		$template->data['newsletter'] = $this->language->get((isset($data['newsletter']) && $data['newsletter'] == 1) ? 'text_yes' : 'text_no');
+		$template->data['account_login'] = $this->url->link('account/login', 'email=' . $data['email'], 'SSL');
+		$template->data['account_login_tracking'] = $template->getTracking($template->data['account_login']);
+		$template->data['customer_group'] = (isset($customer_group_info['name'])) ? $customer_group_info['name'] : '';
+
+		$this->load->model('account/address');
+		$customer_address = $this->model_account_address->getAddressNotLoggedIn($address_id, $customer_id);
+			
+		$template->data['address'] = EmailTemplate::FormatAddress($customer_address, '', $customer_address['address_format']);
+
+        if((isset($customer_group_info['approval']) && $customer_group_info['approval']) || $this->config->get('config_customer_approval')){
+         	$template->data['customer_text'] = $this->language->get('text_approval'); // Backwards compatible with pre OC_ver 1.5.3
+        } else {
+           	$template->data['customer_text'] = $this->language->get('text_login');
+        } ]]></add>
+	</operation>
+	<operation>
+		<search position="replace" index="1"><![CDATA[
+            $mail->send();]]></search>
+		<add><![CDATA[        $template->load('customer.register');
+
+		$mail = $template->hook($mail);
+
+		$mail->send();
+
+		$template->sent(); ]]></add>
+	</operation>
+	<operation>
+		<search position="before"><![CDATA[
+            public function editNewsletter($newsletter)]]></search>
+	  	<ignoreif><![CDATA[ 
+            public function editNewsletterUnsubscribe( ]]></ignoreif>
+		<add><![CDATA[
+            public function editNewsletterUnsubscribe($email){
+            	$query = $this->db->query("SELECT * FROM ".DB_PREFIX."customer WHERE MD5(email) = '" . $this->db->escape($email) . "'");
+
+				if ($query->num_rows) {
+					$this->db->query("UPDATE ".DB_PREFIX."customer SET newsletter = '0' WHERE customer_id = " . (int)$query->row['customer_id'] . "");
+
+					return $query->row;
+				} else {
+					return false;
+				}
+            }
+		]]></add>
+	</operation>
+</file>
+
+<!-- customer.register_admin -->
+<file name="catalog/model/account/customer.php">
+	<operation>
+		<search position="after"><![CDATA[
+            if ($this->config->get('config_account_mail')) {]]></search>
+		<add><![CDATA[			if((isset($customer_group_info['approval']) && $customer_group_info['approval']) || $this->config->get('config_customer_approval')){
+	            $template->data['text_approve'] = $this->language->get('text_approve');
+	            $template->data['account_approve'] = (defined('HTTP_ADMIN') ? HTTP_ADMIN : HTTP_SERVER.'admin/') . 'index.php?route=sale/customer&filter_approved=0';
+            } ]]></add>
+	</operation>
+	<operation>
+		<search position="replace" index="2"><![CDATA[
+            $mail->send();]]></search>
+		<add><![CDATA[			$template->load('customer.register_admin');
+			$template->build();
+
+			$template->fetch();
+
+			$mail = $template->hook($mail);
+ 
+			$mail->send();
+
+			$template->sent(); ]]></add>
+	</operation>	
+</file>
+
+<!-- customer.forgotten -->
+<file name="catalog/controller/account/forgotten.php">
+	<operation>
+		<search position="before"><![CDATA[
+           $mail = new Mail();]]></search>
+		<add><![CDATA[
+			$template = new EmailTemplate($this->request, $this->registry);
+					
+			$template->addData($this->request->post);
+
+			$template->data['password'] = $password;
+			$template->data['account_login'] = $this->url->link('account/login', '', 'SSL');
+			$template->data['account_login_tracking'] = $template->getTracking($template->data['account_login']); ]]></add>
+	</operation>
+	<operation>
+		<search position="after" index="1"><![CDATA[
+				$mail->setText(]]></search>
+		<add><![CDATA[			$template->load('customer.forgotten');
+			$mail = $template->hook($mail); ]]></add>
+	</operation>
+	<operation>
+		<search position="after" index="1"><![CDATA[
+				$mail->send(); ]]></search>
+		<add><![CDATA[			$template->sent(); ]]></add>
+	</operation>
+</file>
+
+<!-- order.customer -->
+<file name="catalog/model/checkout/order.php">
+	<operation>
+		<search position="after"><![CDATA[ 
+			'customer_id'             => $order_query->row['customer_id'], ]]></search>
+		<ignoreif><![CDATA[ 
+			'customer_group_id' => ]]></ignoreif>
+		<add><![CDATA[				'customer_group_id' => (isset($order_query->row['customer_group_id'])) ? $order_query->row['customer_group_id'] : '',
+				'affiliate_id' => (isset($order_query->row['affiliate_id'])) ? $order_query->row['affiliate_id'] : '',]]></add>
+	</operation>
+	<operation>
+		<search position="after"><![CDATA[
+			$order_product_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_product WHERE order_id = '" . (int)$order_id . "'");]]></search>
+		<add><![CDATA[
+			$customer_group_info = array();
+			if(isset($order_info['customer_group_id']) && $order_info['customer_group_id']){
+            	$this->load->model('account/customer_group');
+				$customer_group_info = $this->model_account_customer_group->getCustomerGroup($order_info['customer_group_id']);
+            }
+
+			$affiliate_info = array();
+            if(isset($order_info['affiliate_id']) && $order_info['affiliate_id']){
+            	$this->load->model('affiliate/affiliate');
+				$affiliate_info = $this->model_affiliate_affiliate->getAffiliate($order_info['affiliate_id']);
+            } ]]></add>
+	</operation>
+	<operation>
+		<search position="replace" index="1"><![CDATA[ $template = new Template(); ]]></search>
+		<add><![CDATA[		
+			$this->load->model('tool/image');
+			$this->load->model('catalog/product');
+
+ 			$template = new EmailTemplate($this->request, $this->registry);
+
+			$template->addData($this->request->post, 'post_data');
+
+			$template->addData($order_info);
+
+			$template->data['affiliate'] = $affiliate_info;
+
+			$template->data['customer_group'] = $customer_group_info;
+
+			$template->data['new_order_status'] = $order_status; ]]></add>
+	</operation>
+	<operation>
+		<search position="after" index="1"><![CDATA[ $template->data['link'] = ]]></search>
+		<add><![CDATA[			$template->data['link_tracking'] = $template->getTracking($template->data['link']); ]]></add>
+	</operation>
+	<operation>
+		<search position="after" index="1"><![CDATA[ $template->data['download'] = ]]></search>
+		<add><![CDATA[			$template->data['download_tracking'] = $template->getTracking($template->data['download']); ]]></add>
+	</operation>
+	<operation>
+		<search position="replace" index="1"><![CDATA[
+			$template->data['products'][] = array( ]]></search>
+		<add><![CDATA[
+				$product_data = $this->model_catalog_product->getProduct($product['product_id']);
+
+				if (isset($product_data['image'])) {
+					$image = $this->model_tool_image->resize($product_data['image'], 50, 50, '', $order_info['store_url']);
+				} else {
+					$image = '';
+				}
+
+				$url = $this->url->link('product/product', 'product_id='.$product['product_id'], 'SSL');
+
+				$template->data['products'][] = array(
+					'product_id'       => $product_data['product_id'],
+					'url'     		   => $url,
+					'url_tracking' 	   => $template->getTracking($url),
+					'image'     	   => $image,
+					'weight'		   => ($product_data['weight'] > 0) ? $this->weight->format($product_data['weight'], $product_data['weight_class_id']) : 0, 
+					'description'      => $product_data['description'],
+					'manufacturer'     => $product_data['manufacturer'],
+					'sku'              => $product_data['sku'],
+					'stock_status'     => $product_data['stock_status'],
+					'stock_subtract'   => $product_data['subtract'],
+					'stock_quantity'   => ($product_data['quantity'] - $product['quantity']),
+]]></add>
+	</operation>
+	<operation error="skip">
+		<search position="replace" index="1"><![CDATA[
+			$template->data['logo'] = $this->config->get('config_url') . 'image/' . $this->config->get('config_logo');]]></search>
+		<add><![CDATA[]]></add>
+	</operation>
+	<operation error="skip">
+		<search position="replace" index="1"><![CDATA[
+			$template->data['logo'] = HTTP_IMAGE . $this->config->get('config_logo');]]></search>
+		<add><![CDATA[]]></add>
+	</operation>
+	<operation error="skip">
+		<search position="replace" index="1"><![CDATA[
+			$template->data['logo'] = $this->model_tool_image->get($this->config->get('config_logo'));]]></search>
+		<add><![CDATA[]]></add>
+	</operation>
+	<operation error="skip" info="1.5.1.3.1">
+		<search position="replace" index="1"><![CDATA[
+			$template->data['logo'] = 'cid:' . md5(basename($this->config->get('config_logo')));]]></search>
+		<add><![CDATA[]]></add>
+	</operation>
+	<operation error="skip" info="remove attachedment">
+		<search position="replace"><![CDATA[
+			$mail->addAttachment(DIR_IMAGE . $this->config->get('config_logo'), md5(basename($this->config->get('config_logo'))));]]></search>
+		<add><![CDATA[]]></add>
+	</operation>
+	<operation error="skip">
+		<search position="replace" offset="4" index="1"><![CDATA[
+			if ($comment && $notify) {]]></search>
+		<add><![CDATA[
+            if ($order_info['comment']) {
+            	$template->data['comment'] = str_replace(array("\r\n", "\r", "\n"), "<br />", $order_info['comment']);
+            } else {
+            	$template->data['comment'] = '';
+            }
+
+            if ($comment && $notify && $template->data['comment'] != $comment) {
+				$template->data['instruction'] = str_replace(array("\r\n", "\r", "\n"), "<br />", $comment);
+			} else {
+				$template->data['instruction'] = '';
+			}]]></add>
+	</operation>
+	<operation info="offset causing too many issue with linebreaks">
+		<search position="replace" index="1"><![CDATA[
+            $html = $template->fetch($this->config->get('config_template') . '/template/mail/order.tpl');]]></search>
+		<add><![CDATA[]]></add>
+	</operation>
+	<operation>
+    	<search position="replace" index="1"><![CDATA[
+            $html = $template->fetch('default/template/mail/order.tpl');]]></search>
+		<add><![CDATA[]]></add>
+	</operation>
+	<operation>
+		<search position="after"><![CDATA[
+            $template->data['customer_id'] = $order_info['customer_id']; ]]></search>
+		<add><![CDATA[
+            $template->data['customer_name'] = $order_info['firstname'] . ' ' . $order_info['lastname'];
+            $template->data['customer_firstname'] = $order_info['firstname'];
+            $template->data['customer_lastname'] = $order_info['lastname'];]]></add>
+	</operation>
+	<operation>
+		<search position="replace" index="1"><![CDATA[
+			$mail->setHtml($html);]]></search>
+		<add><![CDATA[$template_data = array(
+					'key' => 'order.customer',
+					'order_status_id' => $order_status_id
+				);
+	
+	   			$template->load($template_data);
+	
+				$mail = $template->hook($mail); 
+	
+	   			// Auto update invoice_no if not set
+				if($template->data['emailtemplate']['attach_invoice'] && ($this->config->get('config_complete_status_id') == $order_status_id) && $order_info && $order_info['invoice_no'] == '') {
+					$query = $this->db->query("SELECT MAX(invoice_no) AS invoice_no FROM `" . DB_PREFIX . "order` WHERE invoice_prefix = '" . $this->db->escape($order_info['invoice_prefix']) . "'");
+				
+					if ($query->row['invoice_no']) {
+						$invoice_no = $query->row['invoice_no'] + 1;
+					} else {
+						$invoice_no = 1;
+					}
+					
+					$this->db->query("UPDATE `" . DB_PREFIX . "order` SET invoice_no = '" . (int)$invoice_no . "', invoice_prefix = '" . $this->db->escape($order_info['invoice_prefix']) . "' WHERE order_id = '" . (int)$order_id . "'");
+						
+					$order_info['invoice_no'] = $invoice_no;
+	 			}]]></add>
+	</operation>
+	<operation>
+        <search position="after" index="1"><![CDATA[
+            $mail->send(); ]]></search>
+		<add><![CDATA[            $template->sent(); ]]></add>
+	</operation>
+	<operation error="skip" info="1.5.5.1">
+        <search position="replace"><![CDATA[
+            'value' => (strlen($value) > 20 ? substr($value, 0, 20) . '..' : $value)]]></search>
+		<add trim="true"><![CDATA[
+            'value' => (strlen($value) > 120 ? substr($value, 0, 120) . '..' : $value)]]></add>
+	</operation>
+	<operation error="skip">
+		<search position="replace"><![CDATA[
+            'value' => (strlen($value) > 20 ? substr($value, 0, 20) . '..' : $value)]]></search>
+		<add trim="true"><![CDATA[
+            'value' => (strlen($value) > 120 ? substr($value, 0, 120) . '..' : $value)]]></add>
+	</operation>
+	<operation error="skip" info="1.5.1.3">
+		<search position="replace"><![CDATA[
+            'value' => (strlen($option['value']) > 20 ? substr($option['value'], 0, 20) . '..' : $option['value'])]]></search>
+		<add trim="true"><![CDATA[
+            'value' => (strlen($option['value']) > 120 ? substr($option['value'], 0, 120) . '..' : $option['value'])]]></add>
+	</operation>
+	<operation info="Add product option price">
+		<search position="replace" index="1"><![CDATA[
+            $order_option_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_option WHERE order_id = '" . (int)$order_id . "' AND order_product_id = '" . (int)$product['order_product_id'] . "'");]]></search>
+		<add trim="true"><![CDATA[
+            $order_option_query = $this->db->query("SELECT oo.*, pov.* FROM " . DB_PREFIX . "order_option oo LEFT JOIN " . DB_PREFIX . "product_option_value pov ON (pov.product_option_value_id = oo.product_option_value_id) WHERE oo.order_id = '" . (int)$order_id . "' AND oo.order_product_id = '" . (int)$product['order_product_id'] . "'");]]></add>
+	</operation>
+	<operation info="Add product option price">
+		<search position="before" index="1"><![CDATA[
+            $option_data[] = array(]]></search>
+		<add><![CDATA[					$price = false;
+					if ((float)$option['price']) {
+						$price = $this->currency->format($option['price'], $this->config->get('config_currency'));
+					}]]></add>
+	</operation>
+	<operation info="Add product option price">
+		<search position="after" index="1"><![CDATA[
+            'name'  => $option['name'],]]></search>
+		<add><![CDATA[						'price'  => $price,
+						'price_prefix'  => $option['price_prefix'],
+						'stock_quantity'  => $option['quantity'],
+						'stock_subtract'  => $option['subtract'], ]]></add>
+	</operation>
+</file>
+
+<!-- order.admin -->
+<file name="catalog/model/checkout/order.php">
+	<operation>
+		<search position="after" index="1"><![CDATA[
+			if ($this->config->get('config_alert_mail')) { ]]></search>
+		<add><![CDATA[ 
+				$template->data['order_link'] = (defined('HTTP_ADMIN') ? HTTP_ADMIN : HTTP_SERVER.'admin/') . 'index.php?route=sale/order/info&order_id=' . $order_id;
+
+				$template->data['order_weight'] = $this->weight->format($order_info['weight'], $this->config->get('config_weight_class_id'), $this->language->get('decimal_point'), $this->language->get('thousand_point')); ]]></add>
+	</operation>
+	<!-- <operation>
+		<search position="replace" index="1"><![CDATA[
+            $subject = sprintf($language->get('text_new_subject'), html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'), $order_id);]]></search>
+		<add trim="true"><![CDATA[
+			$subject = sprintf($language->get('text_new_subject_admin'), $order_id, html_entity_decode($template->data['customer_name'], ENT_QUOTES, 'UTF-8'), html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8')); ]]></add>
+	</operation> -->
+	<operation info="Admin email">
+		<search position="after" index="2"><![CDATA[
+            $mail->setText(]]></search>
+		<add><![CDATA[            	$template->load('order.admin');
+				$template->build();
+				$mail = $template->hook($mail);]]></add>
+	</operation>
+	<operation>
+		<search position="after" index="2"><![CDATA[
+            $mail->send(); ]]></search>
+		<add><![CDATA[            	$template->sent();]]></add>
+	</operation>
+</file>
+
+<!-- order.customer_update -->
+<file name="catalog/model/checkout/order.php">
+	<operation info="Method:update">
+		<search position="after" index="1"><![CDATA[
+			$subject = sprintf($language->get('text_update_subject')]]></search>
+		<add><![CDATA[
+            	$template = new EmailTemplate($this->request, $this->registry);
+            	
+				$template->addData($order_info);
+				$template->addData('comment', $comment);
+
+				$template->data['order_url'] = ($order_info['customer_id']) ? ($order_info['store_url'] . 'index.php?route=account/order/info&order_id=' . $order_id) : '';
+				$template->data['order_url_tracking'] = $template->getTracking($template->data['order_url']);
+				$template->data['date_added'] = date($language->get('date_format_short'), strtotime($order_info['date_added']));]]></add>
+	</operation>
+	<operation info="Method:update">
+		<search position="after"><![CDATA[
+            $message .= $order_status_query->row['name']]]></search>
+		<add><![CDATA[					$template->data['order_status'] = $order_status_query->row['name'];]]></add>
+	</operation>
+	<operation info="Method:update">
+		<search position="after" index="3"><![CDATA[
+            $mail->setText(]]></search>
+		<add><![CDATA[				$template_data = array(
+					'key' => 'order.customer_update',
+					'order_status_id' => $order_status_id
+				);
+
+				$template->load($template_data);
+				$mail = $template->hook($mail);]]></add>
+	</operation>
+	<operation info="Method:update">
+		<search position="after" index="3"><![CDATA[
+            $mail->send(); ]]></search>
+		<add><![CDATA[				$template->sent();]]></add>
+	</operation>
+</file>
+
+<!-- information.contact -->
+<file name="catalog/controller/information/contact.php">
+	<operation>
+		<search position="before"><![CDATA[
+            $mail = new Mail();]]></search>
+		<add><![CDATA[
+			$template = new EmailTemplate($this->request, $this->registry);
+			
+			$tracking = array();
+			$tracking['ip_address'] = $this->request->server['REMOTE_ADDR'];
+			$tracking['user_agent'] = (isset($this->request->server['HTTP_USER_AGENT'])) ? $this->request->server['HTTP_USER_AGENT'] : '';
+			$tracking['accept_language'] = (isset($this->request->server['HTTP_ACCEPT_LANGUAGE'])) ? $this->request->server['HTTP_ACCEPT_LANGUAGE'] : '';
+			if (!empty($this->request->server['HTTP_X_FORWARDED_FOR'])) {
+				$tracking['remote_host'] = $this->request->server['HTTP_X_FORWARDED_FOR'];
+			} elseif(!empty($this->request->server['HTTP_CLIENT_IP'])) {
+				$tracking['remote_host'] = $this->request->server['HTTP_CLIENT_IP'];
+			} else {
+				$tracking['remote_host'] = '';
+			}
+
+			$template->addData($this->request->post);
+
+			$template->data['enquiry'] = html_entity_decode(str_replace("\n", "<br />", $this->request->post['enquiry']), ENT_QUOTES, 'UTF-8');
+			$template->data['user_tracking'] = $tracking;]]></add>
+	</operation>
+	<operation>
+		<search position="after" index="1"><![CDATA[
+            $mail->setText(]]></search>
+		<add><![CDATA[			$template->load('information.contact');
+			$mail = $template->hook($mail);]]></add>
+	</operation>
+	<operation>
+		<search position="after" index="1"><![CDATA[
+            $mail->send(); ]]></search>
+		<add><![CDATA[			$template->sent(); ]]></add>
+	</operation>
+</file>
+
+<!-- information.contact_customer -->
+<file name="catalog/controller/information/contact.php">
+	<operation>
+		<search position="before" index="1"><![CDATA[
+            $this->redirect($this->url->link('information/contact/success'));]]></search>
+		<add><![CDATA[
+			if($template->load('information.contact_customer')){
+				$template->build();
+				$mail = $template->hook($mail);
+				$mail->send();
+				$template->sent();
+			}]]></add>
+	</operation>
+</file>
+
+<!-- affiliate.register -->
+<file name="catalog/model/affiliate/affiliate.php">
+	<operation>
+		<search position="before" index="1"><![CDATA[
+            $mail = new Mail();]]></search>
+		<add><![CDATA[		$template = new EmailTemplate($this->request, $this->registry);
+		$template->data['url_affiliate_login'] = $this->url->link('affiliate/login', '', 'SSL');
+		$template->data['url_affiliate_login_tracking'] = $template->getTracking($template->data['url_affiliate_login']);
+		]]></add>
+	</operation>
+	<operation>
+		<search position="replace" index="1"><![CDATA[
+            $mail->send();]]></search>
+		<add><![CDATA[		$template->load('affiliate.register');
+
+		$mail = $template->hook($mail);
+
+		$mail->send();
+		
+		$template->sent(); ]]></add>
+	</operation>
+</file>
+
+<!-- affiliate.register_admin -->
+<file name="catalog/model/affiliate/affiliate.php">
+	<operation>
+		<search position="after" index="1"><![CDATA[
+            $mail->send();]]></search>
+		<add><![CDATA[
+		$template->addData($data);
+
+		$template->load('affiliate.register_admin');			
+
+		$template->build();
+
+		$mail = $template->hook($mail);
+
+		$mail->send();
+
+		$template->sent(); ]]></add>
+	</operation>
+</file>
+
+<!-- affiliate.forgotten -->
+<file name="catalog/controller/affiliate/forgotten.php">
+	<operation>
+		<search position="before" index="1"><![CDATA[
+            $mail = new Mail();]]></search>
+		<add><![CDATA[            $template = new EmailTemplate($this->request, $this->registry);
+			$template->data['password'] = $password;
+			$template->data['account_login'] = $this->url->link('affiliate/login', '', 'SSL');
+ 			$template->data['account_login_tracking'] = $template->getTracking($template->data['account_login']); ]]></add>
+	</operation>
+	<operation>
+		<search position="replace" index="1"><![CDATA[
+            $mail->send();]]></search>
+		<add><![CDATA[			$template->load('affiliate.forgotten');			
+			$mail = $template->hook($mail);
+
+			$mail->send();
+
+			$template->sent(); ]]></add>
+	</operation>
+</file>
+
+<!-- order.voucher -->
+<file name="catalog/model/checkout/voucher.php">
+	<operation>
+		<search position="replace" index="1"><![CDATA[
+            $template = new Template();]]></search>
+		<add><![CDATA[$this->load->model('tool/image');
+            	$template = new EmailTemplate($this->request, $this->registry); ]]></add>
+	</operation>
+	<operation error="skip" info="1.5.0.5">
+		<search position="replace"><![CDATA[
+            $template->data['image'] = 'cid:' . basename($voucher['image']);]]></search>
+		<add trim="true"><![CDATA[
+            	$template->data['image'] = $this->model_tool_image->get($voucher['image']);]]></add>
+	</operation>
+	<operation error="skip" info="1.5.1/1.5.1.3">
+		<search position="replace"><![CDATA[
+            $template->data['image'] = 'cid:' . md5(basename($voucher['image']));]]></search>
+		<add trim="true"><![CDATA[
+            	$template->data['image'] = $this->model_tool_image->get($voucher['image']);]]></add>
+	</operation>
+	<operation error="skip" info="Remove attachment">
+		<search position="replace"><![CDATA[
+            $mail->addAttachment(DIR_IMAGE . $voucher['image'], md5(basename($voucher['image'])));]]></search>
+		<add/>
+	</operation>
+	<operation info="Less error prone to replace each line instead of using offset">
+		<search position="replace"><![CDATA[
+            $html = $template->fetch($this->config->get('config_template') . '/template/mail/voucher.tpl');]]></search>
+		<add/>
+	</operation>
+    <operation>
+		<search position="replace"><![CDATA[
+            $html = $template->fetch('default/template/mail/voucher.tpl');]]></search>
+		<add/>
+	</operation>
+	<operation>
+		<search position="replace" index="1"><![CDATA[
+            $mail->setHtml($html);]]></search>
+		<add><![CDATA[$template->load('order.voucher');
+			$mail = $template->hook($mail);]]></add>
+	</operation>
+	<operation>
+		<search position="after" index="1"><![CDATA[
+            $mail->send(); ]]></search>
+		<add><![CDATA[			$template->sent(); ]]></add>
+	</operation>
+</file>
+
+<!-- product.review -->
+<file name="catalog/model/catalog/review.php">
+	<operation>
+		<search position="after" offset="1" info="Insert below query"><![CDATA[
+			public function addReview($product_id, $data) { ]]></search>
+		<add><![CDATA[
+			$review_id = $this->db->getLastId();
+
+			$this->load->model('catalog/product');
+
+   			$product_info = $this->model_catalog_product->getProduct($product_id);
+			if(empty($product_info)) return false;
+
+			$template = new EmailTemplate($this->request, $this->registry);
+            
+			$template->addData($data, 'review');
+			$template->addData($product_info, 'product');
+
+			$template->data['product_link'] = $this->url->link('product/product', 'product_id=' . $product_id);
+			$template->data['product_link_tracking'] = $template->getTracking($template->data['product_link']);
+			$template->data['review_approve'] = (defined('HTTP_ADMIN') ? HTTP_ADMIN : HTTP_SERVER.'admin/') . 'index.php?route=catalog/review/update&review_id=' . $review_id;
+
+			$template->load('product.review');
+
+			$template->send(); ]]></add>
+	</operation>
+</file>
+<file name="catalog/model/catalog/review.php" error="log">
+	<operation error="log">
+		<search position="after" index="1"><![CDATA[$this->db->query("INSERT INTO " . DB_PREFIX . "review]]></search>
+		<ignoreif><![CDATA[
+		$review_id = $this->db->getLastId(); ]]></ignoreif>
+		<add><![CDATA[
+		$review_id = $this->db->getLastId();
+		]]></add>
+	</operation>	
+	<operation error="log">
+		<search position="ibefore" index="1"><![CDATA[product_id = '"]]></search>
+		<add trim="true"><![CDATA[
+		" . ($this->config->get('config_stv_auto_approve_review')==1 ? "status='1'," : "") . "
+		]]></add>
+	</operation>	
+	<operation error="log">
+		<search position="after" index="1"><![CDATA[$review_id = $this->db->getLastId();]]></search>
+		<add><![CDATA[
+		$this->load->model('setting/stvsetting');
+		$this->model_setting_stvsetting->addSettingMPQ('config',0,'config_stv_new_review',$review_id);
+		]]></add>
+	</operation>		
+</file>	
+
+<!-- account.return -->
+<file name="catalog/model/account/return.php">
+	<operation>
+		<search position="after" offset="1" info="insert after query"><![CDATA[
+			public function addReturn($data) {]]></search>
+		<add><![CDATA[
+			$return_id = $this->db->getLastId();
+			
+   			$this->language->load_full('mail/return');
+
+			$template = new EmailTemplate($this->request, $this->registry);
+            
+			$this->load->model('localisation/return_reason');
+
+			// Backwards compatabile with 1.5.1.3
+			if(isset($this->request->post['return_product'])){
+
+				foreach ($this->request->post['return_product'] as $return_product) {
+					$return_reason_info = $this->model_localisation_return_reason->getReturnReason($return_product['return_reason_id']);
+
+					if(isset($return_product['product'])){
+						$name = $return_product['product'];
+					} elseif(isset($return_product['name'])){
+						$name = $return_product['name'];
+					} else {
+						$name = '';
+					}
+
+					$return_product = array(
+						'name' => $name,
+						'model' => $return_product['model'],
+						'quantity' => $return_product['quantity'],
+						'reason' => ($return_reason_info) ? $return_reason_info['name'] : '',
+						'opened' => $return_product['opened'] ? $this->language->get('text_yes') : $this->language->get('text_no'),
+						'comment' => (isset($return_product['comment'])) ? nl2br($return_product['comment']) : ''
+					);
+				}
+
+			} else {
+				$return_reason_info = $this->model_localisation_return_reason->getReturnReason($data['return_reason_id']);
+				$return_product = array(
+					'name' => $data['product'],
+					'model' => $data['model'],
+					'quantity' => $data['quantity'],
+					'reason' => ($return_reason_info) ? $return_reason_info['name'] : '',
+					'opened' => $data['opened'] ? $this->language->get('text_yes') : $this->language->get('text_no'),
+					'comment' => (isset($data['comment'])) ? nl2br($data['comment']) : ''
+				);
+
+			}
+			
+			$template->addData($data);
+
+			$template->data['text_greeting'] = sprintf($this->language->get('text_greeting'), $this->config->get('config_name'));
+			$template->data['order_date'] = date($this->language->get('date_format_short'), strtotime($data['date_ordered']));
+			$template->data['comment'] = (isset($data['comment'])) ? nl2br($data['comment']) : '';
+			$template->data['return_product'] = $return_product;
+			$template->data['return_link'] = (defined('HTTP_ADMIN') ? HTTP_ADMIN : HTTP_SERVER.'admin/') . 'index.php?route=sale/return/info&return_id=' . $return_id;
+
+			$template->load('account.return');
+
+			$template->send(); ]]></add>
+	</operation>
+</file>
+
+<!-- ebay.admin -->
+<file name="system/library/ebay.php" error="skip">
+	<operation info="method::notifyAdmin">
+		<search position="before" index="1"><![CDATA[
+			$mail->setText($message);]]></search>
+		<add><![CDATA[		$template = new EmailTemplate($this->request, $this->registry);
+		$template->load('ebay.admin');
+		$template->build();
+		$template->fetch(null, $message);
+		$mail = $template->hook($mail);]]></add>
+	</operation>
+	<operation info="method::notifyAdmin">
+		<search position="after" index="1"><![CDATA[
+			$mail->send();]]></search>
+		<add><![CDATA[		$template->sent();]]></add>
+	</operation>
+</file>
+
+<!-- openbay.admin -->
+<file name="system/library/openbay.php" error="skip">
+	<operation info="method::newOrderAdminNotify">
+		<search position="after"><![CDATA[
+			$subject = sprintf($language->get('text_new_subject')]]></search>
+		<add><![CDATA[
+		$template = new EmailTemplate($this->request, $this->registry, $order_info['language_id']);
+			
+		$template->addData($order_info);
+		$template->data['order_status_id'] = $order_status_id;
+		$template->data['new_order_status'] = $order_status;
+		$template->data['comment'] = str_replace(array("\r\n", "\r", "\n"), "<br />", $order_info['comment']);
+		$template->data['date_added'] = date($language->get('date_format_short'), strtotime($order_info['date_added'])); ]]></add>
+	</operation>
+	<operation>
+		<search position="replace"><![CDATA[
+			foreach ($order_product_query->rows as $product) {]]></search>
+		<add><![CDATA[$template->data['products'] = array();
+
+		foreach ($order_product_query->rows as $product) {
+			$product['price'] = $this->currency->format($product['price'] + ($this->config->get('config_tax') ? $product['tax'] : 0), $order_info['currency_code'], $order_info['currency_value']);
+			$product['total'] = $this->currency->format($product['total'] + ($this->config->get('config_tax') ? ($product['tax'] * $product['quantity']) : 0), $order_info['currency_code'], $order_info['currency_value']);
+			$product['option'] = array();
+		]]></add>
+	</operation>
+	<operation>
+		<search position="before"><![CDATA[
+			$text .= chr(9) . '-' . $option['name'] ]]></search>
+		<add><![CDATA[				$product['option'][] = array(
+					'name'  => $option['name'],			
+       				'value' => (strlen($value) > 120 ? substr($value, 0, 120) . '..' : $value)
+				);]]></add>
+	</operation>
+	<operation info="Add to bottom of prducts loop">
+		<search position="after" offset="1"><![CDATA[
+			$text .= chr(9) . '-' . $option['name'] ]]></search>
+		<add><![CDATA[			$product['url'] = $template->data['store_url'] . '?route=product/product&product_id='.$product['product_id'];
+			$product['url_tracking'] = $template->getTracking($product['url']);
+
+			$template->data['products'][] = $product;]]></add>
+	</operation>
+	<operation>
+		<search position="replace"><![CDATA[
+			foreach ($order_voucher_query->rows as $voucher) {]]></search>
+		<add><![CDATA[$template->data['vouchers'] = array();
+		foreach ($order_voucher_query->rows as $voucher) {
+				$voucher['price'] = $this->currency->format($voucher['amount'], $order_info['currency_code'], $order_info['currency_value']);
+				$template->data['vouchers'][] = $voucher; ]]></add>
+	</operation>
+	<operation>
+		<search position="replace"><![CDATA[
+			foreach ($order_total_query->rows as $total) {]]></search>
+		<add><![CDATA[$template->data['totals'] = array();
+		foreach ($order_total_query->rows as $total) {
+				$template->data['totals'][] = $total; ]]></add>
+	</operation>
+	<operation>
+		<search position="after"><![CDATA[
+			$mail->setText( ]]></search>
+		<add><![CDATA[			$template->load('openbay.admin');
+			$mail = $template->hook($mail); ]]></add>
+	</operation>
+	<operation>
+		<search position="after" index="1"><![CDATA[
+			$mail->send(); ]]></search>
+		<add><![CDATA[			$template->sent(); ]]></add>
+	</operation>
+</file>
+
+<!-- ebay.update -->
+<file name="catalog/model/ebay/order.php" error="skip">
+	<operation info="method:update">
+		<search position="after"><![CDATA[
+			$subject = sprintf($language->get('text_update_subject')]]></search>
+		<add><![CDATA[				$template = new EmailTemplate($this->request, $this->registry);		
+				$template->addData($order_info);]]></add>
+	</operation>
+	<operation info="method:update">
+		<search position="after"><![CDATA[
+			$message .= $language->get('text_update_footer');]]></search>
+		<add><![CDATA[				$template->data['comment'] = str_replace(array("\r\n", "\r", "\n"), "<br />", $comment);
+				$template->data['order_status_id'] = $order_status_id;
+				$template->data['new_order_status'] = ($order_status_query->num_rows) ? $order_status_query->row['name'] : '';
+				$template->data['order_url'] = $order_info['store_url'] . 'index.php?route=account/order/info&order_id=' . $order_id;
+				$template->data['order_url_tracking'] = $template->getTracking($template->data['order_url']);
+				$template->data['date_added'] = date($language->get('date_format_short'), strtotime($order_info['date_added'])); ]]></add>
+	</operation>
+	<operation info="method:update">
+		<search position="after" index="1"><![CDATA[
+			$mail->setText(]]></search>
+		<add><![CDATA[			$template->load(array(
+				'key' => 'ebay.update',
+				'language_id' => $order_info['language_id']
+			));	
+			$mail = $template->hook($mail);]]></add>
+	</operation>
+	<operation info="method:update">
+		<search position="after" index="1"><![CDATA[
+			$mail->send(); ]]></search>
+		<add><![CDATA[   				$template->sent(); ]]></add>
+	</operation>
+</file>
+
+<!-- ebay.order -->
+<file name="catalog/model/ebay/order.php" error="skip">
+	<operation info="method:confirm">
+		<search position="replace"><![CDATA[
+			$template = new Template();]]></search>
+		<add><![CDATA[
+			$template = new EmailTemplate($this->request, $this->registry, $order_info['language_id']);
+			$template->data['new_order_status'] = $order_status; ]]></add>
+	</operation>
+	<operation>
+		<search position="replace" index="1"><![CDATA[
+			$template->data['products'][] = array( ]]></search>
+		<add><![CDATA[if (isset($product['image'])) {
+					$image = $this->model_tool_image->resize($product['image'], 50, 50);
+				} else {
+					$image = '';
+				}
+
+				$template->data['products'][] = array(
+					'image'     	=> $image,
+					'order_product_id'	=> $product['order_product_id'],]]></add>
+	</operation>
+	<operation info="method:confirm">
+		<search position="replace"><![CDATA[
+			$html = $template->fetch($this->config->get('config_template') . '/template/mail/order.tpl');]]></search>
+		<add><![CDATA[ $html = '';]]></add>
+	</operation>
+	<operation info="method:confirm">
+		<search position="replace"><![CDATA[
+			$html = $template->fetch('default/template/mail/order.tpl');]]></search>
+		<add><![CDATA[ $html = '';]]></add>
+	</operation>
+	<operation info="method:confirm">
+		<search position="after" index="2"><![CDATA[
+			$mail->setText(]]></search>
+		<add><![CDATA[				$template->load('ebay.order');
+				$mail = $template->hook($mail);]]></add>
+	</operation>
+	<operation info="method:confirm">
+		<search position="after" index="2"><![CDATA[
+			$mail->send(); ]]></search>
+		<add><![CDATA[   				$template->sent(); ]]></add>
+	</operation>
+</file>
+
+<!-- play.order -->
+<file name="catalog/model/play/order.php" error="skip">
+	<operation info="method:update">
+		<search position="after"><![CDATA[
+			$subject = sprintf($language->get('text_update_subject')]]></search>
+		<add><![CDATA[
+				$template = new EmailTemplate($this->request, $this->registry, $order_info['language_id']);
+				$template->addData($order_info);]]></add>
+	</operation>
+	<operation info="method:update">
+		<search position="after"><![CDATA[
+			$message .= $language->get('text_update_footer');]]></search>
+		<add><![CDATA[
+				$template->data['order_id'] = $order_id;
+				$template->data['order_status_id'] = $order_status_id;
+				$template->data['comment'] = str_replace(array("\r\n", "\r", "\n"), "<br />", $comment);
+				$template->data['new_order_status'] = $order_id;
+				$template->data['link'] = $order_info['store_url'] . 'index.php?route=account/order/info&order_id=' . $order_id;
+				$template->data['link_tracking'] = $template->getTracking($template->data['link']);
+				$template->data['date_added'] = date($language->get('date_format_short'), strtotime($order_info['date_added'])); ]]></add>
+	</operation>
+	<operation info="method:update">
+		<search position="after" index="1"><![CDATA[
+			$mail->setText(]]></search>
+		<add><![CDATA[   				$template->load('play.order');
+						$mail = $template->hook($mail);]]></add>
+	</operation>
+	<operation info="method:update">
+		<search position="after" index="1"><![CDATA[
+			$mail->send(); ]]></search>
+		<add><![CDATA[   				$template->sent(); ]]></add>
+	</operation>
+</file>
+
+<!-- admin.order_update -->
+<file name="admin/controller/sale/order.php">
+	<operation error="skip">
+		<search position="after"><![CDATA[
+            $this->language->load('sale/order'); ]]></search>
+		<add><![CDATA[
+            $this->language->load_full('sale/order'); ]]></add>
+	</operation>
+	<operation error="skip" info="Opencart 1.5.3"> 
+		<search position="replace"><![CDATA[
+            $this->load->language('sale/order'); ]]></search>
+		<add><![CDATA[
+			$this->language->load_full('sale/order'); ]]></add>
+	</operation>
+	<operation>
+		<search position="after"><![CDATA[
+            $this->data['entry_notify'] = $this->language->get('entry_notify'); ]]></search>
+		<add><![CDATA[
+            $this->data['entry_summary'] = $this->language->get('entry_summary');
+            $this->data['entry_show_products'] = $this->language->get('entry_show_products');
+            $this->data['entry_show_totals'] = $this->language->get('entry_show_totals');
+            $this->data['entry_show_downloads'] = $this->language->get('entry_show_downloads');
+            $this->data['entry_show_vouchers'] = $this->language->get('entry_show_vouchers');
+            $this->data['entry_template'] = $this->language->get('entry_template');
+            $this->data['entry_pdf_attach'] = $this->language->get('entry_pdf_attach');
+            $this->data['text_select'] = $this->language->get('text_select');
+			$this->data['text_preview'] = $this->language->get('text_preview');
+			$this->data['warning_template_content'] = $this->language->get('warning_template_content');
+
+			$this->data['language_id'] = $order_info['language_id'];
+			$this->data['store_id'] = $order_info['store_id'];
+            
+			$this->load->model('localisation/language');
+			$this->load->model('module/emailtemplate');
+
+            $templates = $this->model_module_emailtemplate->getTemplates(array(
+				'emailtemplate_key' => 'admin.order_update'
+			));
+
+			$this->data['templates_options'] = array();
+
+			foreach($templates as $row){
+				$label = $row['emailtemplate_label'];
+
+				if($row['emailtemplate_default']){
+					$label = $this->language->get('text_default') . ' - ' . $label;
+				}
+
+				$this->data['templates_options'][] = array(
+					'value' => $row['emailtemplate_id'],
+					'label' => $label
+				);
+			}
+
+            $this->data['templates_action'] = $this->url->link('module/emailtemplate/fetch_template', 'output=comment&token='.$this->session->data['token'], 'SSL');
+ 
+			$this->data['pdf_download'] = $this->url->link('module/emailtemplate/preview_invoice', 'token='.$this->session->data['token'].'&order_id='.$order_id, 'SSL'); ]]></add>
+	</operation>
+	<operation error="skip">
+		<search position="replace"><![CDATA[
+            nl2br($result['comment']) ]]></search>
+		<add trim="true"><![CDATA[
+            (EmailTemplate::isHTML($result['comment'])) ? html_entity_decode($result['comment'], ENT_QUOTES, 'UTF-8') : nl2br($result['comment'], true) ]]></add>
+	</operation>
+	<operation>
+		<search error="skip" position="replace"><![CDATA[
+            nl2br($order_info['comment']) ]]></search>
+		<add trim="true"><![CDATA[
+            (EmailTemplate::isHTML($order_info['comment'])) ? html_entity_decode($order_info['comment'], ENT_QUOTES, 'UTF-8') : nl2br($order_info['comment'], true) ]]></add>
+	</operation>
+</file>
+		
+<file name="admin/model/sale/order.php">
+	<operation>
+		<search position="after" index="1"><![CDATA[
+            $this->db->query("INSERT INTO " . DB_PREFIX . "order_history ]]></search>
+        <ignoreif><![CDATA[
+            $order_history_id = $this->db->getLastId(); ]]></ignoreif>
+		<add><![CDATA[		$order_history_id = $this->db->getLastId();]]></add>
+	</operation>
+	<operation>
+		<search position="after"><![CDATA[
+            if ($data['notify']) ]]></search>
+		<add><![CDATA[
+            $template = new EmailTemplate($this->request, $this->registry);
+     
+			$template->data['payment_address'] = EmailTemplate::formatAddress($order_info, 'payment', $order_info['payment_address_format']);
+			
+			$template->data['shipping_address'] = EmailTemplate::formatAddress($order_info, 'shipping', $order_info['shipping_address_format']);			
+			if($template->data['shipping_address'] == ''){
+				$template->data['shipping_address'] = $template->data['payment_address'];
+			}
+
+            $template->data['products'] = array();  
+            if(isset($data['show_products'])){ 
+            	$this->load->model('tool/image');  
+            	$this->load->model('catalog/product');  
+				$products = $this->model_sale_order->getOrderProducts($this->request->get['order_id']);	
+				
+				foreach ($products as $product) {
+					$product = array_merge($this->model_catalog_product->getProduct($product['product_id']), $product);
+				
+					// Product Options
+					$option_data = array();	
+					$options = $this->model_sale_order->getOrderOptions($this->request->get['order_id'], $product['order_product_id']);	
+					foreach ($options as $option) {
+						if ($option['type'] != 'file') {
+							$option_data[] = array(
+								'name'  => $option['name'],
+								'value' => $option['value'],
+								'type'  => $option['type']
+							);
+						} else {
+							$option_data[] = array(
+								'name'  => $option['name'],
+								'value' => substr($option['value'], 0, strrpos($option['value'], '.')),
+								'type'  => $option['type'],
+								'href'  => $this->url->link('sale/order/download', 'token=' . $this->session->data['token'] . '&order_id=' . $this->request->get['order_id'] . '&order_option_id=' . $option['order_option_id'], 'SSL')
+							);						
+						}
+					}
+					
+					if (isset($product['image'])) {
+						$image = $this->model_tool_image->resize($product['image'], 50, 50, $order_info['store_url']);
+					} else {
+						$image = '';
+					}
+
+					$url = $order_info['store_url'] . '?route=product/product&product_id='.$product['product_id'];
+	
+					$template->data['products'][] = array(
+						'url'     		=> $url,
+						'url_tracking' 	=> $template->getTracking($url),
+						'order_product_id' => $product['order_product_id'],
+						'product_id'       => $product['product_id'],
+						'name'    	 	   => $product['name'],
+						'model'    		   => $product['model'],
+						'image'    		   => $image,
+						'option'   		   => $option_data,
+						'quantity'		   => $product['quantity'],
+						'price'    		   => $this->currency->format($product['price'] + ($this->config->get('config_tax') ? $product['tax'] : 0), $order_info['currency_code'], $order_info['currency_value']),
+						'total'    		   => $this->currency->format($product['total'] + ($this->config->get('config_tax') ? ($product['tax'] * $product['quantity']) : 0), $order_info['currency_code'], $order_info['currency_value']),
+						'href'     		   => $this->url->link('catalog/product/update', 'token=' . $this->session->data['token'] . '&product_id=' . $product['product_id'], 'SSL')
+					);
+				}
+			} // Products
+			
+			$template->data['vouchers'] = array();
+			if(isset($data['show_vouchers'])){
+				$vouchers = $this->model_sale_order->getOrderVouchers($this->request->get['order_id']);			 
+				foreach ($vouchers as $voucher) {
+					$template->data['vouchers'][] = array(
+						'description' => $voucher['description'],
+						'amount'      => $this->currency->format($voucher['amount'], $order_info['currency_code'], $order_info['currency_value']),
+						'href'        => $this->url->link('sale/voucher/update', 'token=' . $this->session->data['token'] . '&voucher_id=' . $voucher['voucher_id'], 'SSL')
+					);
+				}
+			} // Vouchers
+			
+			$template->data['totals'] = array();
+			if(isset($data['show_totals'])){
+				$template->data['totals'] = $this->model_sale_order->getOrderTotals($this->request->get['order_id']);
+			} // Totals	
+			
+			$template->data['downloads'] = array();
+			if(isset($data['show_downloads'])){				
+				foreach ($products as $product) {
+					$results = $this->model_sale_order->getOrderDownloads($this->request->get['order_id'], $product['order_product_id']);	
+					foreach ($results as $result) {
+						$template->data['downloads'][] = array(
+							'name'      => $result['name'],
+							'filename'  => $result['mask'],
+							'remaining' => $result['remaining']
+						);
+					}
+				}
+			} // Downloads	
+			
+			$attachments = array();
+			if(isset($data['attach_invoice_pdf'])){
+				$this->load->model('module/emailtemplate/invoice');
+				$template->data['emailtemplate_invoice_pdf'] = $this->model_module_emailtemplate_invoice->getInvoice($this->request->get['order_id'], true);
+				$attachments[] = $template->data['emailtemplate_invoice_pdf'];
+			} ]]></add>
+	</operation>
+	<operation>
+		<search position="after"><![CDATA[
+            $message .= $language->get('text_footer'); ]]></search>
+		<add><![CDATA[  
+            if (!empty($template->data['products'])) {
+            	$message .= "\n" . $language->get('text_products') . "\n"; 
+	            foreach ($template->data['products'] as $product) {
+	                $message .= $product['quantity'] . 'x ' . $product['name'] . ' (' . $product['model'] . ') ' . html_entity_decode($product['total'], ENT_NOQUOTES, 'UTF-8') . "\n";
+	                foreach ($product['option'] as $option) {
+	                    $message .= chr(9) . '-' . $option['name'] . ' ' . (strlen($option['value']) > 20 ? substr($option['value'], 0, 20) . '..' : $option['value']) . "\n";
+	                }
+            	}
+            }
+
+	        if (!empty($template->data['vouchers'])) { 
+	            foreach ($template->data['vouchers'] as $voucher) {
+	                $message .= '1x ' . $voucher['description'] . ' ' . $this->currency->format($voucher['amount'], $order_info['currency_code'], $order_info['currency_value']);
+	            }
+            }
+            
+			if (!empty($template->data['totals'])) {
+	            $message .= "\n" . $language->get('text_total') . "\n";	
+	            foreach ($template->data['totals'] as $total) {
+	                $message .= $total['title'] . ': ' . html_entity_decode($total['text'], ENT_NOQUOTES, 'UTF-8') . "\n";
+	            }
+            }
+               
+            if (!empty($template->data['downloads'])) {
+                $message .= "\n" . $language->get('text_download') . "\n";
+                $message .= $order_info['store_url'] . 'index.php?route=account/download' . "\n\n";
+            }
+
+			$template->addData($data);
+
+			$template->addData($order_info);
+             
+            $template->data['new_comment'] = html_entity_decode($data['comment'], ENT_QUOTES, 'UTF-8');
+            $template->data['invoice'] = html_entity_decode($order_info['store_url'] . 'index.php?route=account/order/info&order_id=' . $order_id, ENT_QUOTES, 'UTF-8');
+			$template->data['invoice_tracking'] = $template->getTracking($template->data['invoice']);
+
+			$template->data['date_added'] = date($language->get('date_format_short'), strtotime($order_info['date_added']));
+            
+			if ($order_status_query->num_rows) {
+            	$template->data['order_status'] = $order_status_query->row['name']; 
+			} ]]></add>
+	</operation>
+	<operation>
+		<search position="replace" index="1"><![CDATA[
+            $mail->send(); ]]></search>
+		<add><![CDATA[$template_data = array('key' =>'admin.order_update');
+			if(!empty($data['field_template'])){
+				$template_data['emailtemplate_id'] = $data['field_template'];
+			}
+			if(!empty($data['order_status_id'])){
+				$template_data['order_status_id'] = $data['order_status_id'];
+			}
+			if(isset($order_info['store_id'])){
+				$template_data['store_id'] = $order_info['store_id'];
+			}
+			if(isset($order_info['language_id'])){
+				$template_data['language_id'] = $order_info['language_id'];
+			}
+
+            $template->load($template_data);
+
+            $mail = $template->hook($mail);
+            foreach($attachments as $attachment){
+            	$mail->addAttachment($attachment);
+            } 
+ 
+			$mail->send();
+
+			$template->sent(); 
+			
+			$this->db->query("UPDATE " . DB_PREFIX . "order_history SET comment = '" . $this->db->escape($template->data['new_comment']) . "' WHERE order_history_id = '" . (int)$order_history_id . "'"); ]]></add>
+	</operation>
+	<operation error="skip">
+		<search position="replace"><![CDATA[
+            comment = '" . $this->db->escape(strip_tags($data['comment'])) . "' ]]></search>
+		<add trim="true"><![CDATA[
+            comment = '" . $this->db->escape($data['comment']) . "' ]]></add>
+	</operation>
+    <operation>
+        <search position="before"><![CDATA[
+            => $order_query->row['payment_firstname'], ]]></search>
+        <add><![CDATA[            	'invoice_filename' 		   => $order_query->row['invoice_filename'], ]]></add>
+	</operation>
+</file>		
+		
+<file name="admin/view/template/sale/order_info.tpl">
+	<operation>
+		<search position="before"><![CDATA[
+            <?php echo $footer; ?> ]]></search>
+		<add><![CDATA[			
+<script type="text/javascript" src="view/javascript/ckeditor/ckeditor.js"></script>
+<script type="text/javascript"><!--
+(function($){
+
+	// Order history show/hide summary options
+	function showEmailOptions($row, $checkbox){
+		if($checkbox.is(':checked')) { 
+			$row.show(); 
+		} else { 
+			$row.hide(); 
+		}
+	}				
+	
+	$(document).ready(function() {
+		$('input[name=notify]').eq(0).each(function(){
+			showEmailOptions($('.emailOptions'), $(this));
+		}).change(function(){
+			showEmailOptions($('.emailOptions'), $(this));
+		});
+		
+   		$('select#field_templates').change(function(){			
+			var val = $(this).val();
+			if (!val || !confirm("<?php echo $warning_template_content; ?>")) return;
+			$.ajax({
+				url: '<?php echo html_entity_decode($templates_action); ?>',
+	  			type: 'get',
+				data: 'id=' + val + '&store_id=<?php echo $store_id; ?>' + '&language_id=<?php echo $language_id; ?>' + '&order_id=<?php echo $order_id; ?>',
+				dataType: 'html',
+	  			success: function(html) {
+					$('textarea[name=comment]').val(html);
+					if(typeof CKEDITOR !== "undefined"){
+						CKEDITOR.instances['comment'].setData(html);
+					}
+				},
+				error: function(xhr, ajaxOptions, thrownError) {
+					console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+					alert('Error. More details in console.');
+				}
+			});	
+		});
+ 	}); // doc.ready
+})(jQuery);		
+			
+if(typeof CKEDITOR !== "undefined"){
+	CKEDITOR.replace('comment', {
+		filebrowserImageBrowseUrl: 'index.php?route=common/filemanager&token=<?php echo $token; ?>',
+		filebrowserUploadUrl: 'index.php?route=common/filemanager&token=<?php echo $token; ?>',
+		filebrowserImageUploadUrl: 'index.php?route=common/filemanager&token=<?php echo $token; ?>'
+	});
+
+	// Output dimensions of images as width and height
+	CKEDITOR.on('instanceReady', function (ev) {
+		ev.editor.dataProcessor.htmlFilter.addRules({
+			elements: {
+				$: function(element){                
+					if (element.name == 'img') {
+						var style = element.attributes.style;
+
+						if (style) {
+							// Get the width from the style.
+							var match = /(?:^|\s)width\s*:\s*(\d+)px/i.exec(style),
+								width = match && match[1];
+
+							// Get the height from the style.
+							match = /(?:^|\s)height\s*:\s*(\d+)px/i.exec(style);
+							var height = match && match[1];
+
+							if (width) {
+								element.attributes.style = element.attributes.style.replace(/(?:^|\s)width\s*:\s*(\d+)px;?/i, '');
+								element.attributes.width = width;
+							}
+
+							if (height) {
+								element.attributes.style = element.attributes.style.replace(/(?:^|\s)height\s*:\s*(\d+)px;?/i, '');
+								element.attributes.height = height;
+							}
+						}
+					}
+
+					if (!element.attributes.style) delete element.attributes.style;
+
+					return element;
+				}
+			}
+		});
+	});
+} // CKEDITOR
+//--></script> ]]></add>
+	</operation>
+	<operation info="Add checkboxes into ajax post data">
+		<search position="replace"><![CDATA[
+            + '&notify=' ]]></search>
+		<add trim="true"><![CDATA[
+            <?php if(!empty($products)){ ?>+ ($('input[name=\'show_products\']').attr('checked') ? '&show_products=1' : '')<?php }
+            if(!empty($downloads)){ ?>+ ($('input[name=\'show_downloads\']').attr('checked') ? '&show_downloads=1' : '')<?php }
+            if(!empty($vouchers)){ ?>+ ($('input[name=\'show_vouchers\']').attr('checked') ? '&show_vouchers=1' : '')<?php } 
+            if(!empty($totals)){ ?>+ ($('input[name=\'show_totals\']').attr('checked') ? '&show_totals=1' : '')<?php } ?>
+            + ($('input[name=\'attach_invoice_pdf\']').attr('checked') ? '&attach_invoice_pdf=1' : '') 
+			+ ($('select[name=\'field_template\']').val() ? '&field_template=' + $('select[name=\'field_template\']').val() : '')
+			+ '&notify=' ]]></add>
+	</operation>
+	<operation error="skip">
+		<search position="after"><![CDATA[
+            $('#button-history').live('click', function() { ]]></search>
+		<add><![CDATA[            if(typeof CKEDITOR !== "undefined" && CKEDITOR.instances["comment"]) CKEDITOR.instances.comment.updateElement(); ]]></add>
+	</operation>
+	<operation error="skip" info="Old versions opencart">
+		<search position="after"><![CDATA[
+            function history() { ]]></search>
+		<add><![CDATA[            if(typeof CKEDITOR !== "undefined" && CKEDITOR.instances["comment"]) CKEDITOR.instances.comment.updateElement(); ]]></add>
+	</operation>
+	<operation error="skip">
+		<search position="before"><![CDATA[
+            $('textarea[name=\'comment\']').val(''); ]]></search>
+		<add><![CDATA[            if(typeof CKEDITOR !== "undefined" && CKEDITOR.instances["comment"]) CKEDITOR.instances.comment.setData('');
+		            
+            $('.emailOptions input[type=checkbox], .emailOptions input[type=radio], input[name=notify]').removeAttr('checked');
+           	$('.emailOptions option').removeAttr('selected');
+           	$('.emailOptions').hide(); ]]></add>
+	</operation>
+	<operation info="Add order summary option">
+		<search position="after"><![CDATA[
+            <td><input type="checkbox" name="notify" value="1" /></td> ]]></search>
+		<add><![CDATA[
+          </tr>
+          <tr class="emailOptions" style="display: none">
+            <td><?php echo $entry_summary; ?></td>
+            <td>
+            	<?php if(!empty($products)){ ?>
+            		<label><input type="checkbox" name="show_products" value="1" style="vertical-align: middle;" /> <?php echo $entry_show_products; ?></label><br />
+           		<?php } ?>
+            	<?php if(!empty($totals)){ ?>
+            		<hr style="border-top: 1px dotted #ccc; background: none; border-bottom: none; border-left: none; border-right: none; margin: 0;" />
+            		<label><input type="checkbox" name="show_totals" value="1" style="vertical-align: middle;" /> <?php echo $entry_show_totals; ?></label><br />
+           		<?php } ?>
+	         	<?php if(!empty($downloads)){ ?>
+	         		<hr style="border-top: 1px dotted #ccc; background: none; border-bottom: none; border-left: none; border-right: none; margin: 0;" />
+	         		<label><input type="checkbox" name="show_downloads" value="1" style="vertical-align: middle;" /> <?php echo $entry_show_downloads; ?></label><br />
+         		<?php } ?>
+	         	<?php if(!empty($vouchers)){ ?>
+	         		<hr style="border-top: 1px dotted #ccc; background: none; border-bottom: none; border-left: none; border-right: none; margin: 0;" />
+	         		<label><input type="checkbox" name="show_vouchers" value="1" style="vertical-align: middle;" /> <?php echo $entry_show_vouchers; ?></label>
+         		<?php } ?>
+   			</td>
+          </tr>
+          <tr class="emailOptions" style="display: none">
+            <td>
+            	<?php echo $entry_pdf_attach; ?><br />
+            	[<a href="<?php echo $pdf_download; ?>" target="_blank"><?php echo $text_preview; ?></a>]
+           	</td>
+            <td>
+         		<label><input type="checkbox" name="attach_invoice_pdf" value="1" style="vertical-align: middle;" /></label>
+			</td>   
+  	 	  <?php if(!empty($templates_options)){ ?>			
+          </tr>
+          <tr class="emailOptions" style="display: none">
+            <td><?php echo $entry_template; ?></td>
+            <td>
+            	<select id="field_templates" name="field_template">
+	 				<option value=''><?php echo $text_select; ?></option>
+	            	<?php foreach($templates_options as $item){ ?>
+	            		<option value="<?php echo $item['value']; ?>"><?php echo $item['label']; ?></option>
+	            	<?php } ?>
+            	</select>
+ 			</td> 
+		  <?php } ?> ]]></add>
+	</operation>
+</file>
+
+<!-- admin.newsletter -->
+<file name="admin/controller/sale/contact.php">
+	<operation error="skip"> 
+		<search position="replace"><![CDATA[
+            $this->language->load('sale/contact'); ]]></search>
+		<add><![CDATA[
+			$this->language->load_full('sale/contact'); ]]></add>
+	</operation>
+	<operation error="skip" info="Opencart 1.5.3"> 
+		<search position="replace"><![CDATA[
+            $this->load->language('sale/contact'); ]]></search>
+		<add><![CDATA[
+			$this->language->load_full('sale/contact'); ]]></add>
+	</operation>
+	<operation> 
+		<search position="after"><![CDATA[
+            $this->data['entry_message'] = $this->language->get('entry_message'); ]]></search>
+		<add><![CDATA[
+		$this->data['entry_template'] = $this->language->get('entry_template');
+		$this->data['entry_campaign_name'] = $this->language->get('entry_campaign_name');
+		$this->data['warning_template_content'] = $this->language->get('warning_template_content');
+		$this->data['text_select'] = $this->language->get('text_select');
+
+		$this->load->model('localisation/language');
+		$this->load->model('module/emailtemplate');
+
+        $templates = $this->model_module_emailtemplate->getTemplates(array(
+			'emailtemplate_key' => 'admin.newsletter'
+		));
+
+		$this->data['templates_options'] = array();
+
+		foreach($templates as $row){
+			$label = $row['emailtemplate_label'];
+
+			if($row['emailtemplate_default']){
+				$label = $this->language->get('text_default') . ' - ' . $label;
+			}
+
+			$this->data['templates_options'][] = array(
+				'value' => $row['emailtemplate_id'],
+				'label' => $label
+			);
+		}
+
+		$this->data['languages'] = $this->model_localisation_language->getLanguages();		
+
+		$config = $this->model_module_emailtemplate->getConfig(1, true, true);
+        $this->data['campaign_name'] = $config['tracking_campaign_name'];    
+		 
+        $this->data['templates_action'] = $this->url->link('module/emailtemplate/get_template', 'token='.$this->session->data['token'], 'SSL'); ]]></add>
+	</operation>
+	
+	<operation info="Add extra info into email array">
+		<search position="replace"><![CDATA[
+			$emails[] = $customer_info['email']; ]]></search>
+		<add><![CDATA[ $emails[] = array(
+				   'customer' => $customer_info,
+				   'email' => $customer_info['email'],
+				   'customer_id' => $customer_info['customer_id'],
+				   'store_id' => $customer_info['store_id'],
+				   'language_id' => $customer_info['language_id']
+				  ); ]]></add>
+	</operation>
+	<operation info="Add extra info into email array">
+		<search position="replace"><![CDATA[
+			$emails[$result['customer_id']] = $result['email']; ]]></search>
+		<add><![CDATA[ $emails[$result['customer_id']] = array(
+				 'email' => $result['email'],
+				 'customer_id' => $result['customer_id'],
+				 'store_id' => $result['store_id'],
+				 'language_id' => $result['language_id']
+				); ]]></add>
+	</operation>
+	<operation info="affiliate_all">
+		<search position="replace" index="3"><![CDATA[
+			$emails[] = $result['email']; ]]></search>
+		<add><![CDATA[ $emails[$result['affiliate_id']] = array(
+				 'email' => $result['email'],
+				 'affiliate_id' => $result['affiliate_id']
+				); ]]></add>
+	</operation>
+	<operation info="affiliate">
+		<search position="replace"><![CDATA[
+			$emails[] = $affiliate_info['email']; ]]></search>
+		<add><![CDATA[ $emails[$affiliate_info['affiliate_id']] = array(
+				   'affiliate' => $affiliate_info,
+				   'email' => $affiliate_info['email'],
+				   'affiliate_id' => $affiliate_info['affiliate_id']
+				  ); ]]></add>
+	</operation>
+	<operation info="newsletter, customer_all, product">
+		<search position="replace"><![CDATA[
+			$emails[] = $result['email']; ]]></search>
+		<add><![CDATA[ $emails[$result['customer_id']] = array(
+				 'email' => $result['email'],
+				 'customer_id' => $result['customer_id'],
+				 'store_id' => $result['store_id'],
+				 'language_id' => $result['language_id']
+				); ]]></add>
+	</operation>
+	
+	<operation info="Move message into foreach">
+		<search position="replace"><![CDATA[
+            foreach ($emails as $email) { ]]></search>
+		<add/>
+	</operation>  
+	<operation>
+		<search position="before"><![CDATA[
+            $message  = '<html  ]]></search>
+		<add><![CDATA[				foreach ($emails as $email) {
+					if(empty($email['customer_id']) && empty($email['affiliate_id'])) continue;
+
+					$template = new EmailTemplate($this->request, $this->registry);
+            
+					if(isset($email['customer'])){
+						$template->addData($email['customer']);
+						unset($email['customer']);
+					} elseif(isset($email['customer_id'])){
+						$customer_info = $this->model_sale_customer->getCustomer($email['customer_id']);
+						$template->addData($customer_info);
+					}
+
+					if(isset($email['affiliate'])){
+						$template->addData($email['affiliate']);
+						unset($email['affiliate']);
+					} elseif(isset($email['affiliate_id'])){
+						$affiliate_info = $this->model_sale_affiliate->getAffiliate($email['affiliate_id']);
+						$template->addData($affiliate_info);
+					}
+
+					if(isset($email['language_id']) && $email['language_id']){
+						$language_id = $email['language_id'];
+					} else {
+						$language_id = $this->config->get('config_language_id');
+					}
+			
+  					// Default store auto select from db
+					if($this->request->post['store_id'] == 0 && isset($email['store_id'])){
+ 						$store_id = $email['store_id'];
+					} else {
+						$store_id = $this->request->post['store_id'];
+					}
+
+					$template_data = array(
+						'key' => 'admin.newsletter',
+						'store_id' => $store_id
+					);
+
+					$template->load($template_data);
+					
+					if(!empty($template->data['emailtemplate']['unsubscribe_text']) && in_array($this->request->post['to'], array('newsletter', 'customer_all', 'customer_group', 'customer'))) {
+						$url = (isset($store_info['url']) ? $store_info['url'] : HTTP_CATALOG) . 'index.php?route=account/newsletter/unsubscribe&code='.md5($email['email']);
+						$template->data['unsubscribe'] = sprintf(html_entity_decode($template->data['emailtemplate']['unsubscribe_text'], ENT_QUOTES, 'UTF-8'), $url);
+				    }
+
+					if(is_array($this->request->post['subject']) && !empty($this->request->post['subject'][$language_id])){
+						$subject = $this->request->post['subject'][$language_id];
+					} elseif(!empty($this->request->post['subject'])){
+						$subject = $this->request->post['subject'];
+					} else {
+						$subject = $store_name;
+					}
+
+					if(is_array($this->request->post['message']) && !empty($this->request->post['message'][$language_id])){
+						$body = $this->request->post['message'][$language_id];
+					} elseif(!empty($this->request->post['message'])){
+						$body = $this->request->post['message'];
+					} else {
+						$body = '';
+					}
+
+					$template->addData($email);
+
+					$template->set('subject', $subject);
+					
+					$template->data['config']['tracking_campaign_name'] = $this->request->post['campaign_name'];
+		]]></add>
+	</operation>
+	<operation>
+		<search position="replace"><![CDATA[
+            <title>' . $this->request->post['subject'] . '</title>' ]]></search>
+		<add trim="true"><![CDATA[ 
+			<title>' . $subject . '</title>' ]]></add>
+	</operation>
+	<operation error="skip">
+		<search position="replace"><![CDATA[
+            $mail->setSubject(html_entity_decode($this->request->post['subject'] ]]></search>
+		<add trim="true"><![CDATA[ 
+			$mail->setSubject(html_entity_decode($subject ]]></add>
+	</operation>
+	<operation error="skip">
+		<search position="replace"><![CDATA[
+            $mail->setSubject($this->request->post['subject'] ]]></search>
+		<add trim="true"><![CDATA[ 
+			$mail->setSubject($subject ]]></add>
+	</operation>
+	<operation>
+		<search position="replace"><![CDATA[
+            html_entity_decode($this->request->post['message']  ]]></search>
+		<add trim="true"><![CDATA[ 
+			html_entity_decode($message ]]></add>
+	</operation>
+	<operation>
+		<search position="replace"><![CDATA[
+            $mail->setHtml($message); ]]></search>
+		<add><![CDATA[$template->build();
+						$template->fetch(null, $body);			
+						$mail = $template->hook($mail); ]]></add>
+	</operation>
+	<operation>
+		<search position="after"><![CDATA[
+            $mail->send(); ]]></search>
+		<add><![CDATA[						$template->sent(); ]]></add>
+	</operation>
+	<operation error="skip">
+		<search position="replace"><![CDATA[
+            $mail->addAttachment($attachment['path'], $attachment['filename']); ]]></search>
+		<add/>
+	</operation>        
+</file>
+	
+<file name="admin/view/template/sale/contact.tpl">
+	<operation info="Remove subject, add template">
+		<search position="replace"><![CDATA[
+            <td><span class="required">*</span> <?php echo $entry_subject; ?></td> ]]></search>
+		<add><![CDATA[ 
+		<?php if(!empty($templates_options)){ ?>
+            <td><?php echo $entry_template; ?></td> ]]></add>
+	</operation>
+	<operation>
+		<search regex="true" position="replace"><![CDATA[~<td><input type="text" name="subject" value=".*?" /></td>~]]></search>
+		<add><![CDATA[ 
+			<td>
+            	<select id="field_templates" name="email_template">
+					<option value=''><?php echo $text_select; ?></option>
+					<?php foreach($templates_options as $item){ ?>
+						<option value="<?php echo $item['value']; ?>"><?php echo $item['label']; ?></option>
+					<?php } ?>
+				</select>
+			</td>
+		  </tr>
+		  <tr>
+		<?php } ?>           
+            <td><?php echo $entry_campaign_name; ?></td>
+            <td><input value="<?php echo $campaign_name; ?>" name="campaign_name" type="text" /> ]]></add>
+	</operation>
+	<operation info="Remove message">
+		<search position="replace"><![CDATA[
+            <td><span class="required">*</span> <?php echo $entry_message; ?></td> ]]></search>
+		<add/>
+	</operation>
+	<operation info="Remove message">
+		<search regex="true" position="replace"><![CDATA[~<td><textarea name="message">.*?</textarea>~]]></search>
+		<add><![CDATA[		
+		</tr>
+   </table>
+
+		<div id="languages" class="htabs">
+			<?php foreach ($languages as $language) { ?>
+				<a href="#language<?php echo $language['language_id']; ?>">
+					<img src="view/image/flags/<?php echo $language['image']; ?>" title="<?php echo $language['name']; ?>" /> 
+					<?php echo $language['name']; ?>
+				</a>
+			<?php } ?>
+		</div>
+
+		<?php foreach ($languages as $language) { ?>
+			<div id="language<?php echo $language['language_id']; ?>">
+				<table class="form">
+					<tr>
+						<td><span class="required">*</span> <?php echo $entry_subject; ?></td>
+                		<td><input type="text" name="subject[<?php echo $language['language_id']; ?>]" value="" style="width:100%; max-width:500px" /></td>
+              		</tr>
+              		<tr>
+                		<td><span class="required">*</span> <?php echo $entry_message; ?></td>
+                		<td><textarea name="message[<?php echo $language['language_id']; ?>]" id="message_<?php echo $language['language_id']; ?>"></textarea></td>
+					</tr>
+				</table>
+			</div>
+		<?php } ?>
+	<table class="form">
+		<tr><td> ]]></add>
+	</operation>
+	<operation info="Remove ckeditor so that we can add with languages" error="skip">
+		<search position="replace" offset="7"><![CDATA[
+            CKEDITOR.replace('message', { ]]></search>
+		<add/>
+	</operation>
+	<operation info="Remove ckeditor so that we can add with languages" error="skip">
+		<search position="replace" offset="7"><![CDATA[
+            $('textarea[name=\'message\']').ckeditor({ ]]></search>
+		<add/>
+	</operation>
+	<operation error="skip">
+    	<search position="replace"><![CDATA[
+			$('textarea[name="message"]').val(CKEDITOR.instances.message.getData()); ]]></search>
+		<add><![CDATA[			if(typeof CKEDITOR !== "undefined"){
+				for(var instanceName in CKEDITOR.instances){
+					CKEDITOR.instances[instanceName].updateElement();
+				} 
+			} ]]></add>
+	</operation>
+	<operation error="skip">
+		<search position="before"><![CDATA[
+            function send(url) { ]]></search>
+		<add><![CDATA[
+$('#languages a').tabs();
+ 
+if(typeof CKEDITOR !== "undefined"){
+	<?php foreach ($languages as $language) { ?>
+	CKEDITOR.replace('message_<?php echo $language['language_id']; ?>', {
+		filebrowserBrowseUrl: 'index.php?route=common/filemanager&token=<?php echo $token; ?>',
+		filebrowserImageBrowseUrl: 'index.php?route=common/filemanager&token=<?php echo $token; ?>',
+		filebrowserFlashBrowseUrl: 'index.php?route=common/filemanager&token=<?php echo $token; ?>',
+		filebrowserUploadUrl: 'index.php?route=common/filemanager&token=<?php echo $token; ?>',
+		filebrowserImageUploadUrl: 'index.php?route=common/filemanager&token=<?php echo $token; ?>',
+		filebrowserFlashUploadUrl: 'index.php?route=common/filemanager&token=<?php echo $token; ?>'
+	});
+	<?php } ?>
+
+	// Output dimensions of images as width and height
+	CKEDITOR.on('instanceReady', function (ev) {
+		ev.editor.dataProcessor.htmlFilter.addRules({
+			elements: {
+				$: function(element){                
+					if (element.name == 'img') {
+						var style = element.attributes.style;
+
+						if (style) {
+							// Get the width from the style.
+							var match = /(?:^|\s)width\s*:\s*(\d+)px/i.exec(style),
+								width = match && match[1];
+
+							// Get the height from the style.
+							match = /(?:^|\s)height\s*:\s*(\d+)px/i.exec(style);
+							var height = match && match[1];
+
+							if (width) {
+								element.attributes.style = element.attributes.style.replace(/(?:^|\s)width\s*:\s*(\d+)px;?/i, '');
+								element.attributes.width = width;
+							}
+
+							if (height) {
+								element.attributes.style = element.attributes.style.replace(/(?:^|\s)height\s*:\s*(\d+)px;?/i, '');
+								element.attributes.height = height;
+							}
+						}
+					}
+
+					if (!element.attributes.style) delete element.attributes.style;
+
+					return element;
+				}
+			}
+		});
+	});
+} // ckeditor
+
+(function($){			
+	$(document).ready(function() {
+				
+		$('select#field_templates').change(function(){
+			var val = $(this).val(), 
+				language_id, 
+				store_id = $('select[name=store_id]').val();
+
+			if(!val || !confirm("<?php echo $warning_template_content; ?>")) return;
+
+			$.ajax({ 
+				url: '<?php echo html_entity_decode($templates_action); ?>',
+				type: 'get',
+				data: 'id=' + val + '&store_id=' + store_id,
+				dataType: 'json',
+				success: function(json) {
+					for(i in json) {
+ 						language_id = json[i]['language_id'];
+						
+ 						if(json[i]['emailtemplate']['subject']){
+							$("input[name='subject[" + language_id + "]']").val(json[i]['emailtemplate']['subject']);
+						}
+
+						$("#message_" + language_id).val(json[i]['emailtemplate']['comment']);
+
+						if(typeof CKEDITOR !== "undefined"){
+							CKEDITOR.instances["message_" + language_id].setData(json[i]['emailtemplate']['comment']);
+						}
+					}
+				},
+				error: function(xhr, ajaxOptions, thrownError) {
+                    console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                    alert('Error. More details in console.');
+            	}
+			});	
+		});
+					
+ });	// doc.ready
+})(jQuery); ]]></add>
+	</operation>
+</file>
+
+<!-- admin.voucher -->
+<file name="admin/model/sale/voucher.php">
+	<operation>
+	    <search position="replace"><![CDATA[
+	    $template = new Template(); ]]></search>
+	    <add><![CDATA[
+	        $template = new EmailTemplate($this->request, $this->registry);
+			$template->addData($voucher_info); ]]></add>
+	</operation>
+	<operation error="skip" info="OC:1.5.0.5">
+	    <search position="replace"><![CDATA[
+	    $template->data['image'] = 'cid:' . basename($voucher_theme_info['image']); ]]></search>
+	    <add><![CDATA[
+	    $template->data['image'] = HTTP_CATALOG . 'image/' . $voucher_theme_info['image']; ]]></add>
+	</operation>
+	<operation error="skip" info="OC:1.5.1.3">
+	    <search position="replace"><![CDATA[
+	    $template->data['image'] = 'cid:' . md5(basename($voucher_theme_info['image'])); ]]></search>
+	    <add><![CDATA[
+	    $template->data['image'] = HTTP_CATALOG . 'image/' . $voucher_theme_info['image']; ]]></add>
+	</operation>
+	<operation error="skip">
+	    <search position="replace"><![CDATA[
+	    $mail->addAttachment(DIR_IMAGE . $voucher_theme_info['image'], md5(basename($voucher_theme_info['image']))); ]]></search>
+	    <add/>
+	</operation>
+	<operation>
+	    <search position="replace"><![CDATA[
+	    $mail->setHtml($template->fetch('mail/voucher.tpl')); ]]></search>
+	    <add><![CDATA[list($width, $height) = getimagesize(DIR_IMAGE . $voucher_theme_info['image']);
+			$template->data['image_width'] = $width;
+			$template->data['image_height'] = $height;
+	
+			$template->load(array(
+				'key' => 'admin.voucher',
+				'store_id' => $order_info['store_id'],
+				'language_id' => $order_info['language_id']
+			));
+	
+			$mail = $template->hook($mail); ]]></add>
+	</operation>
+</file>
+
+<!-- admin.customer_approve -->
+<file name="admin/model/sale/customer.php">
+	<operation>
+		<search position="before" index="1"><![CDATA[
+			$this->language->get('text_approve_welcome') ]]></search>
+		<add><![CDATA[
+ 		if ($store_info) {
+			$store_url = ($this->config->get('config_secure') ? $store_info['ssl'] : $store_info['url']);
+			$account_login = ($this->config->get('config_secure') ? $store_info['ssl'] : $store_info['url']) . 'index.php?route=account/login';
+		} else {
+			$store_url = ($this->config->get('config_secure') ? HTTPS_CATALOG : HTTP_CATALOG);
+			$account_login = ($this->config->get('config_secure') ? HTTPS_CATALOG : HTTP_CATALOG) . 'index.php?route=account/login';
+		}
+		]]></add>
+	</operation>		
+	<operation>
+		<search position="replace"><![CDATA[
+            $message .= $store_url . "\n\n"; ]]></search>
+		<add><![CDATA[
+           	$message .= $account_login . "\n\n"; ]]></add>
+	</operation>
+	<operation>
+		<search position="after" index="1"><![CDATA[
+            $this->language->get('text_approve_subject') ]]></search>
+		<add><![CDATA[                        
+            $template = new EmailTemplate($this->request, $this->registry);
+		
+			$template->addData($customer_info, 'customer');
+			            
+			$template->data['text_welcome'] = sprintf($this->language->get('text_approve_welcome'), $store_name);
+
+			$template->data['account_login'] = $account_login;
+			$template->data['account_login_tracking'] = $template->getTracking($account_login); ]]></add>
+        </operation>
+		<operation>
+            <search position="before" index="1"><![CDATA[
+            $mail->send(); ]]></search>
+            <add><![CDATA[            $template_data = array('key' =>'admin.customer_approve');
+			if(isset($customer_info['store_id'])){
+				$template_data['store_id'] = $customer_info['store_id'];
+			}
+			if(isset($customer_info['language_id'])){
+				$template_data['language_id'] = $customer_info['language_id'];
+			}
+
+            $template->load($template_data);
+			
+			$mail = $template->hook($mail); ]]></add>
+        </operation>
+</file>
+
+<!-- admin.customer_transaction -->
+<file name="admin/model/sale/customer.php">
+	<operation info="method:addTransaction">
+		<search position="after" index="1"><![CDATA[
+            $this->language->get('text_transaction_subject') ]]></search>
+		<add><![CDATA[
+            $template = new EmailTemplate($this->request, $this->registry);
+		
+			$template->addData('amount', $amount);
+			$template->addData('description', $description);
+
+			$template->addData($customer_info, 'customer');
+
+			if($order_id){
+				$this->load->model('sale/order');		
+				$order_info = $this->model_sale_order->getOrder($order_id);
+
+				$template->addData($order_info, 'order');
+			}
+			
+			$template->data['transaction_received'] = sprintf($this->language->get('text_transaction_received'), $this->currency->format($amount, $this->config->get('config_currency')));
+			$template->data['transaction_total'] = sprintf($this->language->get('text_transaction_total'), $this->currency->format($this->getTransactionTotal($customer_id))); ]]></add>
+	</operation>
+	<operation info="method:addTransaction">
+		<search position="replace" index="2"><![CDATA[
+            $mail->send(); ]]></search>
+		<add><![CDATA[
+            $template_data = array('key' =>'admin.customer_transaction');
+			if(isset($customer_info['store_id'])){
+				$template_data['store_id'] = $customer_info['store_id'];
+			}
+			if(isset($customer_info['language_id'])){
+				$template_data['language_id'] = $customer_info['language_id'];
+			}
+
+            $template->load($template_data);
+
+			$mail = $template->hook($mail); 
+
+			$mail->send();
+
+			$template->sent(); ]]></add>
+	</operation>
+</file>
+
+<!-- admin.customer_reward -->
+<file name="admin/model/sale/customer.php">
+	<operation info="method:addReward">
+		<search position="after" index="1"><![CDATA[
+            $this->language->get('text_reward_subject') ]]></search>
+		<add><![CDATA[
+            $template = new EmailTemplate($this->request, $this->registry);
+            		
+			$template->addData($customer_info, 'customer');
+			
+			$template->data['reward_received'] = sprintf($this->language->get('text_reward_received'), $points);
+			$template->data['reward_total'] = sprintf($this->language->get('text_reward_total'), $this->getRewardTotal($customer_id));]]></add>
+	</operation>
+	<operation info="method:addReward">
+		<search position="replace" index="3"><![CDATA[
+            $mail->send(); ]]></search>
+		<add><![CDATA[            $template_data = array('key' =>'admin.customer_reward');
+			if(isset($customer_info['store_id'])){
+				$template_data['store_id'] = $customer_info['store_id'];
+			}
+			if(isset($customer_info['language_id'])){
+				$template_data['language_id'] = $customer_info['language_id'];
+			}
+
+            $template->load($template_data);
+			
+			$mail = $template->hook($mail); 
+
+			$mail->send();
+			
+			$template->sent(); ]]></add>
+	</operation>
+</file>
+
+<!-- admin.return_history -->
+<file name="admin/controller/sale/return.php">
+	<operation error="skip">
+		<search position="replace"><![CDATA[
+            $this->language->load('sale/return'); ]]></search>
+		<add trim="true"><![CDATA[
+			$this->language->load_full('sale/return'); ]]></add>
+	</operation>
+	<operation error="skip" info="Opencart 1.5.3"> 
+		<search position="replace"><![CDATA[
+            $this->load->language('sale/return'); ]]></search>
+		<add><![CDATA[
+			$this->language->load_full('sale/return'); ]]></add>
+	</operation>
+	<operation>
+		<search position="after" index="1"><![CDATA[
+            $this->data['entry_notify'] = $this->language->get('entry_notify'); ]]></search>
+		<add><![CDATA[
+			$this->language->load_full('sale/return');
+
+            $this->data['entry_summary'] = $this->language->get('entry_summary');
+            $this->data['entry_show_summary'] = $this->language->get('entry_show_summary');
+			$this->data['entry_template'] = $this->language->get('entry_template');
+			$this->data['text_select'] = $this->language->get('text_select');
+ 			$this->data['warning_template_content'] = $this->language->get('warning_template_content');
+ 
+			$this->load->model('module/emailtemplate');
+
+            $templates = $this->model_module_emailtemplate->getTemplates(array(
+				'emailtemplate_key' => 'admin.return_history'
+			));
+
+			$this->data['templates_options'] = array();
+
+			foreach($templates as $row){
+				$label = $row['emailtemplate_label'];
+
+				if($row['emailtemplate_default']){
+					$label = $this->language->get('text_default') . ' - ' . $label;
+				}
+
+				$this->data['templates_options'][] = array(
+					'value' => $row['emailtemplate_id'],
+					'label' => $label
+				);
+			}
+
+            $this->data['templates_action'] = $this->url->link('module/emailtemplate/fetch_template', 'output=comment&token='.$this->session->data['token'], 'SSL'); ]]></add>
+	</operation>
+	<operation>
+		<search position="after"><![CDATA[
+            $order_info = $this->model_sale_order->getOrder($return_info['order_id']); ]]></search>
+		<add trim="true"><![CDATA[
+			if($order_info){
+            	$this->data['language_id'] = $order_info['language_id'];
+ 				$this->data['store_id'] = $order_info['store_id']; 
+			} else {
+				$this->data['language_id'] = $this->config->get('config_language_id');
+ 				$this->data['store_id'] = 0; 
+			} ]]></add>
+	</operation>	
+	<operation error="skip">
+		<search position="replace"><![CDATA[
+            nl2br($result['comment']) ]]></search>
+		<add trim="true"><![CDATA[
+            (EmailTemplate::isHTML($result['comment'])) ? html_entity_decode($result['comment'], ENT_QUOTES, 'UTF-8') : nl2br($result['comment'], true) ]]></add>
+	</operation>
+</file>
+
+<file name="admin/model/sale/return.php">
+	<operation>
+		<search position="after" index="1"><![CDATA[
+            $this->db->query("INSERT INTO " . DB_PREFIX . "return_history ]]></search>
+        <ignoreif><![CDATA[
+            $return_history_id = $this->db->getLastId(); ]]></ignoreif>
+		<add><![CDATA[		$return_history_id = $this->db->getLastId();]]></add>
+	</operation>
+	<operation>
+		<search position="after" index="1"><![CDATA[
+            if ($return_query->num_rows) { ]]></search>
+		<add><![CDATA[            
+			$this->load->model('localisation/return_reason');
+			$return_reason_info = $this->model_localisation_return_reason->getReturnReason($return_query->row['return_reason_id']); ]]></add>
+	</operation>
+	<operation>
+		<search position="after"><![CDATA[
+            $message .= $this->language->get('text_footer'); ]]></search>
+		<add><![CDATA[            
+			$this->load->model('sale/order');
+			$order_info = $this->model_sale_order->getOrder($return_query->row['order_id']);
+			$store_id = $order_info['store_id'];
+			
+			$template = new EmailTemplate($this->request, $this->registry);
+									
+			$template->addData($return_query->row);
+			$template->addData($data);
+			$template->addData($order_info, 'order');
+
+			$template->data['return_id'] = $return_id;
+			$template->data['date_added'] = date($this->language->get('date_format_short'), strtotime($return_query->row['date_added']));
+			$template->data['status'] = $return_query->row['status'];
+			$template->data['comment'] = (isset($data['comment'])) ? (strcmp($data['comment'], strip_tags($html_str = html_entity_decode($data['comment'], ENT_QUOTES, 'UTF-8'))) == 0) ? nl2br($data['comment']) : $html_str : '';
+			$template->data['reason'] = ($return_reason_info) ? $return_reason_info['name'] : '';
+			$template->data['opened'] = $return_query->row['opened'] ? $this->language->get('text_yes') : $this->language->get('text_no');
+			$template->data['show_summary'] = isset($data['show_summary']) ? $data['show_summary'] : 0; ]]></add>
+	</operation>
+	<operation>
+		<search position="replace" index="1"><![CDATA[
+            $mail->send(); ]]></search>
+		<add><![CDATA[
+            $template_data = array('key' => 'admin.return_history');
+			if(isset($order_info['store_id'])){
+				$template_data['store_id'] = $order_info['store_id'];
+			}
+			if(isset($order_info['language_id'])){
+				$template_data['language_id'] = $order_info['language_id'];
+			}
+
+            $template->load($template_data);
+		
+			$mail = $template->hook($mail);
+ 
+			$mail->send(); 
+
+			$template->sent(); 
+
+			$this->db->query("UPDATE " . DB_PREFIX . "return_history SET comment = '" . $this->db->escape($template->data['comment']) . "' WHERE return_history_id = '" . (int)$return_history_id . "'"); ]]></add>
+	</operation>
+	<operation error="skip">
+		<search position="replace"><![CDATA[
+            comment = '" . $this->db->escape(strip_tags($data['comment'])) . "' ]]></search>
+		<add trim="true"><![CDATA[
+            comment = '" . $this->db->escape($data['comment']) . "' ]]></add>
+	</operation>
+</file>
+    
+<file name="admin/view/template/sale/return_info.tpl">
+	<operation info="Add return summary option">
+		<search position="after"><![CDATA[
+            <td><input type="checkbox" name="notify" value="1" /></td> ]]></search>
+		<add><![CDATA[
+          </tr>
+          <tr id="summaryRow" style="display: none">
+            <td><?php echo $entry_summary; ?></td>
+            <td>
+           		<label><input type="checkbox" name="show_summary" value="1" style="vertical-align: middle;" /> <?php echo $entry_show_summary; ?></label><br />
+ 		  <?php if(!empty($templates_options)){ ?>			
+		  </td>
+		  </tr>
+          <tr class="emailOptions" style="display: none">
+            <td><?php echo $entry_template; ?></td>
+            <td>
+            	<select id="field_templates" name="field_template">
+	 				<option value=''><?php echo $text_select; ?></option>
+	            	<?php foreach($templates_options as $item){ ?>
+	            		<option value="<?php echo $item['value']; ?>"><?php echo $item['label']; ?></option>
+	            	<?php } ?>
+            	</select>
+		  <?php } ?>]]></add>
+	</operation>
+    <operation>
+		<search position="after"><![CDATA[
+            $('.vtabs a').tabs(); ]]></search>
+		<add><![CDATA[//--></script> 			
+            <script type="text/javascript" src="view/javascript/ckeditor/ckeditor.js"></script>
+			<script type="text/javascript"><!--
+			// Order history show/hide summary options
+			(function($){
+				function showEmailOptions($row, $checkbox){
+					if($checkbox.is(':checked')) { 
+						$row.show(); 
+					} else { 
+						$row.hide(); 
+					}
+				}	
+   
+				$(document).ready(function() {
+					$('input[name=notify]').eq(0).each(function(){
+						showEmailOptions($('.emailOptions'), $(this));
+					}).change(function(){
+						showEmailOptions($('.emailOptions'), $(this));
+					});
+
+					$('select#field_templates').change(function(){			
+						var val = $(this).val();
+						if (!val || !confirm("<?php echo $warning_template_content; ?>")) return;
+						$.ajax({
+							url: '<?php echo html_entity_decode($templates_action); ?>',
+							type: 'get',
+							data: 'id=' + val + '&store_id=<?php echo $store_id; ?>' + '&language_id=<?php echo $language_id; ?>' + '&order_id=<?php echo $order_id; ?>' + '&return_id=<?php echo $return_id; ?>',
+							dataType: 'html',
+							success: function(html) {
+								$('textarea[name=comment]').val(html);
+
+								if(typeof CKEDITOR !== "undefined")
+									CKEDITOR.instances['comment'].setData(html);
+							},
+							error: function(xhr, ajaxOptions, thrownError) {
+								console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+								alert('Error. More details in console.');
+							}
+						});	
+					});
+				});	
+			})(jQuery);		
+			
+			if(typeof CKEDITOR !== "undefined"){
+				CKEDITOR.replace('comment', {
+					filebrowserImageBrowseUrl: 'index.php?route=common/filemanager&token=<?php echo $token; ?>',
+					filebrowserUploadUrl: 'index.php?route=common/filemanager&token=<?php echo $token; ?>',
+					filebrowserImageUploadUrl: 'index.php?route=common/filemanager&token=<?php echo $token; ?>'
+				}); 
+
+				// Output dimensions of images as width and height
+				CKEDITOR.on('instanceReady', function (ev) {
+					ev.editor.dataProcessor.htmlFilter.addRules({
+						elements: {
+							$: function(element){                
+								if (element.name == 'img') {
+									var style = element.attributes.style;
+
+									if (style) {
+										// Get the width from the style.
+										var match = /(?:^|\s)width\s*:\s*(\d+)px/i.exec(style),
+											width = match && match[1];
+
+										// Get the height from the style.
+										match = /(?:^|\s)height\s*:\s*(\d+)px/i.exec(style);
+										var height = match && match[1];
+
+										if (width) {
+											element.attributes.style = element.attributes.style.replace(/(?:^|\s)width\s*:\s*(\d+)px;?/i, '');
+											element.attributes.width = width;
+										}
+
+										if (height) {
+											element.attributes.style = element.attributes.style.replace(/(?:^|\s)height\s*:\s*(\d+)px;?/i, '');
+											element.attributes.height = height;
+										}
+									}
+								}
+
+								if (!element.attributes.style) delete element.attributes.style;
+
+								return element;
+							}
+						}
+					});
+				}); 
+			} ]]></add>
+	</operation>
+	<operation>
+		<search position="after"><![CDATA[
+            function history() { ]]></search>
+		<add><![CDATA[
+            // Force CKEDITOR instance in the form to update their respective fields
+            if(typeof CKEDITOR !== "undefined")
+				CKEDITOR.instances.comment.updateElement(); ]]></add>
+	</operation>
+	<operation error="skip">
+		<search position="before"><![CDATA[
+            $('textarea[name=\'comment\']').val(''); ]]></search>
+		<add><![CDATA[
+            // Clear CKEDITOR data
+			if(typeof CKEDITOR !== "undefined")
+            	CKEDITOR.instances.comment.setData(''); ]]></add>
+	</operation>
+    <operation info="Add checkboxes into ajax post data">
+		<search position="replace"><![CDATA[
+            + '&notify=' ]]></search>
+		<add trim="true"><![CDATA[
+            + '&show_summary=' + encodeURIComponent($('input[name=\'show_summary\']').attr('checked') ? 1 : 0) 
+			+ ($('select[name=\'field_template\']').val() ? '&field_template=' + $('select[name=\'field_template\']').val() : '')
+			+ '&notify=' ]]></add>
+	</operation>
+</file>
+
+<!-- admin.affiliate_approve -->
+<file name="admin/model/sale/affiliate.php">
+	<operation>
+		<search position="before"><![CDATA[
+            $message .= $this->config->get('config_name'); ]]></search>
+		<add><![CDATA[
+            $template = new EmailTemplate($this->request, $this->registry);
+            
+			$template->addData($affiliate_info);                      
+			$template->data['text_welcome'] = sprintf($this->language->get('text_approve_welcome'), $this->config->get('config_name'));
+			$template->data['affiliate_login'] = HTTP_CATALOG . 'index.php?route=affiliate/login';
+			$template->data['affiliate_login_tracking'] =  $template->getTracking($template->data['affiliate_login']);]]></add>
+	</operation>
+	<operation>
+		<search position="replace" index="1"><![CDATA[
+            $mail->send(); ]]></search>
+		<add><![CDATA[            $template->load(array(
+				'key' => 'admin.affiliate_approve'
+			));
+			
+			$mail = $template->hook($mail);
+
+ 			$mail->send();
+
+			$template->sent(); ]]></add>
+	</operation>
+</file>
+
+<!-- admin.affiliate_transaction -->
+<file name="admin/model/sale/affiliate.php">
+	<operation>
+		<search position="after" index="1"><![CDATA[
+			$this->language->get('text_transaction_subject') ]]></search>
+		<add><![CDATA[
+            $template = new EmailTemplate($this->request, $this->registry);
+                        
+			$template->data['text_received'] = sprintf($this->language->get('text_transaction_received'), $this->currency->format($amount, $this->config->get('config_currency')));
+			$template->data['text_total'] = sprintf($this->language->get('text_transaction_total'), $this->currency->format($this->getTransactionTotal($affiliate_id), $this->config->get('config_currency'))); ]]></add>
+	</operation>
+	<operation>
+		<search position="replace" index="2"><![CDATA[
+            $mail->send(); ]]></search>
+		<add><![CDATA[            $template->load('admin.affiliate_transaction');
+			$mail = $template->hook($mail);
+ 			$mail->send();
+			$template->sent(); ]]></add>
+	</operation>
+</file>
+
+<!-- admin.customer_create -->
+<file name="admin/view/template/sale/customer_form.tpl">
+	<operation>
+		<search position="before" index="1"><![CDATA[
+           <td><?php echo $entry_status; ?></td> ]]></search>
+		<add><![CDATA[					
+                <td><?php echo $entry_notify; ?></td>
+                <td>
+                    <input type="checkbox" name="notify" value="1"<?php if ($notify) { ?> selected="selected" <?php } ?> />
+				</td>
+            </tr>
+			<tr>]]></add>
+	</operation>
+</file>
+
+<file name="admin/controller/sale/customer.php">
+	<operation>
+		<search position="before" index="1"><![CDATA[
+           if (isset($this->request->post['password'])) {  ]]></search>
+		<add><![CDATA[
+		$this->language->load_full('sale/customer');
+		
+		$this->data['entry_notify'] = $this->language->get('entry_notify');
+
+        if (isset($this->request->post['notify'])) { 
+			$this->data['notify'] = 1;
+		} else {
+			$this->data['notify'] = 0;
+		}; ]]></add>
+	</operation>
+</file>
+
+<file name="admin/model/sale/customer.php">
+	<operation>
+		<search position="after" index="1" offset="3"><![CDATA[
+            $this->db->query("UPDATE " . DB_PREFIX . "customer SET address_id = ' ]]></search>
+		<add><![CDATA[
+		if(isset($data['notify'])){
+			$template = new EmailTemplate($this->request, $this->registry);
+			
+			$template->addData($data);
+
+			$template->data['newsletter'] = $this->language->get((isset($data['newsletter']) && $data['newsletter'] == 1) ? 'text_yes' : 'text_no');
+
+			$template->data['account_login'] = $this->url->link('account/login', 'email=' . $data['email'], 'SSL');
+			$template->data['account_login_tracking'] = $template->getTracking($template->data['account_login']);
+
+			if(isset($data['customer_group_id']) && $data['customer_group_id']){
+				$this->load->model('sale/customer_group');		
+				$customer_group_info = $this->model_sale_customer_group->getCustomerGroup($data['customer_group_id']);
+				$template->data['customer_group'] = $customer_group_info['name'];
+			}
+
+			if(isset($address_id)){
+				$address =  $this->getAddress($address_id);
+				$template->data['address'] = EmailTemplate::FormatAddress($address, '', $address['address_format']);
+			}
+
+			$template->load('admin.customer_create');
+
+			$template->send(); 
+  		} // notify ]]></add>
+	</operation>
+</file>
+</modification>

@@ -1,0 +1,216 @@
+<?php require( DIR_TEMPLATE.$this->config->get('config_template')."/template/common/config.tpl" ); ?>
+<?php echo $header; ?>
+<?php require( DIR_TEMPLATE.$this->config->get('config_template')."/template/common/breadcrumb.tpl" );  ?>	
+
+<div class="container">
+<div class="row">
+
+	<?php if( $SPAN[0] ): ?>
+	<aside class="col-lg-<?php echo $SPAN[0];?> col-md-<?php echo $SPAN[0];?> col-sm-12 col-xs-12">
+		<?php echo $column_left; ?>
+	</aside>
+	<?php endif; ?> 
+
+	<section class="col-lg-<?php echo $SPAN[1];?> col-md-<?php echo $SPAN[1];?> col-sm-12 col-xs-12">
+		<div id="content">
+			<?php echo $content_top; ?>
+			<h1><?php echo $heading_title; ?></h1>
+			<div class="sitemap-info wrapper">
+				
+					<?php $count=1; foreach ($categories as $category_1) { ?>
+					<?php if($count==1)  { ?>
+					<div class="row">
+					<?php } ?>
+					<?php if($count==1 || $count==2 || $count==3) {?>
+					<div class="col-lg-4 col-sm-4 col-xs-12">
+							<div class="inner">
+								<ul>
+									
+									<li>
+										<a href="<?php echo $category_1['href']; ?>"><?php echo $category_1['name']; ?></a>
+										<?php if ($category_1['children']) { ?>
+										<ul>
+											<?php foreach ($category_1['children'] as $category_2) { ?>
+											<li>
+												<a href="<?php echo $category_2['href']; ?>"><?php echo $category_2['name']; ?></a>
+												<?php if ($category_2['children']) { ?>
+												<ul>
+													<?php foreach ($category_2['children'] as $category_3) { ?>
+													<li><a href="<?php echo $category_3['href']; ?>"><?php echo $category_3['name']; ?></a></li>
+													<?php } ?>
+												</ul>
+												<?php } ?>
+											</li>
+											<?php } ?>
+										</ul>
+										<?php } ?>
+									</li>
+									
+								</ul>
+							</div>
+						</div>
+					<?php } ?>	
+					<?php if($count==3)  { ?>
+					</div>
+					<?php } ?>
+
+
+					<?php if($count==4)  { ?>
+					<div class="row">
+					<?php } ?>
+					<?php if($count==4) {?>
+					<div class="col-lg-12 col-sm-12 col-xs-12">
+							<div class="inner">
+								<ul>
+									
+									<li class="col-lg-12 col-sm-12 col-xs-12">
+										<a href="<?php echo $category_1['href']; ?>"><?php echo $category_1['name']; ?></a>
+										<?php if ($category_1['children']) { ?>
+										<ul>
+											<?php foreach ($category_1['children'] as $category_2) { ?>
+											<li class="col-lg-4 col-sm-4 col-xs-12">
+												<a href="<?php echo $category_2['href']; ?>"><?php echo $category_2['name']; ?></a>
+												<?php if ($category_2['children']) { ?>
+												<ul>
+													<?php foreach ($category_2['children'] as $category_3) { ?>
+													<li><a href="<?php echo $category_3['href']; ?>"><?php echo $category_3['name']; ?></a></li>
+													<?php } ?>
+												</ul>
+												<?php } ?>
+											</li>
+											<?php } ?>
+										</ul>
+										<?php } ?>
+									</li>
+									
+								</ul>
+							</div>
+						</div>
+					<?php } ?>	
+					<?php if($count==4)  { ?>
+					</div>									
+
+					<?php } ?>
+
+
+					<?php if($count==5)  { ?>
+					<div class="row last">
+					<?php } ?>
+					<?php if($count==5 || $count==6 || $count==7 || $count==8 || $count==9 || $count==10) {?>
+					<div class="col-lg-4 col-sm-4 col-xs-12">
+							<div class="inner">
+								<ul>
+									
+									<li>
+										<a href="<?php echo $category_1['href']; ?>"><?php echo $category_1['name']; ?></a>
+										<?php if ($category_1['children']) { ?>
+										<ul>
+											<?php foreach ($category_1['children'] as $category_2) { ?>
+											<li>
+												<a href="<?php echo $category_2['href']; ?>"><?php echo $category_2['name']; ?></a>
+												<?php if ($category_2['children']) { ?>
+												<ul>
+													<?php foreach ($category_2['children'] as $category_3) { ?>
+													<li><a href="<?php echo $category_3['href']; ?>"><?php echo $category_3['name']; ?></a></li>
+													<?php } ?>
+												</ul>
+												<?php } ?>
+											</li>
+											<?php } ?>
+										</ul>
+										<?php } ?>
+									</li>
+									
+								</ul>
+							</div>
+						</div>
+					<?php } ?>	
+					<?php if($count==10)  { ?>
+					</div>
+					<?php } ?>
+
+
+
+					<?php $count++; } ?>
+
+
+
+					
+					<!----	 <div class="row">
+					
+					
+					<div class="col-lg-12 col-sm-12 col-xs-12">
+							<div class="inner">
+								<ul>
+									
+									<li class="col-lg-12 col-sm-12 col-xs-12">
+										<a href="#">Brands</a>
+										
+										<ul>
+											
+											<li class="col-lg-4 col-sm-4 col-xs-12">
+												<a href="#">Adidas</a>
+											</li>
+											<li class="col-lg-4 col-sm-4 col-xs-12">
+												<a href="#">Adidas</a>
+											</li>
+											
+										</ul>
+										
+									</li>
+									
+								</ul>
+							</div>
+						</div>
+					
+					</div>						
+
+
+
+
+
+
+				<div class="col-lg-4 col-sm-4 col-xs-12">
+						<div class="inner">
+							<ul>
+								<?php foreach ($categories as $category_1) { ?>
+								<li>
+									<a href="<?php echo $category_1['href']; ?>"><?php echo $category_1['name']; ?></a>
+									<?php if ($category_1['children']) { ?>
+									<ul>
+										<?php foreach ($category_1['children'] as $category_2) { ?>
+										<li>
+											<a href="<?php echo $category_2['href']; ?>"><?php echo $category_2['name']; ?></a>
+											<?php if ($category_2['children']) { ?>
+											<ul>
+												<?php foreach ($category_2['children'] as $category_3) { ?>
+												<li><a href="<?php echo $category_3['href']; ?>"><?php echo $category_3['name']; ?></a></li>
+												<?php } ?>
+											</ul>
+											<?php } ?>
+										</li>
+										<?php } ?>
+									</ul>
+									<?php } ?>
+								</li>
+								<?php } ?>
+							</ul>
+						</div>
+					</div>---->
+				
+					
+				
+			</div>
+			<?php echo $content_bottom; ?>
+		</div>
+	</section> 
+		
+	<?php if( $SPAN[2] ): ?>
+	<aside class="col-lg-<?php echo $SPAN[2];?> col-md-<?php echo $SPAN[2];?> col-sm-12 col-xs-12">	
+		<?php echo $column_right; ?>
+	</aside>
+	<?php endif; ?>
+
+</div></div>	
+
+<?php echo $footer; ?>

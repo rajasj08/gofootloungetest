@@ -1,0 +1,84 @@
+<!-- Created using vQmod XML Generator by UKSB - http://uksb.github.com/vqgen/ //-->
+<modification>
+	<id><![CDATA[voucher-on-purchase-lib]]></id>
+	<version><![CDATA[1.5.x]]></version>
+	<vqmver><![CDATA[2.3.2]]></vqmver>
+	<author><![CDATA[atir:kodecube.com]]></author>
+	<file name="system/library/cart.php">
+		<operation>
+			<search position="after"><![CDATA[public function getTaxes() {]]></search>
+			<add><![CDATA[
+			
+			$query = $this->db->query("SELECT `value` FROM ".DB_PREFIX."setting WHERE `key` LIKE 'purchasevoucher_total_methods'");
+			
+$arr = explode('|',$query->row['value']);
+
+foreach($arr as $tot) {
+
+	if ($tot=="tax") {
+$taxallow = 1;
+
+}
+else 
+{
+$taxallow = 0;
+
+ }
+
+}]]></add>
+		</operation>
+		<operation>
+			<search position="replace"><![CDATA[$tax_data[$tax_rate['tax_rate_id']] += ($tax_rate['amount'] * $product['quantity']);]]></search>
+			<add><![CDATA[$tax_data[$tax_rate['tax_rate_id']] += ($tax_rate['amount'] * $product['quantity']);
+					}
+				}
+					}
+		
+
+
+elseif ($product['voucher'] != "1" ) {
+			
+		$tax_rates = $this->tax->getRates($product['price'], $product['tax_class_id']);
+				
+				foreach ($tax_rates as $tax_rate) {
+					if (!isset($tax_data[$tax_rate['tax_rate_id']])) {
+						$tax_data[$tax_rate['tax_rate_id']] = ($tax_rate['amount'] * $product['quantity']);
+					} else {
+						$tax_data[$tax_rate['tax_rate_id']] += ($tax_rate['amount'] * $product['quantity']);
+					
+}]]></add>
+		</operation>
+		<operation>
+			<search position="after"><![CDATA[if ($product['tax_class_id']) {]]></search>
+			<add><![CDATA[if (($product['voucher'] == "1" ) && ($taxallow == 1)) 
+{]]></add>
+		</operation>
+		<operation>
+			<search position="before"><![CDATA[return $shipping;]]></search>
+			<add><![CDATA[if (isset($_SESSION["voucherproduct"]))
+{
+if ($_SESSION["voucherproduct"] == "true"){
+	$query = $this->db->query("SELECT `value` FROM ".DB_PREFIX."setting WHERE `key` LIKE 'purchasevoucher_total_methods'");
+			
+$arr = explode('|',$query->row['value']);
+
+
+
+
+
+foreach($arr as $tot) {
+
+
+
+	if ($tot=="shipping")
+$shipping = false;
+} }
+
+}]]></add>
+		</operation>
+		<operation>
+			<search position="after"><![CDATA['product_id'                => $product_query->row['product_id'],]]></search>
+			<add><![CDATA['voucher'                     => ($product_query->row['voucher'] ? $product_query->row['voucher']: 0),]]></add>
+		</operation>
+	</file>
+</modification>

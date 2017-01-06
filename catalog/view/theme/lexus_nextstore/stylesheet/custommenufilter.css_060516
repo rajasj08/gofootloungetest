@@ -1,0 +1,95 @@
+/* Filter styles*/ 
+@media (min-width: 320px) and (max-width: 677px) {
+	.first{display:block;}
+	 /*.mobilemenu{display:block;}  */
+	 
+
+	.mobilemenu{background: rgb(240, 226, 216) none repeat scroll 0% 0%;} 
+	#page .filter_box dl.filters dd ul li{ line-height: 18px;}
+	/*new styles*/
+
+	#navbar-collapseid{
+		overflow:scroll !important; 
+		max-height:200px !important;
+	    padding-left:0px !important;
+	    padding-right: 0px !important;
+	    width:202px;
+	    border-top-left-radius:10px !important;
+		border-top-right-radius:10px !important;
+		border: 2px solid rgb(245, 134, 52) !important;  
+	 }   
+	.navbar-toggle{display:block;}  
+	#content{ margin-top: 20px; }
+	.sidebar{padding: 0px !important;} 
+
+	/* filter fixed*/
+	.flitercls{
+		 background-color:rgb(245, 134, 52) !important; 
+		 color:#FFF; text-align:center;
+		 font-size:14px; 
+		 font-weight: bold;
+		 display: block !important;  
+		 position: fixed;
+		 z-index: 9999;
+		 width:200px;
+		 border-top-left-radius:6px !important;
+		 border-top-right-radius:8px !important;      
+		 height:30px; 
+		 padding: 5px;  
+	}
+	#column-left{position:fixed; z-index:9999; top:115px;}   
+
+	#sticky {
+	   /* padding: 0.5ex;
+	    width: 600px;
+	    background-color: #333;
+	    color: #fff;
+	    font-size: 2em;
+	    border-radius: 0.5ex;*/
+	    float:right !important;
+	    background-color:rgb(245, 134, 52) !important;
+	    bottom:18px !important;
+	    padding:5px !imporatant;
+	    margin-top:10px !important;
+	    text-align:center; left:8px !important;
+	    margin-bottom:0px !important; 
+	    height:35px; 
+	    display:none;  
+	}
+
+	#sticky.stick {
+	    margin-top: 0 !important;
+	    position: fixed;
+	    top: 100px;
+	  
+	    z-index: 10000;
+	    border-top-right-radius: 0.5em;
+	    border-bottom-right-radius: 0.5em;  
+	}
+
+	.filterdisplay{ display: none !important;} 
+	
+
+	.filter_box{
+		position: relative;
+		top:30px;  
+
+	}
+
+	
+}
+
+@media (min-width: 678px) {
+  /*.mobilemenu{display:none;}  */
+  .normalmenu{display:block;} 
+  .navbar-toggle{display:none;}
+ .flitercls{display:none;} 
+  /*new styles*/
+.mobilemenu{display:block;} 
+#navbar-collapseid{
+}  
+.navbar-collapse.collapse{ max-height:auto !important;} 
+
+
+}   
+

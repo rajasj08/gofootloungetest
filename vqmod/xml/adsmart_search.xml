@@ -1,0 +1,995 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<modification>
+
+    <id>Advanced Smart Search</id>
+    <version>3.0.1</version>
+    <vqmver>2.5.1+</vqmver>
+    <author>Frank - francesco1279@gmail.com - Leverod.com</author>
+
+
+<!-- System -->
+    
+    <!-- Add debug and demo constants -->
+    
+    <file name="system/startup.php">
+        <operation error="log" >
+            <search position="after" ><![CDATA[error_reporting(]]></search>
+            <add><![CDATA[  
+
+            // Advanced Smart Search
+                
+                define('ADSMART_SRC_DEBUG', false);
+                define('ADSMART_SRC_DEBUG_SHOW_SQL', false);
+                define('ADSMART_SRC_SPEED_TEST', false);
+                define('ADSMART_SRC_DEMO', false );
+                define('ADSMART_SRC_DEMO_RESET_TIME', 45 );
+                
+                require_once(DIR_SYSTEM . 'library/inflect.php');
+            
+            // END Advanced Smart Search
+            
+            ]]></add>
+        </operation>
+    </file>
+    
+    
+    <file name="system/library/cache.php">
+        <operation info="add custom cache functions" >
+            <search position="before" ><![CDATA[public function get($key) {]]></search>
+            <add><![CDATA[  
+        
+            // Returns the product data or an empty array if nothing found
+            
+            public function adsmart_search_get($hash, $label='') {
+    
+    
+                $files = glob(DIR_CACHE . 'cache-'.$label.'.' . preg_replace('/[^A-Z0-9\._-]/i', '', $hash) . '.*');
+        // (2)  
+                if ($files) {
+            
+                    $cache = file_get_contents($files[0]); // if there are multiple files we pick only the first one
+                
+                    $data = unserialize($cache);
+
+                    foreach ($files as $file) {
+                        $time = substr(strrchr($file, '.'), 1);
+
+                        if ($time < time()) {
+                            
+                            if (file_exists($file)) {
+                                unlink($file);
+                            }
+                        }
+                    }
+
+                    global $registry;
+                    $registry->set('product_total', $data['product_total']);
+                    
+                    // delete the total number of products and search options from the array $data 
+                    unset($data['product_total']);
+                    unset($data['search_options']);
+
+                    return $data ; /* don't remove the extra space between $data and ; */
+                }
+                else {
+                    return array();
+                }
+            }
+
+            
+            
+            
+            public function adsmart_search_set($current_search_options, $value, $product_total, $label='', $expire=3600) {
+                
+                // http_build_query() converts the associative array into string
+                $hash = md5(http_build_query($current_search_options));
+            
+                
+                $this->adsmart_search_delete($hash, $label);
+                
+                $file = DIR_CACHE . 'cache-'.$label.'.' . preg_replace('/[^A-Z0-9\._-]/i', '', $hash) . '.' . (time() + $expire);
+                
+                $handle = fopen($file, 'w');
+                
+                // Add the search options to the array so we know which settings have been used to make the query.
+                // The array current_search_options contains the user search options and the hash for the 
+                // control panel search options.
+                // The search options are stored in the last array element. The array $value is an array of arrays,
+                // whose structure is:
+                
+                // [0]                  => pruoduct 1 array 
+                // ...
+                // [n-2]                => product n array 
+                // [product_total]      => total number of products 
+                // [search_options]     => search options array
+                
+                $value['product_total']  = $product_total;
+                $value['search_options'] = $current_search_options;
+
+                $result = fwrite($handle, serialize($value));
+                
+                fclose($handle) ;  /* don't remove the extra space between fclose($handle) and ; */
+                
+                if ($result != false) return true;
+                else return false;
+            }
+            
+
+            
+            
+            public function adsmart_search_delete($hash, $label='') {
+                $files = glob(DIR_CACHE . 'cache-'.$label.'.' . preg_replace('/[^A-Z0-9\._-]/i', '', $hash) . '.*');
+                
+                if ($files) {
+                    foreach ($files as $file) {
+                        if (file_exists($file)) {
+                            unlink($file);
+                        }
+                    }
+                }
+                return;
+            }
+            
+            public function adsmart_search_clear_cache($label) {
+            
+                if ( $label == 'search_string' || $label == 'misspellings' ) {
+                
+                    $files = glob(DIR_CACHE . 'cache-'.$label.'.*');
+                    
+                    if ($files) {
+                        foreach ($files as $file) {
+                            if (file_exists($file)) {
+                                unlink($file);
+                            }
+                        }
+                    } 
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+
+            ]]></add>
+        </operation>        
+    </file> 
+        
+<!-- End System -->
+
+
+
+<!-- Catalog -->
+    
+    <!-- Controller (catalog) -->
+    
+
+        <file name="catalog/controller/product/search.php">
+        
+
+            <!-- Add new sort orders-->
+            <operation>
+                <search position="after" offset="1"><![CDATA['href'  => $this->url->link('product/search', 'sort=p.sort_order&order=ASC' . $url)]]></search>
+                <add><![CDATA[
+
+        // Advanced Smart Search - Relevance
+                
+                // Get the texts for the new types of sort orders 
+                $text_relevance = $this->config->get('adsmart_search_translation_txt_relevance');
+                
+                $data['sorts'][] = array(
+                    'text'  => $text_relevance[(int)$this->config->get('config_language_id')],
+                    'value' => 'relevance-DESC',
+                    'href'  => $this->url->link('product/search', 'sort=relevance' . $url)
+                );
+                
+        // End
+                
+                ]]></add>
+            </operation>    
+            
+            
+            <operation>
+                <search position="after" offset="1"><![CDATA['href'  => $this->url->link('product/search', 'sort=p.model&order=DESC' . $url)]]></search>
+                <add><![CDATA[
+
+        
+        // Advanced Smart Search - Date Added Asc/Desc
+                
+                // Get the texts for the new types of sort orders 
+                $text_date_desc = $this->config->get('adsmart_search_translation_txt_date_desc');
+                $text_date_asc  = $this->config->get('adsmart_search_translation_txt_date_asc');
+                
+
+                $data['sorts'][] = array(
+                    'text'  => $text_date_desc[(int)$this->config->get('config_language_id')],
+                    'value' => 'p.date_added-DESC',
+                    'href'  => $this->url->link('product/search', 'sort=p.date_added&order=DESC' . $url)    
+                );
+                    
+                $data['sorts'][] = array(
+                    'text'  => $text_date_asc[(int)$this->config->get('config_language_id')],
+                    'value' => 'p.date_added-ASC',
+                    'href'  => $this->url->link('product/search', 'sort=p.date_added&order=ASC' . $url) 
+                );
+                
+                // On Oc < 2 the array $data is $this->data
+                if (version_compare(VERSION, '1.5.6.4', '<=')) {
+            
+                    $this->data['sorts'] = array_merge($this->data['sorts'], $data['sorts']);  
+                }
+                
+                
+        // End
+                
+                ]]></add>
+            </operation>    
+
+            
+            <!-- Change the search page default sort with the sort type selected from the control panel -->
+            <operation>
+                <search position="after"><![CDATA[public function index() {]]></search>
+                <add><![CDATA[
+                
+                    // Get the sort order:      
+                    $sort_order = explode('-', $this->config->get('adsmart_search_sort_order'));
+
+                ]]></add>
+            </operation>
+            <operation>
+                <search position="replace"><![CDATA[$sort = 'p.sort_order';]]></search>
+                <add><![CDATA[
+                
+                    $sort       = isset($sort_order[0]) ? $sort_order[0] : 'p.sort_order';
+                
+                ]]></add>
+            </operation>            
+            <!-- Change the search page default order with the order type selected from the control panel -->
+            <operation>
+                <search position="replace"><![CDATA[$order = 'ASC';]]></search>
+                <add><![CDATA[
+                
+                    $order      = isset($sort_order[1]) ? $sort_order[1] : 'ASC';
+                
+                ]]></add>
+            </operation>    
+            
+            
+            <!-- Rename the variable $data (On <= 1.5.6.4 to $filter_data because $data is reserved for other purpuses  -->
+            <operation error="skip" >
+                <search position="replace" ><![CDATA[$data = array(]]></search>
+                <add><![CDATA[$filter_data = array(]]></add>
+            </operation>    
+            <operation error="skip" >
+                <search position="replace" ><![CDATA[Products($data)]]></search>
+                <add><![CDATA[Products($filter_data)]]></add>
+            </operation>
+            
+            
+            <!-- get the product total from a registry variable -->
+            <operation>
+                <search position="replace" ><![CDATA[$product_total = $this->model_catalog_product->getTotalProducts($filter_data);]]></search>
+                <add><![CDATA[]]></add>
+            </operation>    
+            
+            
+            <operation>
+                <search position="after" ><![CDATA[$results = $this->model_catalog_product->getProducts($filter_data);]]></search>
+                <add><![CDATA[$product_total = $this->registry->get('product_total');]]></add>  
+            </operation>
+        
+
+            
+            <operation>
+                <search position="replace" ><![CDATA[$results = $this->model_catalog_product->getProducts($filter_data);]]></search>
+                <add><![CDATA[
+                
+                                 
+                
+                // All searches (like "search by tag") that don't involve the variables "filter_name" (OC < 1.5.5) / "search" (OC >= 1.5.5) 
+                // must be performed with the defauld method. Note: I have modified the script search.php to include both the variables
+                // get['search'] and get['filter_name'] (they contain the same value).
+
+                if (isset($this->request->get['search'])) {
+                
+                    $results = $this->model_catalog_product->adsmart_search_getProducts($filter_data);  // change the default method
+                                                                                                        // with adsmart_search_getProducts($filter_data)
+                }
+                else {
+                    $results = $this->model_catalog_product->getProducts($filter_data);
+                }
+                ]]></add>   
+            </operation>
+            
+            
+            <operation>
+                <search position="before" ><![CDATA[public function index() {]]></search>
+                <add><![CDATA[
+
+                
+                    public function autocomplete() {
+                        $json = array();
+
+                    
+                        if (isset($this->request->get['filter_name'])) {
+                            
+                            $this->load->model('catalog/product');
+                            
+
+                            $filter_name = $this->request->get['filter_name']; // posted by the ajax request
+                            
+                            $filter_description = 'false'; // used a string instead of a pure boolean to avoid 
+                                                           // converting this var into boolean in all the other scripts 
+                                                           // that make use of it
+                            $adsmart_search_relevance = $this->config->get('adsmart_search_relevance');
+                            if (isset($adsmart_search_relevance['description'])){
+                                $filter_description = 'true';
+                            }
+                            
+                            
+                            
+                            // Get the sort order:
+                            
+                            $sort_order = explode('-', $this->config->get('adsmart_search_sort_order'));
+                            $sort       = isset($sort_order[0]) ? $sort_order[0] : '';
+                            $order      = isset($sort_order[1]) ? $sort_order[1] : '';
+    
+                            $start  = 0;
+                            
+                            
+                            // The maximum number of displayed results can be dynamically modified from the admin control panel,
+                            // in that case the parameter 'admin_dropdown_limit' is posted to this function, otherwise the limit
+                            // is read from the database.
+                            
+                            if (isset ($this->request->get['admin_dropdown_limit'])) {
+                                $limit = $this->request->get['admin_dropdown_limit'];
+                            }
+                            else {
+                                $limit = $this->config->get('adsmart_search_dropdown_max_num_results');
+                            }
+                            
+                    
+                            $filter_data = array(
+                            
+                                'live_search'           => true, // this flag tells if the request comes from the Live Search
+                            
+                                'filter_name'           => $filter_name,
+                                'filter_tag'            => '',
+                                'filter_description'    => $filter_description,
+                                'filter_category_id'    => 0,
+                                'filter_sub_category'   => '',
+                            //  'filter_manufacturer_id'=> '',
+                                'sort'                  => $sort,
+                                'order'                 => $order,
+                                'start'                 => $start,
+                                'limit'                 => $limit
+                            );
+                            
+                            $products = $this->model_catalog_product->adsmart_search_getProducts($filter_data);
+                            
+                            $this->load->model('tool/image');
+                            
+                            if ($this->config->get('adsmart_search_dropdown_img_size') !=''){
+                                $img_width = $this->config->get('adsmart_search_dropdown_img_size');
+                            }
+                            else {
+                                $img_width = 38;
+                            }
+                            
+                            
+                            foreach ($products as $product) {
+
+                                if ($product) {
+                                    if ($product['image']) {
+                                        
+
+                                    //Enable this code if you want a perfect resizing, without white spaces:
+                                    /*          
+                                        $img_info = getimagesize(DIR_IMAGE.$product['image']); // returns an array of values, $img_info[0] is the width, $img_info[1] is the height
+                                        $h_w_ratio = $img_info[1] / $img_info[0];
+                                        $img_height = round($img_width * $h_w_ratio);
+                                        $image = $this->model_tool_image->resize($product['image'], $img_width, $img_height);
+                                    */
+                                    
+                                    //  Comment this line if the above code is not commented:
+                                        $image = $this->model_tool_image->resize($product['image'], $img_width, $img_width);
+                                        
+                                    } else {
+                                    
+                                        $image = $this->model_tool_image->resize('img_not_found.gif', $img_width, $img_width);
+                                    }
+
+                                    
+                                    // $this->config->get('config_customer_price') is the flag under System -> Settings -> Tab Options -> Account
+                                    // (Only show prices when a customer is logged in)
+                                    
+                                    if (($this->config->get('config_customer_price') && $this->customer->isLogged()) || !$this->config->get('config_customer_price')) {
+                                        $price = $this->currency->format($this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax')));
+                                    } else {
+                                        $price = '';
+                                    }
+                                    
+                                    if ( (float)$product['special'] && (($this->config->get('config_customer_price') && $this->customer->isLogged()) || !$this->config->get('config_customer_price')) ) {
+                                        $special = $this->currency->format($this->tax->calculate($product['special'], $product['tax_class_id'], $this->config->get('config_tax')));
+                                    } else {
+                                        $special = '';
+                                    }
+                                    
+                                    if ($this->config->get('config_review_status')) {
+                                        $rating = $product['rating'];
+                                    } else {
+                                        $rating = false;
+                                    }
+                                    
+                                    $json[] = array(
+                                        'product_id' => $product['product_id'],
+                                        'image'      => $image,
+                                        'name'       => strip_tags(html_entity_decode($product['name'], ENT_QUOTES, 'UTF-8')),  
+                                        'model'      => $product['model'],
+                                        'price'      => $price,
+                                        'special'    => $special,
+                                        'option'     => '',
+                                        'rating'     => $rating,
+                                        'reviews'    => sprintf($this->language->get('text_reviews'), (int)$product['reviews']),
+                                        'href'       => $this->url->link('product/product', 'product_id=' . $product['product_id']) 
+                                    );
+                                }
+                            }
+                        }
+        
+        
+                        // Add debug info
+                        if (ADSMART_SRC_DEBUG || ADSMART_SRC_DEBUG_SHOW_SQL || ADSMART_SRC_SPEED_TEST ) {
+                            global $adsmart_src_debug;
+                            $json[] = array(
+                                'debug' => $adsmart_src_debug
+                            );                      
+                        }                   
+                        $this->response->setOutput(json_encode($json));
+                    }
+
+                ]]></add>
+            </operation>        
+        
+            <!-- 
+            The "filter_tag" was renamed to "tag" from OC 1.5.5. However the versions 1.5.5, 1.5.5.1, 1.5.6 have this bug: 
+            The line
+
+            if (isset($this->request->get['search']) || isset($this->request->get['filter_tag'])) { 
+            
+            still uses the old variable name filter_tag. The following vqmod adds both variables to the script and
+            assigns to them the same value. I didn't make a replacement because the next OC releases will remove one of the 
+            two variables and I don't know which one will be deleted. The same operation must be made for the following 
+            filters:
+            
+            OC < 1.5.5              OC >= 1.5.5           
+            
+            filter_name             search
+            filter_description      description
+            filter_category_id      category_id
+            filter_sub_category     sub_category
+            
+            -->
+            
+            <operation>
+                <search position="after" ><![CDATA[$this->load->model('tool/image');]]></search>
+                <add><![CDATA[
+                
+                $filters= array(
+                
+                    'filter_name'           =>  'search',
+                    'filter_tag'            =>  'tag',
+                    'filter_description'    =>  'description',
+                    'filter_category_id'    =>  'category_id',
+                    'filter_sub_category'   =>  'sub_category'
+                );
+
+                foreach ($filters as $old => $new){
+
+                    if (isset($this->request->get[$old])) {
+                        $this->request->get[$new] = $this->request->get[$old];
+                    } 
+                    if (isset($this->request->get[$new])) {
+                        $this->request->get[$old] = $this->request->get[$new];
+                    } 
+                }
+
+                ]]></add>
+            </operation>
+            
+            
+            
+            <!--
+                
+                From Oc 1.5.1.3.1 the "filter_tag" (called "tag" from Oc 1.5.5) was set from the "filter_name" ("search" from Oc 1.5.5) value
+                if $this->request->get['filter_tag']) was not set. Advanced Smart Search controls the Tag from the back end, This feature breaks up the flag
+                
+                
+                Opencart <= to 1.5.1.2: (These versions don't need any modification)
+                
+                if (isset($this->request->get['filter_tag'])) {
+                    $filter_tag = $this->request->get['filter_tag'];
+                } else {
+                    $filter_tag = '';
+                } 
+                
+                Versisons that need to be modified:
+                
+                
+            Opencart >= 1.5.1.3.1 and < 1.5.5:
+                
+                if (isset($this->request->get['filter_tag'])) {
+                    $filter_tag = $this->request->get['filter_tag'];
+                } elseif (isset($this->request->get['filter_name'])) {      (1)
+                    $filter_tag = $this->request->get['filter_name'];           *****     Line we don't want    *****
+                } else {
+                    $filter_tag = '';
+                } 
+                
+                
+                Opencart >= 1.5.5:
+                
+                if (isset($this->request->get['tag'])) {
+                    $tag = $this->request->get['tag'];
+                } elseif (isset($this->request->get['search'])) {           (2)
+                    $tag = $this->request->get['search'];                       *****     Line we don't want    *****
+                } else {
+                    $tag = '';
+                } 
+            
+            ******* 
+                
+            New: With a regex substitution the lines (1) and (2) become:
+                
+                ****
+                } elseif (false) {
+                ****
+                
+                
+                For Oc < 1.5.5:
+                
+                if (isset($this->request->get['filter_tag'])) {
+                    $filter_tag = $this->request->get['filter_tag'];
+                } elseif (false) {                                          Line added by vQmod
+                    $filter_tag = $this->request->get['filter_name'];           *****     now is always skipped    *****
+                } else {
+                    $filter_tag = '';
+                }
+                
+                For Oc >= 1.5.5:
+                
+                if (isset($this->request->get['tag'])) {
+                    $tag = $this->request->get['tag'];
+                } elseif (false) {                                          Line added by vQmod
+                    $tag = $this->request->get['search'];                       *****     now is always skipped    *****
+                } else {
+                    $tag = '';
+                } 
+
+            -->
+            
+            <operation>
+                <search position="replace" regex="true" ><![CDATA[/[}] elseif [(]isset[(][$]this[-][>]request[-][>]get[[]'(search)?(filter_name)?'[]][)][)] [{]/]]></search>
+                <add><![CDATA[
+                } elseif (false) {
+                ]]></add>
+            </operation>
+                
+        </file> 
+    
+    <!-- End Controller (catalog) -->
+    
+    
+    
+    <!-- Model (catalog) -->
+        
+        <!-- 
+        Add the new functions into the class ModelCatalogProduct. We cannot add an include file into the class, but we can
+        extend the original class with the class ModelCatalogProductAdsmartSearch   -->
+        
+        <file name="catalog/model/catalog/product.php" >
+            <operation>
+                <search position="replace" ><![CDATA[class ModelCatalogProduct extends Model {]]></search>
+                
+                <add><![CDATA[class ModelCatalogProduct extends ModelCatalogProductAdsmartSearch {]]></add>
+            
+            </operation>            
+        </file>
+        
+
+        
+        <!-- Add the new functions-->
+        <file name="catalog/model/catalog/product.php" >
+            <operation>
+                <search position="before" ><![CDATA[class ModelCatalogProduct extends ModelCatalogProductAdsmartSearch {]]></search>
+                
+                <add>
+                    <![CDATA[require_once(DIR_APPLICATION.'model/catalog/adsmartsearch_product_inc.php'); ]]>
+                </add>
+            
+            </operation>            
+        </file> 
+    
+    <!-- End Model (catalog) -->
+    
+    
+    
+    <!-- Template (catalog) -->
+    
+    
+        <!-- OC >= 1.5.5 - checkbox "Filter description" - $description -->
+        
+        <!-- Checkbox "Filter description" - add the value "false"
+        
+        Now the checkbox has two values, "true" and "false" so we know when
+        the page has loaded for the first time, in this case the flag value 
+        is unset and we can set it according to the value of the control panel
+        option $adsmart_search_relevance['description'].
+        
+         ______________________________________________________________________________________
+        | $adsmart_search_relevance['description']  |  Filter description checkbox        [ ]  |
+        |___________________________________________|__________________________________________|
+        |                   1                       | checked the 1st time the page loads      |
+        |___________________________________________|__________________________________________|
+        |                   0                       | unchecked  the 1st time the page loads   |
+        |___________________________________________|__________________________________________|    -->
+        
+        <file name="catalog/view/theme/lexus_nextstore/template/product/search.tpl" >
+        
+            <operation error="skip" >
+                <search position="replace" ><![CDATA[<?php if ($description) { ?>]]></search>
+                <add><![CDATA[
+                    <script>
+                    
+                    <?php 
+                    global $config; 
+                    ?>
+                    
+                    $(document).ready(function() {
+
+                        $('input[name=description]').click(function(){
+                        
+                            if ($(this).is(':checked')){
+                            
+                                $(this).val(true);
+                                
+                                <?php
+                                // change links to the "sort by" select
+                                ?>
+                                $('.product-filter .sort select option').each(function() {
+                                
+                                    var old_url=$(this).val();
+                                    new_url = old_url.replace(/description=false/g,'description=true');
+                                    $(this).attr('value',new_url);  
+                                });
+                            }
+                            else {  
+                            
+                                $(this).val(false);
+                                $(this).removeAttr('checked');
+                                
+                                <?php
+                                // change links to the "sort by" select
+                                ?>
+                                $('.product-filter .sort select option').each(function() {
+                                
+                                    var old_url=$(this).val();
+                                    new_url = old_url.replace(/description=true/g,'description=false');
+                                    $(this).attr('value',new_url);  
+                                });
+                                
+                            }
+                        });
+    
+                    });
+                    
+
+                    </script>
+                         
+                    <?php $adsmart_search_relevance = $config->get('adsmart_search_relevance'); ?>
+                    <?php if ( (!isset($_GET['description']) && isset($adsmart_search_relevance['description'])) || (isset($_GET['description']) && $_GET['description'] == 'true') ) { ?>
+
+                ]]></add>
+            </operation>    
+
+            <operation error="skip" >
+                <!-- used "replace" instead of "after" because for some reason it doesn't work -->
+                <search position="replace" ><![CDATA[url += '&description=true';]]></search>
+                <add><![CDATA[
+                        url += '&description=true';
+                    }
+                    else {  
+                        url += '&description=false';
+                ]]></add>
+            </operation>    
+
+        </file> 
+
+    
+        <!-- OC < 1.5.5 - checkbox "Filter description" - $filter_description -->
+        <file name="catalog/view/theme/lexus_nextstore/template/product/search.tpl" >
+            <operation error="skip" >
+                <search position="replace" ><![CDATA[<?php if ($filter_description) { ?>]]></search>
+                <add><![CDATA[
+                    <script>
+                    $(document).ready(function() {
+
+                        <?php 
+                        global $config; 
+                        ?>
+                    
+                        $('input[name=filter_description]').click(function(){
+                        
+                            if ($(this).is(':checked')){
+                            
+                                $(this).val(true);
+                                
+                                <?php
+                                // change links to the "sort by" select
+                                ?>
+                                $('.product-filter .sort select option').each(function() {
+                                
+                                    var old_url=$(this).val();
+                                    new_url = old_url.replace(/description=false/g,'description=true');
+                                    $(this).attr('value',new_url);  
+                                }); 
+                            }
+                            else {  
+                            
+                                $(this).val(false);
+                                $(this).removeAttr('checked');
+                                
+                                <?php
+                                // change links to the "sort by" select
+                                ?>
+                                $('.product-filter .sort select option').each(function() {
+                                
+                                    var old_url=$(this).val();
+                                    new_url = old_url.replace(/description=true/g,'description=false');
+                                    $(this).attr('value',new_url);  
+                                });
+                            }
+                        });
+                    });
+                    </script>
+                         
+                    <?php $adsmart_search_relevance = $config->get('adsmart_search_relevance'); ?>
+                    <?php if ( (!isset($_GET['filter_description']) && isset($adsmart_search_relevance['description'])) || (isset($_GET['filter_description']) && $_GET['filter_description'] == 'true') ) { ?>
+
+                ]]></add>
+            </operation>    
+
+            <!-- Add the value "false" to the parameter "filter_description"  -->
+            <operation error="skip" >
+                <search position="replace" ><![CDATA[url += '&filter_description=true';]]></search>
+                <add><![CDATA[
+                
+                        url += '&filter_description=true';
+                    }
+                    else {  
+                        url += '&filter_description=false';
+                ]]></add>
+            </operation>    
+        </file> 
+        
+        
+        <!-- Debug output (for the default search only (Live Search uses a json variable to print out debug info) -->
+        <file name="catalog/view/theme/lexus_nextstore/template/common/header.tpl">
+            <operation >
+                <search position="after"  regex="true" ><![CDATA[/[<](body)([.]*)/]]></search>
+                <add><![CDATA[
+                
+                    <?php if (ADSMART_SRC_DEBUG || ADSMART_SRC_DEBUG_SHOW_SQL || ADSMART_SRC_SPEED_TEST ) { ?>
+                        
+                        <div class="debug" style="height: 200px;overflow-y:scroll;">
+                            <?php 
+                                global $adsmart_src_debug;
+                                echo $adsmart_src_debug; 
+                            ?>
+                        </div>
+                    <?php } ?>
+                
+                    ]]></add>
+            </operation>    
+        </file> 
+        
+
+        <file name="catalog/view/theme/lexus_nextstore/template/common/footer.tpl">
+            <operation >
+                <search position="before" ><![CDATA[</body>]]></search>
+                <add><![CDATA[
+                
+                
+                <?php
+                
+                global $config;
+                
+                // append the variable "description" (or "filter_description" for OC < 1.5.5 ) to the url if the search includes the field "description"
+                
+                $flag_filter_description = '';
+                $adsmart_search_relevance = $config->get('adsmart_search_relevance'); 
+                
+                if ( isset($adsmart_search_relevance['description']) ) {
+
+                    // for Oc => 1.5.5
+                    if (version_compare(VERSION, '1.5.5', '>=')) {
+                        $flag_filter_description = '&description=true';
+                    }
+                    // for Oc < 1.5.5
+                    else {
+                    
+                        $flag_filter_description = '&filter_description=true';
+                    }
+                }
+                
+                
+                // Get the sort order:
+                $sort_order = explode('-', $config->get('adsmart_search_sort_order'));
+                $sort       = isset($sort_order[0]) ? '&sort=' . $sort_order[0] : '';
+                $order      = isset($sort_order[1]) ? '&order=' . $sort_order[1] : '';
+                ?>
+                
+                
+                
+                
+                <?php // This Code controls clicks and the Enter key for the SEARCH MODULE and the default Opencart search field: ?>
+
+                <script type="text/javascript"><!--
+                
+                function build_search_url(input_field) {
+
+                    var url = $('base').attr('href') + 'index.php?route=product/search';
+                     
+                    var search = input_field.val();
+
+                    if (search) {
+                        url += '&search=' + encodeURIComponent(search) + '<?php echo $flag_filter_description . $sort . $order ?>';
+                        
+                        location = url;
+                    }
+                }
+                
+                $(document).ready(function() {
+                
+                    <?php 
+                    
+                    // Steps to prevent firing the event bind('click') in common.js:
+                    
+                    //  1) disable the event click (see Opencart file common.js)
+                
+                    //  2) bind the event click, and then
+
+                    //  3) quickly unbind it to prevent firing the bind('click') in common.js
+
+                    ?>      
+
+                    
+                    /* Search */
+                    
+                    <?php // Search - Default themes for Oc <= 1.5.6.4 ?>
+                
+<?php // 1) ?>      $('.button-search').unbind('click'); 
+
+<?php // 2) ?>          $('.button-search').bind('click').on('click', function(e) {     
+                        
+<?php // 3) ?>          $(this).unbind('click'); 
+                        
+                        var input_field = $(this).parent().find('input[name="search"], input[name="filter_search"]');
+                        build_search_url(input_field);
+                    });
+                    
+
+                    <?php // Search - Default theme for Oc  >= 2+ ?>    
+                    
+<?php // 1) ?>      $('#search input[name=\'search\']').parent().find('button').off('click').unbind('click');
+                    
+<?php // 2) ?>      $('#search input[name=\'search\']').parent().find('button').on('click', function() {
+                    
+<?php // 3) ?>      $(this).off('click').unbind('click'); <?php // disable the event click, Opencart file common.js ?>
+                    
+                        var input_field = $('#search input[name=\'search\']');
+                        build_search_url(input_field);          
+                    });
+                
+                    <?php // Search - Advanced Smart Search custom module ?>
+                    
+                    $('.search_btn').on('click', function(e) {              
+
+                        var input_field = $(this).parent().find('input[name="adsmart_search"]');
+                        build_search_url(input_field);
+                    });
+
+                    
+                    $('input[name="adsmart_search"],input[name="search"], input[name="filter_search"]').on('keydown', function(e) {
+                        
+                        if (e.keyCode == 13) {
+                            build_search_url($(this));
+                        }       
+                    });
+
+                });
+
+                //--></script>
+                
+                
+                
+                <?php if ( $config->get('adsmart_search_dropdown_enabled') == 1 ) { ?>  
+                <script type="text/javascript"><!--
+                
+                    <?php require_once(DIR_APPLICATION.'view/javascript/adsmartsearch_repository/adsmartsearch_livesrc_js.php') ?>
+                
+                //--></script>
+                <?php } ?>
+                
+                    <?php require_once(DIR_APPLICATION.'view/theme/lexus_nextstore/stylesheet/adsmartsearch_livesrc_css.php') ?>
+
+                ]]></add>
+            </operation>        
+        </file> 
+    
+    <!-- End Template (catalog) -->
+    
+<!-- End Catalog -->
+    
+    
+    
+<!-- Admin -->
+
+    <file name="admin/controller/common/header.php">
+        <operation >
+            <search position="after" ><![CDATA[function index() {]]></search>
+            <add><![CDATA[
+            
+            // Useful to check whether the current page is the module control panel
+            $this->request->get['route'] = (isset($this->request->get['route']))? $this->request->get['route'] : '';
+            if (version_compare(VERSION, '1.5.6.4', '<=')) {
+            
+                $this->data['route'] = $this->request->get['route'];
+            } else {
+                $data['route'] = $this->request->get['route'];
+            }
+            ]]></add>
+        </operation>        
+            
+    </file> 
+
+
+    <file name="admin/view/template/common/header.tpl">
+        <operation >
+            <search position="before" ><![CDATA[</head>]]></search>
+            <add><![CDATA[
+
+            <?php 
+
+            if ( version_compare(VERSION, '2.0.0.0', '>=')  &&  isset($route) && $route == 'module/adsmart_search' ) { ?>
+            
+            <!-- jQuery ui -->
+            <script type="text/javascript" src="view/javascript/jquery-ui-1.11.2/jquery-ui.js"></script>
+            <link rel="stylesheet" media="screen" type="text/css" href="view/javascript/jquery-ui-1.11.2/jquery-ui.min.css" />
+            
+            <?php } ?>
+            
+            ]]></add>
+        </operation>        
+            
+    </file> 
+    
+    
+    
+    
+    
+    <file name="admin/view/template/common/footer.tpl">
+        <operation >
+            <search position="before" ><![CDATA[</body>]]></search>
+            <add><![CDATA[
+
+            ]]></add>
+        </operation>        
+    </file> 
+
+        
+<!-- End Admin -->
+    
+    
+
+</modification>

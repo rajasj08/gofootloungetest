@@ -1,0 +1,102 @@
+//script for left side product filters
+$( document ).ready(function() {
+
+
+	if($( window ).width()>767)
+	{$('.mobilemenu').remove();   
+	}
+	
+    $(".filters#filter_p2").addClass("closed"); 
+    $('.filters#filter_p3').addClass('closed');   
+    $('.filters#filter_p4').addClass('closed');
+    $('.filters#filter_p5').addClass('closed');  
+    $( '#filter_p1' ).on( 'click', function () { 
+    	
+  		if($( ".filters#filter_p1" ).hasClass( "closed" ))
+  		{
+  			$(".filters#filter_p2").addClass("closed"); 
+    		$('.filters#filter_p3').addClass('closed');   
+    		$('.filters#filter_p4').addClass('closed');
+    		$('.filters#filter_p5').addClass('closed');   
+  		}   
+  });   
+
+    $( '#filter_p2' ).on( 'click', function () { 
+    	
+  		if($( ".filters#filter_p2" ).hasClass( "closed" ))
+  		{
+  			$(".filters#filter_p1").addClass("closed"); 
+    		$('.filters#filter_p3').addClass('closed');   
+    		$('.filters#filter_p4').addClass('closed');
+    		$('.filters#filter_p5').addClass('closed');   
+  		}   
+  });  
+
+    $( '#filter_p3' ).on( 'click', function () { 
+    	
+  		if($( ".filters#filter_p3" ).hasClass( "closed" ))
+  		{
+  			$(".filters#filter_p1").addClass("closed"); 
+    		$('.filters#filter_p2').addClass('closed');   
+    		$('.filters#filter_p4').addClass('closed');
+    		$('.filters#filter_p5').addClass('closed');   
+  		}   
+  }); 
+    $( '#filter_p4' ).on( 'click', function () { 
+    	
+  		if($( ".filters#filter_p4" ).hasClass( "closed" ))
+  		{
+  			$(".filters#filter_p1").addClass("closed"); 
+    		$('.filters#filter_p2').addClass('closed');   
+    		$('.filters#filter_p3').addClass('closed');
+    		$('.filters#filter_p5').addClass('closed');   
+  		}   
+  }); 
+
+     $( '#filter_p5' ).on( 'click', function () { 
+    	
+  		if($( ".filters#filter_p5" ).hasClass( "closed" ))
+  		{
+  			$(".filters#filter_p1").addClass("closed"); 
+    		$('.filters#filter_p2').addClass('closed');   
+    		$('.filters#filter_p3').addClass('closed');
+    		$('.filters#filter_p4').addClass('closed');   
+  		}   
+  }); 
+//onclick child element$("p").click(function(){
+   /*$( '#filter_p1 dd ul li a' ).click(function(){
+   	alert('hsgdf');  
+
+    		$(".filters#filter_p2").addClass("closed"); 
+    		$('.filters#filter_p3').addClass('closed');   
+    		$('.filters#filter_p4').addClass('closed');
+    		$('.filters#filter_p5').addClass('closed');   
+  });  
+   $( '#filter_p2 dd ul li a' ).on( 'click', function () { 
+    		$(".filters#filter_p1").addClass("closed"); 
+    		$('.filters#filter_p3').addClass('closed');   
+    		$('.filters#filter_p4').addClass('closed');
+    		$('.filters#filter_p5').addClass('closed');    
+  }); 
+   $( '#filter_p3 dd ul li a' ).on( 'click', function () { 
+    		$(".filters#filter_p1").addClass("closed"); 
+    		$('.filters#filter_p2').addClass('closed');   
+    		$('.filters#filter_p4').addClass('closed');
+    		$('.filters#filter_p5').addClass('closed');   
+  });
+   $( '#filter_p4 dd ul li a' ).on( 'click', function () { 
+    		$(".filters#filter_p1").addClass("closed"); 
+    		$('.filters#filter_p2').addClass('closed');   
+    		$('.filters#filter_p3').addClass('closed');
+    		$('.filters#filter_p5').addClass('closed');   
+  });   
+  $( '#filter_p5 dd ul li a' ).on( 'click', function () { 
+    		$(".filters#filter_p1").addClass("closed"); 
+    		$('.filters#filter_p2').addClass('closed');   
+    		$('.filters#filter_p3').addClass('closed');
+    		$('.filters#filter_p4').addClass('closed');   
+  });   */     
+   
+}); 
+  
+   

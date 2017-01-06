@@ -1,0 +1,26 @@
+<div class="pav-megamenu">
+	<div class="navbar navbar-default">
+		<div id="mainmenutop" class="megamenu" role="navigation">
+			<div class="navbar-header">
+				<a href="javascript:;" data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" >
+			        <span class="menucol">MENU</span><span class="fa fa-bars"></span>		        
+			     </a>
+				<div class="collapse navbar-collapse navbar-ex1-collapse">
+				<?php echo $treemenu; ?>
+				</div>
+			</div>
+			<div  id="footsizedone" class="header-foot-size pull-right">
+				<a href="javascript:void(0);" title="Know Your Foot Size" data-toggle="modal" data-target="#knowYourSize">
+					<span class="fs-img">&nbsp;</span>
+					<span class="text">Size</span>
+				</a>
+			</div>
+			<div id="footsizeblock" class="header-foot-size pull-right">
+				<a href="https://gofootlounge.in/know-your-size">
+					<span class="fs-img">&nbsp;</span>
+					<span class="text">Size</span>
+				</a>
+			</div>
+		</div>
+	</div>
+</div>

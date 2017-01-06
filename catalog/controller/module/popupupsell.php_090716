@@ -1,0 +1,330 @@
+<?php
+class ControllerModulePopupUpsell extends Controller  {
+	// Module Unifier
+	private $moduleName = 'popupupsell';
+	private $moduleNameSmall = 'popupupsell';
+	private $moduleData_module = 'popupupsell_module';
+	private $moduleModel = 'model_module_popupupsell';
+	// Module Unifier
+
+	protected function index($setting) {
+		$this->load->model('catalog/product');
+		$this->load->model('module/popupupsell');
+		$this->load->language('module/'.$this->moduleNameSmall);
+		$this->data['popupupsell'] = $this->config->get('popupupsell');
+
+		$this->data['upsells'] = $this->model_module_popupupsell->getUpsells();
+		$this->data['add_to_cart'] = $this->language->get('add_to_cart');
+		$this->data['text_tax'] = $this->language->get('text_tax');
+
+		$this->data['button_wishlist'] = $this->language->get('button_wishlist');
+		$this->data['button_compare'] = $this->language->get('button_compare');
+		$this->data['showUpsellOffer'] = htmlspecialchars_decode($this->url->link('module/popupupsell/showUpsellOffer', '', 'SSL'));
+
+		if(isset($this->request->get['product_id']))
+			$this->data['product_id'] = $this->request->get['product_id'];
+		
+		if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/stylesheet/'.$this->moduleNameSmall.'/popupupsell.css')) {
+			$this->document->addStyle('catalog/view/theme/' . $this->config->get('config_template') . '/stylesheet/'.$this->moduleNameSmall.'/popupupsell.css');
+		} else {
+			$this->document->addStyle('catalog/view/theme/default/stylesheet/popupupsell.css');
+		}
+		
+		if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/module/'.$this->moduleNameSmall.'.tpl')) {
+			$this->template = $this->config->get('config_template') . '/template/module/'.$this->moduleNameSmall.'.tpl';
+		} else {
+			$this->template = 'default/template/module/'.$this->moduleNameSmall.'.tpl';
+		}
+
+		$this->render();
+
+	}
+
+	public function showUpsellOffer() {
+		header('Access-Control-Allow-Origin: *');
+		$this->load->model('catalog/product');
+		$this->load->model('module/popupupsell');
+		$this->load->language('module/'.$this->moduleNameSmall);
+		$this->load->language('product/product');
+		$this->data['popupupsell'] = $this->config->get('popupupsell');
+		$this->data['upsells'] = $this->model_module_popupupsell->getUpsells();
+
+		$this->data['add_to_cart'] = $this->language->get('add_to_cart');
+		$this->data['text_tax'] = $this->language->get('text_tax');
+
+		$this->data['button_wishlist'] = $this->language->get('button_wishlist');
+		$this->data['button_compare'] = $this->language->get('button_compare');
+
+		$text_price = $this->language->get('text_price');
+		$text_points = $this->language->get('text_points');
+		$text_qty = $this->language->get('text_qty');
+		$button_cart = $this->language->get('button_cart');
+		$button_wishlist = $this->language->get('button_wishlist');
+		$button_compare = $this->language->get('button_compare');
+		$text_or = $this->language->get('text_or');
+		$text_tax = $this->language->get('text_tax');
+		// START PATTERN
+		$re1='(\\[)';	# Any Single Character 1
+		$re2='(product_upsell)';	# Variable Name 1
+		$re3='(=)';	# Any Single Character 2
+		$re4='(\\d+)';	# Integer Number 1
+		$re5='(\\])';	# Any Single Character 3
+		$productRegex=$re1.$re2.$re3.$re4.$re5;
+		$categoryRegex=$re1.'(category_upsell)'.$re3.$re4.$re5;
+		$productsInCart = $this->cart->getProducts();
+		$cartIDS = array();
+		foreach($productsInCart as $item) {
+			$cartIDS[] = $item['product_id'];
+		}
+
+		// END PATTERN
+		foreach($this->data['upsells'] as $upsell) {
+			if($upsell['status'] == '1') {
+				if($upsell['method'] == '0') { // single product method
+					$upsell_product_ids = explode(",", $upsell['product_ids']);
+					if(isset($this->request->post['product_id'])) {
+						$clicked_product_id = $this->request->post['product_id'];
+
+						if (in_array($clicked_product_id, $upsell_product_ids)) {
+						    $this->data['upsell'] = $upsell;
+						   	$this->data['upsell']['content'] = unserialize($this->data['upsell']['content']);
+							$this->data['upsell']['content'] = $this->data['upsell']['content'][$this->config->get('config_language_id')];
+								
+						    if ($c=preg_match_all ("/".$productRegex."/is", $this->data['upsell']['content'], $matches)) {
+							      $c1=$matches[1][0];
+							      $var1=$matches[2][0];
+							      $c2=$matches[3][0];
+							      $int1=$matches[4][0];
+							      $c3=$matches[5][0];
+
+							      foreach($matches[4] as $product_id) {
+							      	if(in_array($product_id, $cartIDS) || ($clicked_product_id == $product_id)) {$this->response->setOutput(array()); exit;} // When the suggested product is already in the cart
+								  	$product = $this->getProduct($product_id, $this->data['upsell']['image_width'], $this->data['upsell']['image_height']);
+									     if(isset($product)) {
+
+									     	$product_upsell = $this->getProductTemplate($product);
+									     	
+
+									     	//$product_upsell = $this->getProductTemplate($product);
+									    	
+									      $this->data['upsell']['content'] = str_replace('[product_upsell='.$product_id.']', $product_upsell, $this->data['upsell']['content']);
+									    } else {
+									    	$this->data['upsell']['content'] = str_replace('[product_upsell='.$product_id.']', '', $this->data['upsell']['content']);
+									    }
+
+								 	}
+							  	} 
+
+							  	if ($c=preg_match_all ("/".$categoryRegex."/is", $this->data['upsell']['content'], $matches)) {
+								    $c1=$matches[1][0];
+								    $var1=$matches[2][0];
+								    $c2=$matches[3][0];
+								    $int1=$matches[4][0];
+								    $c3=$matches[5][0];
+
+							      	
+							      	foreach($matches[4] as $category_id) {
+							      		$filter_category_id = array('filter_category_id' => $category_id);
+										$results = $this->model_catalog_product->getProducts($filter_category_id);
+
+										if($results) {
+											foreach($results as $item) {
+												$productIDS[] = $item['product_id'];
+											}
+																		
+											$randIndex = rand(0,count($productIDS)-1);
+											if(in_array($productIDS[$randIndex], $cartIDS) || ($clicked_product_id == $productIDS[$randIndex])) {$this->response->setOutput(array()); exit;} // When the suggested product is already in the cart
+											$product = $this->getProduct($productIDS[$randIndex], $this->data['upsell']['image_width'], $this->data['upsell']['image_height']);
+											
+										     if(isset($product)) {
+										     	$product_upsell = $this->getProductTemplate($product);
+										    	
+										      $this->data['upsell']['content'] = str_replace('[category_upsell='.$category_id.']', $product_upsell, $this->data['upsell']['content']);
+										    } else {
+										    	$this->data['upsell']['content'] = str_replace('[category_upsell='.$category_id.']', '', $this->data['upsell']['content']);
+										    }
+										}
+									}
+							  	}
+							   $this->data['upsell']['content']= htmlspecialchars_decode(trim(preg_replace('/\s+/', ' ', $this->data['upsell']['content'])));
+							   $this->response->setOutput(json_encode($this->data['upsell']));
+						}
+					}
+				} else if ($upsell['method'] == '1') { // category method
+					$upsell_category_ids = explode(",", $upsell['category_ids']);
+					if(isset($this->request->get['product_id']))
+						$clicked_product_id = $this->request->get['product_id'];
+					else
+						$clicked_product_id = $this->request->post['product_id'];
+
+					$this->load->model('catalog/product');
+					$categories = $this->model_catalog_product->getCategories($clicked_product_id);
+					$cat_match = false;
+					foreach($categories as $cat) {
+						foreach($upsell_category_ids as $allowed_cat) {
+							if($allowed_cat == $cat['category_id']) {
+								$cat_match = true;
+							}
+						}
+					}
+					
+					if($cat_match) {
+						$this->data['upsell'] = $upsell;
+					   	$this->data['upsell']['content'] = unserialize($this->data['upsell']['content']);
+						$this->data['upsell']['content'] = $this->data['upsell']['content'][$this->config->get('config_language_id')];
+							
+					    if ($c=preg_match_all ("/".$productRegex."/is", $this->data['upsell']['content'], $matches)) {
+						      $c1=$matches[1][0];
+						      $var1=$matches[2][0];
+						      $c2=$matches[3][0];
+						      $int1=$matches[4][0];
+						      $c3=$matches[5][0];
+
+						      foreach($matches[4] as $product_id) {
+						      	if(in_array($product_id, $cartIDS) || ($clicked_product_id == $product_id)) {$this->response->setOutput(array()); exit;} // When the suggested product is already in the cart
+							  	$product = $this->getProduct($product_id, $this->data['upsell']['image_width'], $this->data['upsell']['image_height']);
+								     if(isset($product)) {
+
+								     	$product_upsell = $this->getProductTemplate($product);
+								     	
+
+								     	//$product_upsell = $this->getProductTemplate($product);
+								    	
+								      $this->data['upsell']['content'] = str_replace('[product_upsell='.$product_id.']', $product_upsell, $this->data['upsell']['content']);
+								    } else {
+								    	$this->data['upsell']['content'] = str_replace('[product_upsell='.$product_id.']', '', $this->data['upsell']['content']);
+								    }
+
+							 	}
+						  	} 
+
+						  	if ($c=preg_match_all ("/".$categoryRegex."/is", $this->data['upsell']['content'], $matches)) {
+							    $c1=$matches[1][0];
+							    $var1=$matches[2][0];
+							    $c2=$matches[3][0];
+							    $int1=$matches[4][0];
+							    $c3=$matches[5][0];
+
+						      	
+						      	foreach($matches[4] as $category_id) {
+						      		$filter_category_id = array('filter_category_id' => $category_id);
+									$results = $this->model_catalog_product->getProducts($filter_category_id);
+
+									if($results) {
+										foreach($results as $item) {
+											$productIDS[] = $item['product_id'];
+										}
+																	
+										$randIndex = rand(0,count($productIDS)-1);
+										if(in_array($productIDS[$randIndex], $cartIDS) || ($clicked_product_id == $productIDS[$randIndex])) {$this->response->setOutput(array()); exit;} // When the suggested product is already in the cart
+										$product = $this->getProduct($productIDS[$randIndex], $this->data['upsell']['image_width'], $this->data['upsell']['image_height']);
+										
+									     if(isset($product)) {
+									     	$product_upsell = $this->getProductTemplate($product);
+									    	
+									      $this->data['upsell']['content'] = str_replace('[category_upsell='.$category_id.']', $product_upsell, $this->data['upsell']['content']);
+									    } else {
+									    	$this->data['upsell']['content'] = str_replace('[category_upsell='.$category_id.']', '', $this->data['upsell']['content']);
+									    }
+									}
+								}
+						  	}
+						   $this->data['upsell']['content']= htmlspecialchars_decode(trim(preg_replace('/\s+/', ' ', $this->data['upsell']['content'])));
+						   $this->response->setOutput(json_encode($this->data['upsell']));
+					}
+				}
+			}
+		}		
+	}
+
+	public function getProductTemplate($product) {
+		$Form = new Template();	
+		$Form->data['button_cart'] = $this->language->get('add_to_cart');
+		$Form->data['text_price'] = $this->language->get('text_price');
+		$Form->data['text_or'] = $this->language->get('text_or');
+		$Form->data['text_tax'] = $this->language->get('text_tax');
+		$Form->data['button_wishlist'] = $this->language->get('button_wishlist');
+		$Form->data['button_compare'] = $this->language->get('button_compare');
+		$Form->data['product'] = $product;
+
+		if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/module/'.$this->moduleNameSmall.'_template.tpl')) {
+			$template = $this->config->get('config_template') . '/template/module/'.$this->moduleNameSmall.'_template.tpl';
+		} else {
+			$template = 'default/template/module/'.$this->moduleNameSmall.'_template.tpl';
+		}
+		return $Form->fetch($template);
+	}
+
+	public function getProduct($product_id, $width=100, $height=100) {
+				
+		$this->load->model('catalog/product');
+		$this->load->model('tool/image');
+
+		$this->data['product'] = array();
+
+		$result = $this->model_catalog_product->getProduct($product_id);
+
+		if ($result) {
+			if ($result['image']) {
+				$image = $this->model_tool_image->resize($result['image'], $width, $height);
+			} else {
+				$image = false;
+			}
+						
+			if (($this->config->get('config_customer_price') && $this->customer->isLogged()) || !$this->config->get('config_customer_price')) {
+				$price = $this->currency->format($this->tax->calculate($result['price'], $result['tax_class_id'], $this->config->get('config_tax')));
+			} else {
+				$price = false;
+			}
+					
+			if ((float)$result['special']) {
+				$special = $this->currency->format($this->tax->calculate($result['special'], $result['tax_class_id'], $this->config->get('config_tax')));
+			} else {
+				$special = false;
+			}
+			if ($this->config->get('config_review_status')) {
+				$rating = $result['rating'];
+			} else {
+				$rating = false;
+			}
+
+			if ($this->config->get('config_tax')) {
+				$tax = $this->currency->format((float)$special ? $special : $price);
+			} else {
+				$tax = false;
+			}
+
+			$discounts = $this->model_catalog_product->getProductDiscounts($product_id);
+
+			$this->data['discounts'] = array();
+
+			foreach ($discounts as $discount) {
+				$this->data['discounts'][] = array(
+					'quantity' => $discount['quantity'],
+					'price'    => $this->currency->format($this->tax->calculate($discount['price'], $result['tax_class_id'], $this->config->get('config_tax')))
+				);
+			}
+			
+			$this->data['product'] = array(
+				'product_id' => $result['product_id'],
+				'thumb'   	 => $image,
+				'name'    	 => $result['name'],
+				'description'=> utf8_substr(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8')), 0, 400) . '..',
+				'price'   	 => $price,
+				'special' 	 => $special,
+				'rating'     => $rating,
+				'points'	 => $result['points'],
+				'tax'		 => $tax,
+				'discounts'  => $this->data['discounts'],
+				'reviews'    => sprintf($this->language->get('text_reviews'), (int)$result['reviews']),
+				'href'    	 => $this->url->link('product/product', 'product_id=' . $result['product_id']),
+			);
+		}	
+		
+		if(isset($this->data['product']))
+			return $this->data['product'];
+
+	}
+
+}
+?>

@@ -1,0 +1,16 @@
+@media (min-width: 320px) and (max-width: 677px) {
+.first{display:none;}
+ .mobilemenu{display:block;}  
+ .normalmenu{display:none};
+.sidebar{display:none !important;}
+.mobilemenu{background: rgb(240, 226, 216) none repeat scroll 0% 0%;} 
+#page .filter_box dl.filters dd ul li{ line-height: 18px;}
+  } 
+}
+}
+}
+
+@media (min-width: 678px) {
+  .mobilemenu{display:none;}  
+  .normalmenu{display:block;}         
+}   

@@ -1,0 +1,115 @@
+---------- Date: 2016-12-20 19:27:24 ~ IP : 192.168.1.47 ----------
+REQUEST URI : /projects/Elakkiya/github/gofootloungelive/
+MOD DETAILS:
+   modFile   : /var/www/html/projects/Elakkiya/github/gofootloungelive/vqmod/xml/voucher-on-purchase-lib2-1531 and above.xml
+   id        : voucher-on-purchase-lib
+   version   : 1.5.x
+   vqmver    : 2.3.2
+   author    : atir:kodecube.com
+
+File Name    : system/library/cart.php(4)
+VQModObject::applyMod - SEARCH NOT FOUND (ABORTING MOD): 'product_id'                => $product_query->row['product_id'],
+MOD DETAILS:
+   modFile   : /var/www/html/projects/Elakkiya/github/gofootloungelive/vqmod/xml/catalog_title_homepage_h1_keywords.xml
+   id        : Meta keywords,Other meta details
+   version   : 1.0
+   vqmver    : 2.1.7
+   author    : picco
+
+File Name    : catalog/view/theme/*/template/common/header.tpl(0)
+VQModObject::applyMod - SEARCH NOT FOUND (ABORTING MOD): <meta name="viewport" content="width=device-width">
+
+----------------------------------------------------------------------
+
+
+---------- Date: 2016-12-20 19:28:51 ~ IP : 192.168.1.47 ----------
+REQUEST URI : /projects/Elakkiya/github/gofootloungelive/fladmin15/index.php?route=common/login
+MOD DETAILS:
+   modFile   : /var/www/html/projects/Elakkiya/github/gofootloungelive/vqmod/xml/admin_products_filter_by_category_and_manufacturer_1_5_x.xml
+   id        : Admin Products filter by Category and Manufacturer
+   version   : 1.0.0
+   vqmver    : 1.0.8
+   author    : Carlosvs - carlosvs.com
+VQModObject::parseMods - Could not resolve path for [fladmin15/language/portuguese-br/catalog/product.php] (SKIPPED)
+
+MOD DETAILS:
+   modFile   : /var/www/html/projects/Elakkiya/github/gofootloungelive/vqmod/xml/voucher-on-purchase.xml
+   id        : Voucher On Purchase
+   version   : 1.2
+   vqmver    : 1.0.8
+   author    : Atir
+VQModObject::parseMods - Could not resolve path for [catalog/controller/checkout/checkout_two.php] (SKIPPED)
+----------------------------------------------------------------------
+
+
+---------- Date: 2016-12-20 19:29:13 ~ IP : 192.168.1.47 ----------
+REQUEST URI : /projects/Elakkiya/github/gofootloungelive/fladmin15/index.php?route=common/login
+MOD DETAILS:
+   modFile   : /var/www/html/projects/Elakkiya/github/gofootloungelive/vqmod/xml/admin_products_filter_by_category_and_manufacturer_1_5_x.xml
+   id        : Admin Products filter by Category and Manufacturer
+   version   : 1.0.0
+   vqmver    : 1.0.8
+   author    : Carlosvs - carlosvs.com
+VQModObject::parseMods - Could not resolve path for [fladmin15/language/portuguese-br/catalog/product.php] (SKIPPED)
+
+MOD DETAILS:
+   modFile   : /var/www/html/projects/Elakkiya/github/gofootloungelive/vqmod/xml/voucher-on-purchase.xml
+   id        : Voucher On Purchase
+   version   : 1.2
+   vqmver    : 1.0.8
+   author    : Atir
+VQModObject::parseMods - Could not resolve path for [catalog/controller/checkout/checkout_two.php] (SKIPPED)
+----------------------------------------------------------------------
+
+
+---------- Date: 2016-12-20 19:29:13 ~ IP : 192.168.1.47 ----------
+REQUEST URI : /projects/Elakkiya/github/gofootloungelive/index.php?route=information/contact/captcha
+MOD DETAILS:
+   modFile   : /var/www/html/projects/Elakkiya/github/gofootloungelive/vqmod/xml/voucher-on-purchase-lib2-1531 and above.xml
+   id        : voucher-on-purchase-lib
+   version   : 1.5.x
+   vqmver    : 2.3.2
+   author    : atir:kodecube.com
+
+File Name    : system/library/cart.php(4)
+VQModObject::applyMod - SEARCH NOT FOUND (ABORTING MOD): 'product_id'                => $product_query->row['product_id'],
+----------------------------------------------------------------------
+
+
+---------- Date: 2016-12-20 19:31:00 ~ IP : 192.168.1.47 ----------
+REQUEST URI : /projects/Elakkiya/github/gofootloungelive/index.php?route=product/product&amp;product_id=1501
+MOD DETAILS:
+   modFile   : /var/www/html/projects/Elakkiya/github/gofootloungelive/vqmod/xml/catalog_title_homepage_h1_keywords.xml
+   id        : Meta keywords,Other meta details
+   version   : 1.0
+   vqmver    : 2.1.7
+   author    : picco
+
+File Name    : catalog/view/theme/*/template/common/header.tpl(0)
+VQModObject::applyMod - SEARCH NOT FOUND (ABORTING MOD): <meta name="viewport" content="width=device-width">
+
+MOD DETAILS:
+   modFile   : /var/www/html/projects/Elakkiya/github/gofootloungelive/vqmod/xml/getproduct_category.xml
+   id        : Add google analytics ecommerce tracking code
+   version   : 2.2 for OpenCart 1.5.0.x - 1.5.6.x
+   vqmver    : 2.x
+   author    : support@extensadev.com
+
+File Name    : catalog/view/theme/*/template/product/product.tpl(0)
+VQModObject::applyMod - SEARCH NOT FOUND (ABORTING MOD): 'http://www.footlounge.in/index.php?route=information/information&information_id=7#<?php echo $manufacturer; ?>'
+
+File Name    : catalog/view/theme/*/template/product/product.tpl(0)
+VQModObject::applyMod - SEARCH NOT FOUND (ABORTING MOD): 'http://www.footlounge.in/betademo/index.php?route=information/information&information_id=7#<?php echo $manufacturer; ?>'
+MOD DETAILS:
+   modFile   : /var/www/html/projects/Elakkiya/github/gofootloungelive/vqmod/xml/pavdeals.xml
+   id        : Pavo Deals
+   version   : 1.0.0
+   vqmver    : 2.3.0
+   author    : Themes
+
+File Name    : catalog/view/theme/*/template/product/product.tpl(0)
+VQModObject::applyMod - SEARCH NOT FOUND (ABORTING MOD): <?php if ($profiles): ?>
+
+----------------------------------------------------------------------
+
+

@@ -1,0 +1,183 @@
+/* This module is copywrite to ozxmod
+ * Author: ozxmod(ozxmod@gmail.com)
+ * It is illegal to remove this comment without prior notice to ozxmod(ozxmod@gmail.com)
+*/ 
+$(document).ready(function(){
+						   
+		
+		
+		
+		
+	  $('#tabs-login a').tabs();
+	  
+ 	  $("#cross_icon_login").bind("click", function() {
+ 	 	  
+  			 $("#ajax_login").bPopup().close(); 
+ 	  });
+  	
+  	 $("#cross_icon_signup").bind("click", function() {
+	 	 
+		$("#ajax_signup").bPopup().close(); 
+  	 });
+  	 
+  	$("#footer_close").bind("click", function() {
+	 	 
+		$("#ajax_login").bPopup().close(); 
+  	 });
+ 	  
+	  $("#loginpopup").bind("click", function() {
+		  $('#ajaxsignuptab').removeClass("selected");
+		  $('#ajaxlogintab').addClass("selected");
+		  
+		  $('#tab-login').show();
+		  $('#tab-register').hide();
+		  
+		  $('#ajax_login').bPopup({
+			    easing: 'easeOutBack', //uses jQuery easing plugin
+		            speed: 0,
+		            transition: 'slideDown'
+		        });
+
+	  });
+	  
+	  $("#signuppopup").bind("click", function() {
+		  $('#ajaxlogintab').removeClass("selected");
+		  $('#ajaxsignuptab').addClass("selected");
+		  
+		  $('#tab-login').hide();
+		  $('#tab-register').show();
+		  
+		  $('#ajax_login').bPopup({
+			    easing: 'easeOutBack', //uses jQuery easing plugin
+		            speed: 0,
+		            transition: 'slideDown'
+		        });
+	  });
+
+	  $('#signup-link').bind("click", function() {
+		  $("#ajax_login").bPopup().close();
+		  $('#ajax_signup').bPopup({
+			    easing: 'easeOutBack', //uses jQuery easing plugin
+		            speed: 450,
+		            transition: 'slideDown'
+		        });
+	  })
+	  
+	  $('#login-link').bind("click", function() {
+		  $("#ajax_signup").bPopup().close();
+		  $('#ajax_login').bPopup({
+			    easing: 'easeOutBack', //uses jQuery easing plugin
+		            speed: 450,
+		            transition: 'slideDown'
+		        });
+	  })
+	  
+	 
+  // Login
+$('#button-login-pop').live('click', function() {
+	$.ajax({
+		url: 'index.php?route=account/ajax_login_register/validateAjaxLogin',
+		type: 'post',
+		data: $('#login_details :input'),
+		
+		dataType: 'json',
+		beforeSend: function() {
+			$('#button-login-pop').attr('disabled', true);
+			$('#button-login-pop').before('<span class="waiting">&nbsp;<img src="catalog/view/theme/default/image/loading.gif" alt="" /></span>');
+		},	
+		complete: function() {
+			$('#button-login-pop').attr('disabled', false);
+			$('.waiting').remove();
+		},				
+		success: function(json) {
+			$('.warning, .error').remove();
+			
+			if (json['success'] != undefined) {
+				location=json['redirect'];
+			} else if (json['error'] != undefined) {
+				$('#login_submit_div').after('<div class="warning" style="display: none;margin-bottom:-10px;">' + json['error'] + '</div>');
+				setTimeout(function(){$('.warning').fadeOut();}, 5000);
+				$('.warning').show();
+				
+			}
+			
+		}
+	});	
+
+	
+});
+ 
+$('#button-register-pop').live('click', function() {
+	$.ajax({
+		url: 'index.php?route=account/ajax_login_register/ajaxregister',
+		type: 'post',
+		data: $('#signup_details :input'),
+		dataType: 'json',
+		beforeSend: function() {
+			$('#button-register-pop').attr('disabled', true);
+			$('#button-register-pop').before('<span class="waiting">&nbsp;<img src="catalog/view/theme/default/image/loading.gif" alt="" /></span>');
+		},	
+		complete: function() {
+			$('#button-register-pop').attr('disabled', false);
+			$('.waiting').remove();
+		},				
+		success: function(json) {
+			$('.warning, .error').remove();
+			
+			if (json['success'] != undefined) {
+				location=json['redirect'];
+			} else if (json['error']!= undefined) {
+				$('#signup_submit_div').after('<div class="warning" style="margin: 0 0 -10px 0;display: none;">' + json['error'] + '</div>');
+				setTimeout(function(){$('.warning').fadeOut();}, 5000); 				
+				$('.warning').show();
+			}
+		}
+	});	
+});
+
+$('#forgot_password').click(function(){
+	$('#forgot_password_div').slideToggle();
+});
+
+$('#button-forgot-password').click(function(){
+	$.ajax({
+		url: 'index.php?route=account/ajax_login_register/sendForgotPassword',
+		type: 'post',
+		data: $('input[name=\'ajax_forgot_email\']'),
+		dataType: 'json',
+		beforeSend: function() {
+			$('#button-forgot-password').attr('disabled', true);
+			$('#button-forgot-password').after('<span class="waiting">&nbsp;<img src="catalog/view/theme/default/image/loading.gif" alt="" /></span>');
+		},	
+		complete: function() {
+			$('#button-forgot-password').attr('disabled', false);
+			$('.waiting').remove();
+		},				
+		success: function(json) {
+			$('.warning, .error').remove();
+			
+			if (json['success'] != undefined) {
+				$('#login_submit_div').after('<div class="success" style="margin: 0;display: none;">' + json['success'] + '</div>');
+				setTimeout(function(){$('.success').fadeOut();}, 5000);				
+				$('.success').show();
+				$('#forgot_password_div').slideUp(1000);
+			} else if (json['error']!= undefined) {
+				$('.forgot_text').after('<div class="warning" style="margin: 0;display: none;">' + json['error'] + '</div>');
+				setTimeout(function(){$('.warning').fadeOut();}, 5000);				
+				$('.warning').show();
+			}
+		}
+	});	
+});
+
+});
+
+function load_popup()
+{
+	$("#signuppopup").trigger( "click" );
+}
+
+/* This module is copywrite to ozxmod
+ * Author: ozxmod(ozxmod@gmail.com)
+ * It is illegal to remove this comment without prior notice to ozxmod(ozxmod@gmail.com)
+*/ 

@@ -1,0 +1,75 @@
+/* search results page styles for mobile*/
+@media screen and (max-width: 320px) {
+.adsmart_search{
+		right:0px !important; 
+	}
+.adsmart_search div.name{ width:170px !important;} 
+.adsmart_search li{ width: 100% !important;}
+.viewport{ width: 300px !important; overflow: scroll !important;}
+.show_all_results{ width: 300px !important;}
+.adsmart_search{ border: 1px solid #ccc !important;}
+.adsmart_search .adsmart_info_msg div.adsmart_loading{ left:55px !important; } 
+}
+@media (min-width: 321px) and (max-width: 360px) {
+.adsmart_search{ 
+		right:0px !important;  
+	}
+.adsmart_search div.name{ width:210px !important;} 
+.adsmart_search li{ width: 100% !important;}
+.viewport{ width: 348px !important; overflow: scroll !important;}
+.show_all_results{ width: 348px !important;} 
+.adsmart_loading{ left:90px !important; }
+}
+@media  (min-width: 361px) and (max-width: 375px){
+.adsmart_search{ 
+		right:0px !important;  
+	}
+.adsmart_search div.name{ width:210px !important;} 
+.adsmart_search li{ width: 100% !important;}
+.viewport{ width: 348px !important; overflow: scroll !important;}
+.show_all_results{ width: 348px !important;} 
+.adsmart_loading{ left:90px !important; }
+}
+@media  (min-width: 376px) and (max-width: 414px){
+.adsmart_search{ 
+		right:0px !important;  
+	} .adsmart_search .viewport{ overflow: scroll !important;}
+.adsmart_search div.name{ width:225px !important;} 
+.adsmart_search li{ width: 100% !important;}
+.viewport{ width: 375px !important; overflow: scroll !important;}
+.show_all_results{ width: 348px !important;} 
+.adsmart_loading{ left:132px !important; }
+}
+@media  (min-width: 500px) and (max-width: 568px){
+.adsmart_search{ 
+		right:0px !important;  
+	}
+.adsmart_search div.name{ width:310px !important;} 
+.adsmart_search li{ width: 100% !important;}
+.viewport{ width: 510px !important; overflow: scroll !important;}
+.show_all_results{ width: 510px !important;} 
+.adsmart_loading{ left:230px !important; }
+.adsmart_container .adsmart_search { width: 512px !important;}
+}
+@media  (min-width: 600px) and (max-width: 667px){
+.adsmart_search{ 
+		right:0px !important;  
+	}
+.adsmart_search div.name{ width:400px !important; padding-left: 50px !important;} 
+.adsmart_search li{ width: 100% !important;}
+.viewport{ width: 590px !important; overflow: scroll !important;}
+.show_all_results{ width: 348px !important;} 
+.adsmart_loading{ left:265px !important; } 
+.adsmart_container .adsmart_search { width: 605px !important;}
+}
+@media  (min-width: 700px) and (max-width: 736px){ 
+.adsmart_search{ 
+		right:0px !important;  
+	}
+.adsmart_search div.name{ width:400px !important; padding-left: 50px !important;} 
+.adsmart_search li{ width: 100% !important;}
+.viewport{ width: 590px !important; overflow: scroll !important;}
+.show_all_results{ width: 348px !important;} 
+.adsmart_loading{ left:265px !important; } 
+.adsmart_container .adsmart_search { width: 605px !important;}
+}

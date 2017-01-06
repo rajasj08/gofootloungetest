@@ -1,0 +1,28 @@
+/******************************************/
+/*   INDIAN RUPEE SYMBOL FOR OPENCART     */
+/******************************************/
+/* Developer   : V N Venkatesh            */
+/* Version     : 1.0                      */
+/* Created on  : 05/09/2013               */
+/* Modified on : 05/09/2013               */
+/* Support     : vnvenkatesh@gmail.com    */
+/* Coutesy     : webrupee.com             */
+/******************************************/
+
+IMPORTANT:
+Please take a backup of your site before performing installation.
+
+
+INSTALLATION STEPS:
+1. First create a currency in your Admin panel with currency code as INR.
+   Use "Rs." or "RS" as your left symbol while creating the currency.
+
+2. Open your header.tpl file placed in below location (depends on the template)
+   catalog\view\theme\default\template\common
+
+3. Copy below line in to the head section or just before the "</head>" tag.
+   <link rel="stylesheet" type="text/css" href="catalog/view/javascript/webrupee_font.css" />
+
+4. Using filezilla or any other FTP client copy both "catalog" and "system" folder to your website root.
+
+That's it. You are done installing INDIAN RUPEE SYMBOL FOR OPENCART.

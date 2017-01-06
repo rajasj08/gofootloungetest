@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<modification>
+        <id>VQMOD CODE FOR Ajax Login Register</id>
+        <version>1.0</version>
+        <vqmver>2.4</vqmver>
+        <author>ozxmod (ozxmod@gmail.com)</author>
+		<file name="catalog/view/theme/*/template/common/header.tpl">
+                <operation error="skip">
+                        <search position="before"><![CDATA[
+						</head>
+                        ]]></search>
+                        <add><![CDATA[
+                        <link rel="stylesheet" type="text/css" href="catalog/view/theme/default/stylesheet/ajax_login_register.css" />
+						<script type="text/javascript" src="catalog/view/javascript/jquery/jquery.bpopup.min.js"></script>
+						<script type="text/javascript" src="catalog/view/javascript/ajax_login_register.js"></script>
+						<script type="text/javascript" src="catalog/view/javascript/jquery/tabs.js"></script>
+                        ]]></add>
+                </operation>
+        </file>
+		<file name="catalog/view/theme/*/template/common/header.tpl">
+                <operation error="skip">
+                        <search position="replace"><![CDATA[
+						<?php echo $text_welcome; ?>
+                        ]]></search>
+                        <add><![CDATA[
+						<?php if($this->config->get('ajaxfbgoogle_status')) { ?>
+                        <?php echo $text_new_welcome; ?>
+						<?php } else { ?>
+						<?php echo $text_welcome; ?>
+						<?php } ?>
+                        ]]></add>
+                </operation>
+        </file>
+		<file name="catalog/view/theme/*/template/common/header.tpl">
+                <operation error="skip">
+                        <search position="after"><![CDATA[
+						<body
+                        ]]></search>
+                        <add><![CDATA[
+						<?php if($this->config->get('ajaxfbgoogle_status')) { ?>
+						<div style="display:none"  id="ajax_login">
+						<span id="cross_icon_login"><img style="width:16px" src="catalog/view/theme/default/image/cross_icon.jpg" /></span>
+						<div><p style="text-align: center;"><span style="font-size: large; color: #ff6600; background-color: #ffffff; font-family: helvetica;"><strong>SIGN UP NOW &amp; GET <span style="color: #800000;">र 2500</span> GIFT COUPON*</strong></span></p></div>
+						<div id="tabs-login" class="my-htabs" style="width: 355px;">
+							<a id="ajaxlogintab" href="#tab-login"><?php echo $tab_login; ?></a>
+							<a id="ajaxsignuptab" href="#tab-register"><?php echo $tab_signup; ?></a>
+						</div>
+						<div id="tab-login" class="my-tab-content">
+								<div id="login_details">
+								  <table>
+								   <tr>
+								   <td><span class="login_display"><?php echo $text_email; ?></span></td>
+								   <td><input type="text" value="" name="ajax_email" /></td>
+								   </tr>
+								   <tr>
+								   <td><span class="login_display"><?php echo $text_password; ?></span></td>
+								   <td><input type="password" value="" name="ajax_password" /></td>
+								   </tr>
+								   <tr>
+								   <td colspan="2">
+								    <div style="margin:5px 0 12px 73px;" id="login_submit_div">
+										<input type="button" value="<?php echo $button_login; ?>" id="button-login-pop" class="ajax_login" />
+										<a id="forgot_password">&nbsp;&nbsp;<?php echo $text_forgot; ?></a>
+									</div>
+									</td>
+								   </tr>
+								  </table>	
+									
+									<div id="forgot_password_div" style="width: 330px; display:none;">
+									    <?php echo $text_forgot_desc; ?>
+										<br/>
+										<span class="login_display" style="margin-right:10px;"><?php echo $text_email; ?></span>
+										<input type="text" name="ajax_forgot_email" /><br />
+										<input type="button" value="<?php echo $button_send; ?>" id="button-forgot-password" class="ajax_login" />
+									</div>
+								</div>
+						</div>
+						<div id="tab-register" class="my-tab-content">
+							<div id="signup_details">
+							  <table>
+							    <tr>
+								 <td><span class="signup_display"><?php echo $text_email; ?></span></td>
+								 <td><input type="text" value="" name="ajax_register_email" /></td>
+								</tr>
+								<tr>
+								 <td><span class="signup_display"><?php echo $text_password; ?></span></td>
+								 <td><input type="password" name="ajax_register_password" /></td>
+								</tr>
+								<tr>
+								 <td><span class="signup_display"><?php echo $text_repeat; ?></span></td>
+								 <td><input type="password" name="re_ajax_register_password" /></td>
+								<td style="display:none";><input name="robotest" type="text" id="robotest" class="robotest"/></td>
+								</tr>
+								<tr>
+								 <td colspan="2">
+								 <div style="margin: 0 0 10px 67px;" id="signup_submit_div">
+								<input type="button" value="<?php echo $button_signup; ?>" id="button-register-pop" class="ajax_login" />
+								</div></td>
+								</tr>
+							  </table>
+								
+							</div>
+						</div>
+						<?php if(!$this->config->get('ajaxfbgoogle_display_fb') && !$this->config->get('ajaxfbgoogle_display_google')) { ?>
+						<?php } else { ?>
+						<div class="login-divider-or">	
+						</div>
+						<div style="float: left;border-left: 1px dotted #ddd;margin-left: 30px;height: 250px;margin-top: -50px;margin-bottom: 8px;">
+								<div style="margin-top: 27px;padding-left: 25px;">
+								<span style="font-weight: bold;"><?php echo $text_sign_with; ?></span><br/><br/>
+								<?php if($this->config->get('ajaxfbgoogle_display_fb')) { ?>
+								<a href="<?php echo $fb_login; ?>">
+								<img style="width: 160px;" src="<?php echo HTTP_SERVER."image/data/fb_login.png";  ?>" title="<?php echo $text_fb_title; ?>" alt="<?php echo $text_fb_title; ?>" />
+								</a>
+								<br/>
+								<?php } ?>
+								<?php if($this->config->get('ajaxfbgoogle_display_google')) { ?>
+								<a href="<?php echo $g_login; ?>">
+								<img style="width: 160px;" src="<?php echo HTTP_SERVER."image/data/g_login.png"; ?>" title="<?php echo $text_google_title; ?>" alt="<?php echo $text_google_title; ?>" />
+								</a>
+								<?php } ?>
+								</div>
+							</div>
+						<?php } ?>	
+						<div class="login_footer"><p style="text-align: left; margin-bottom: -20px;"><span style="font-size: 9px; color: #ff6600; background-color: #ffffff; font-family: helvetica;"><strong>* You will receive 5 X र 500 coupons. Limit 1 per transaction. Conditions apply</strong></span></p>
+						<span class="footer_close" id="footer_close">Close window <b>X</b></span>
+						</div>
+						</div>
+						<?php } ?>
+                        ]]></add>
+                </operation>
+        </file>
+		<file name="catalog/controller/common/header.php">
+                <operation error="skip">
+                        <search position="after"><![CDATA[
+						$this->data['account'] = $this->url->link('account/account', '', 'SSL');
+                        ]]></search>
+                        <add><![CDATA[
+						
+						$this->language->load('account/ajax_login_register');
+						
+						$this->data['text_new_welcome'] = $this->language->get('text_new_welcome');
+						$this->data['tab_login'] = $this->language->get('tab_login');
+						$this->data['tab_signup'] = $this->language->get('tab_signup');
+						$this->data['text_email'] = $this->language->get('text_email');
+						$this->data['text_password'] = $this->language->get('text_password');
+						$this->data['text_forgot'] = $this->language->get('text_forgot');
+						$this->data['text_forgot_desc'] = $this->language->get('text_forgot_desc');
+						$this->data['text_repeat'] = $this->language->get('text_repeat');
+						$this->data['text_sign_with'] = $this->language->get('text_sign_with');
+						$this->data['text_fb_title'] = $this->language->get('text_fb_title');
+						$this->data['text_google_title'] = $this->language->get('text_google_title');
+						$this->data['button_login'] = $this->language->get('button_login');
+						$this->data['button_send'] = $this->language->get('button_send');
+						$this->data['button_signup'] = $this->language->get('button_signup');
+						
+						
+                        $this->data['forgot_password'] = $this->url->link('account/forgotten', '', 'SSL');
+						
+						require_once(DIR_SYSTEM . 'social-login/facebook-sdk/facebook.php');
+						require_once DIR_SYSTEM.'social-login/google/src/apiClient.php';
+						require_once DIR_SYSTEM.'social-login/google/src/contrib/apiOauth2Service.php';
+						
+						// Google login
+						
+						$loc= urlencode ("http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
+						$this->session->data['ajaxfblogin_loc'] = $loc;
+						$client = new apiClient();
+						$client->setApplicationName("Google+ PHP Starter Application");
+						// Visit https://code.google.com/apis/console to generate your
+						// oauth2_client_id, oauth2_client_secret, and to register your oauth2_redirect_uri.
+						 $client->setClientId($this->config->get('ajaxfbgoogle_googleapikey'));
+						 $client->setClientSecret($this->config->get('ajaxfbgoogle_googleapisecret'));
+						 $client->setRedirectUri($this->url->link('account/ajax_login_register/glogin', '', 'SSL'));
+						 $client->setScopes(array('https://www.googleapis.com/auth/userinfo.email','https://www.googleapis.com/auth/userinfo.profile'));
+						 $client->setDeveloperKey('');
+						$plus = new apiOauth2Service($client);
+						
+						$this->data['g_login'] = $client->createAuthUrl();
+						
+						// End Google Login
+						
+						// Facebook Login
+						$myfbconnect = new Facebook(array(
+								'appId'  => $this->config->get('ajaxfbgoogle_apikey'),
+								'secret' => $this->config->get('ajaxfbgoogle_apisecret'),
+						));
+						
+						$this->data['fb_login'] = $myfbconnect->getLoginUrl(
+								array(
+										'scope' => 'email,user_birthday,user_location,user_hometown',
+										'redirect_uri'  => $this->url->link('account/ajax_login_register/fblogin', '', 'SSL')
+								)
+						);
+						
+						// End Facebook Login
+                        ]]></add>
+                </operation>
+        </file>
+		<file name="catalog/controller/account/login.php">
+                <operation error="skip">
+                        <search position="after"><![CDATA[
+						$this->data['breadcrumbs'] = array();
+                        ]]></search>
+                        <add><![CDATA[
+						
+						$this->data['text_fb_title'] = $this->language->get('text_fb_title');
+						$this->data['text_google_title'] = $this->language->get('text_google_title');
+						
+						require_once(DIR_SYSTEM . 'social-login/facebook-sdk/facebook.php');
+						require_once DIR_SYSTEM.'social-login/google/src/apiClient.php';
+						require_once DIR_SYSTEM.'social-login/google/src/contrib/apiOauth2Service.php';
+						
+						// Google login
+						
+						$loc= urlencode ("http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
+						$this->session->data['ajaxfblogin_loc'] = $loc;
+						$client = new apiClient();
+						$client->setApplicationName("Google+ PHP Starter Application");
+						// Visit https://code.google.com/apis/console to generate your
+						// oauth2_client_id, oauth2_client_secret, and to register your oauth2_redirect_uri.
+						 $client->setClientId($this->config->get('ajaxfbgoogle_googleapikey'));
+						 $client->setClientSecret($this->config->get('ajaxfbgoogle_googleapisecret'));
+						 $client->setRedirectUri($this->url->link('account/ajax_login_register/glogin', '', 'SSL'));
+						 $client->setScopes(array('https://www.googleapis.com/auth/userinfo.email','https://www.googleapis.com/auth/userinfo.profile'));
+						 $client->setDeveloperKey('');
+						$plus = new apiOauth2Service($client);
+						
+						$this->data['g_login'] = $client->createAuthUrl();
+						
+						// End Google Login
+						
+						// Facebook Login
+						$myfbconnect = new Facebook(array(
+								'appId'  => $this->config->get('ajaxfbgoogle_apikey'),
+								'secret' => $this->config->get('ajaxfbgoogle_apisecret'),
+						));
+						
+						$this->data['fb_login'] = $myfbconnect->getLoginUrl(
+								array(
+										'scope' => 'email,user_birthday,user_location,user_hometown',
+										'redirect_uri'  => $this->url->link('account/ajax_login_register/fblogin', '', 'SSL')
+								)
+						);
+						
+						// End Facebook Login
+                        ]]></add>
+                </operation>
+        </file>
+		<file name="catalog/view/theme/*/template/account/login.tpl">
+                <operation error="skip">
+                        <search position="before"><![CDATA[
+						<?php if ($redirect) { ?>
+                        ]]></search>
+                        <add><![CDATA[
+						<?php if($this->config->get('ajaxfbgoogle_status') && $this->config->get('ajaxfbgoogle_display_at_login') == "yes" ) { ?>
+						<div style="margin-top: 27px;">
+								<div style="border-top:1px solid #ddd; padding-bottom:10px;"></div>
+								<?php if($this->config->get('ajaxfbgoogle_display_fb')) { ?>
+								<a href="<?php echo $fb_login; ?>">
+								<img style="width: 160px;" src="<?php echo HTTP_SERVER."image/data/fb_login.png";  ?>" title="<?php echo $text_fb_title; ?>" alt="<?php echo $text_fb_title; ?>" />
+								</a>
+								<?php } ?>
+								<?php if($this->config->get('ajaxfbgoogle_display_google')) { ?>
+								<a href="<?php echo $g_login; ?>">
+								<img style="width: 168px;" src="<?php echo HTTP_SERVER."image/data/g_login.png"; ?>" title="<?php echo $text_google_title; ?>" alt="<?php echo $text_google_title; ?>" />
+								</a>
+								<?php } ?>
+								</div>
+						<?php } ?>
+                        ]]></add>
+                </operation>
+        </file>
+		<file name="catalog/controller/checkout/login.php">
+                <operation error="skip">
+                        <search position="after"><![CDATA[
+						public function index() {
+                        ]]></search>
+                        <add><![CDATA[
+						
+						$this->data['text_fb_title'] = $this->language->get('text_fb_title');
+						$this->data['text_google_title'] = $this->language->get('text_google_title');
+						
+						require_once(DIR_SYSTEM . 'social-login/facebook-sdk/facebook.php');
+						require_once DIR_SYSTEM.'social-login/google/src/apiClient.php';
+						require_once DIR_SYSTEM.'social-login/google/src/contrib/apiOauth2Service.php';
+						
+						// Google login
+						
+						$loc= urlencode ("http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
+						$this->session->data['ajaxfblogin_loc'] = $loc;
+						$this->session->data['ajaxfblogin_from'] = 'checkout';
+						$client = new apiClient();
+						$client->setApplicationName("Google+ PHP Starter Application");
+						// Visit https://code.google.com/apis/console to generate your
+						// oauth2_client_id, oauth2_client_secret, and to register your oauth2_redirect_uri.
+						 $client->setClientId($this->config->get('ajaxfbgoogle_googleapikey'));
+						 $client->setClientSecret($this->config->get('ajaxfbgoogle_googleapisecret'));
+						 $client->setRedirectUri($this->url->link('account/ajax_login_register/glogin', '', 'SSL'));
+						 $client->setScopes(array('https://www.googleapis.com/auth/userinfo.email','https://www.googleapis.com/auth/userinfo.profile'));
+						 $client->setDeveloperKey('');
+						$plus = new apiOauth2Service($client);
+						
+						$this->data['g_login'] = $client->createAuthUrl();
+						
+						// End Google Login
+						
+						// Facebook Login
+						$myfbconnect = new Facebook(array(
+								'appId'  => $this->config->get('ajaxfbgoogle_apikey'),
+								'secret' => $this->config->get('ajaxfbgoogle_apisecret'),
+						));
+						
+						$this->data['fb_login'] = $myfbconnect->getLoginUrl(
+								array(
+										'scope' => 'email,user_birthday,user_location,user_hometown',
+										'redirect_uri'  => $this->url->link('account/ajax_login_register/fblogin', '', 'SSL')
+								)
+						);
+						
+						// End Facebook Login
+                        ]]></add>
+                </operation>
+        </file>
+		<file name="catalog/view/theme/*/template/checkout/login.tpl">
+                <operation error="skip">
+                        <search position="after" offset="1"><![CDATA[
+						<input type="button" value="<?php echo $button_login; ?>"
+                        ]]></search>
+                        <add><![CDATA[
+						<?php if($this->config->get('ajaxfbgoogle_status') && $this->config->get('ajaxfbgoogle_display_at_checkout') == "yes" ) { ?>
+						<div style="margin-top: 27px;">
+								<div style="border-top:1px solid #ddd; padding-bottom:10px;"></div>
+								<?php if($this->config->get('ajaxfbgoogle_display_fb')) { ?>
+								<a href="<?php echo $fb_login; ?>">
+								<img style="width: 160px;" src="<?php echo HTTP_SERVER."image/data/fb_login.png";  ?>" title="<?php echo $text_fb_title; ?>" alt="<?php echo $text_fb_title; ?>" />
+								</a>
+								<?php } ?>
+								<?php if($this->config->get('ajaxfbgoogle_display_google')) { ?>
+								<a href="<?php echo $g_login; ?>">
+								<img style="width: 168px;" src="<?php echo HTTP_SERVER."image/data/g_login.png"; ?>" title="<?php echo $text_google_title; ?>" alt="<?php echo $text_google_title; ?>" />
+								</a>
+								<?php } ?>
+								</div>
+						<?php } ?>		
+                        ]]></add>
+                </operation>
+        </file>
+</modification>

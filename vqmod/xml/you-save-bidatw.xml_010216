@@ -1,0 +1,41 @@
+﻿<modification>
+	<id>income-image</id>
+	<version>1.0</version>
+	<vqmver>2.4.1</vqmver>
+	<author>www.bidatw.com</author>
+	<file name="catalog/controller/product/product.php">
+		<operation>
+			<search position="after"><![CDATA[if ((float)$product_info['special']) {]]></search>
+			<add><![CDATA[$this->data['income'] = $this->currency->format($product_info['price'] - $product_info['special']);
+$this->data['saving'] = round((($product_info['price'] - $product_info['special'])/$product_info['price'])*100, 0);]]></add>
+			
+		</operation>
+	</file>
+	
+	<file name="catalog/controller/product/product.php">
+		<operation>
+		<search position="after"><![CDATA[$this->data['text_tags'] = $this->language->get('text_tags');]]></search>
+			<add><![CDATA[$this->data['text_income'] = $this->language->get('text_income');]]></add>
+			
+		</operation>
+	</file>
+	
+	<file name="catalog/language/english/product/product.php">
+		<operation>
+			<search position="after"><![CDATA[$_['text_tags']         = 'Tags:';]]></search>
+			<add><![CDATA[$_['text_income']       = 'OFF';]]></add>
+		</operation>
+	</file>
+	
+	<file name="catalog/view/theme/*/template/product/product.tpl">
+		<operation>
+			<search position="after"><![CDATA[<?php echo $special; ?>]]></search>
+			<add><![CDATA[<div class="income" style="color: #E55E5E;
+">
+       <br> <p style=" font-size: 0.85em;
+    font-weight: 800;    margin-top: -22px;">[<?php echo $saving; ?>% <?php echo $text_income; ?>]</p></div>]]></add>
+		</operation>
+	</file>
+	
+	
+</modification>

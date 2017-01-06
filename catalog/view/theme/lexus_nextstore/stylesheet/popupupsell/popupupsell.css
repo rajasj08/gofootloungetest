@@ -1,0 +1,17 @@
+.popupupsell .fancybox-skin {
+		background: #f4f5f7;
+}
+
+.popupupsell .product-info .name {
+	padding: 0px 5px 10px 5px;
+	margin-bottom: 10px;
+	font-size: 15px;
+	font-weight: bold;
+	font-size: 20px;
+	line-height: 24px;
+	display: inline-block;
+}
+
+.popupupsell .product-info .description {
+	border-top: none;	
+}

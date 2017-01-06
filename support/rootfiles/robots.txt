@@ -1,0 +1,181 @@
+User-agent: Adsbot-Google
+Allow: / 
+Disallow: /2016demo/
+
+User-agent: Alexabot
+Allow: / 
+Disallow: /2016demo/
+
+User-agent: Applebot
+Allow: / 
+Disallow: /2016demo/
+
+User-agent: Architextspider
+Allow: / 
+Disallow: /2016demo/
+
+User-agent: Baiduspider
+Allow: / 
+Disallow: /2016demo/
+
+User-agent: Bender
+Allow: / 
+Disallow: /2016demo/
+
+User-agent: Bingbot
+Allow: / 
+Disallow: /2016demo/
+
+User-agent: Birubot
+Allow: / 
+Disallow: /2016demo/
+
+User-agent: BlogPulseLive
+Allow: / 
+Disallow: /2016demo/
+
+User-agent: Coccoc
+Allow: / 
+Disallow: /2016demo/
+
+User-agent: Daumoa
+Allow: / 
+Disallow: /2016demo/
+
+User-agent: Duckduckbot
+Allow: / 
+Disallow: /2016demo/
+
+User-agent: Fast
+Allow: / 
+Disallow: /2016demo/
+
+User-agent: Feedfetcher-Google
+Allow: / 
+Disallow: /2016demo/
+
+User-agent: Googlebot
+Allow: / 
+Disallow: /2016demo/
+
+User-agent: Googlebot-Image
+Allow: / 
+Disallow: /2016demo/
+
+User-agent: Googlebot-Mobile
+Allow: / 
+Disallow: /2016demo/
+
+User-agent: Googlebot-News
+Allow: / 
+Disallow: /2016demo/
+
+User-agent: Googlebot-Video
+Allow: / 
+Disallow: /2016demo/
+
+User-agent: Gulliver
+Allow: / 
+Disallow: /2016demo/
+
+User-agent: Ia_Archiver
+Allow: / 
+Disallow: /2016demo/
+
+User-agent: iisbot
+Allow: / 
+Disallow: /2016demo/
+
+User-agent: Jikespider
+Allow: / 
+Disallow: /2016demo/
+
+User-agent: Lycos_Spider_(T-Rex)
+Allow: / 
+Disallow: /2016demo/
+
+User-agent: Mail.Ru_Bot
+Allow: / 
+Disallow: /2016demo/
+
+User-agent: Mediapartners-Google
+Allow: / 
+Disallow: /2016demo/
+
+User-agent: Msnbot
+Allow: / 
+Disallow: /2016demo/
+
+User-agent: Msnbot-Media
+Allow: / 
+Disallow: /2016demo/
+
+User-agent: Msnptc
+Allow: / 
+Disallow: /2016demo/
+
+User-agent: Naverbot
+Allow: / 
+Disallow: /2016demo/
+
+User-agent: Nutch
+Allow: / 
+Disallow: /2016demo/
+
+User-agent: Quickobot
+Allow: / 
+Disallow: /2016demo/
+
+User-agent: Rogerbot
+Allow: / 
+Disallow: /2016demo/
+
+User-agent: Scooter
+Allow: / 
+Disallow: /2016demo/
+
+User-agent: Seznambot
+Allow: / 
+Disallow: /2016demo/
+
+User-agent: Slurp
+Allow: / 
+Disallow: /2016demo/
+
+User-agent: StackRambler
+Allow: / 
+Disallow: /2016demo/
+
+User-agent: Surveybot
+Allow: / 
+Disallow: /2016demo/
+
+User-agent: Teoma
+Allow: / 
+Disallow: /2016demo/
+
+User-agent: Twitterbot/1.0
+Allow: / 
+Disallow: /2016demo/
+
+User-agent: Vscooter
+Allow: / 
+Disallow: /2016demo/
+
+User-agent: Yandex
+Allow: / 
+Disallow: /2016demo/
+
+User-agent: Yeti
+Allow: / 
+Disallow: /2016demo/
+
+User-agent: Zyborg
+Allow: / 
+Disallow: /2016demo/
+
+User-agent: *
+Allow: / 
+Disallow: /2016demo/
+
+Sitemap: http://http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/sitemap.xml

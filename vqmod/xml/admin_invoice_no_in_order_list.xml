@@ -1,0 +1,153 @@
+<modification>
+	<id><![CDATA[Admin Invoice in Orders List]]></id>
+	<version><![CDATA[1]]></version>
+	<vqmver><![CDATA[2.x]]></vqmver>
+	<author><![CDATA[thbr02 - modified by Trueliar]]></author>
+		
+	
+	<file name="admin/controller/sale/order.php">
+		<operation error="log">
+            <search position="before" index="1,2,3,5,6,7,8,9"><![CDATA[if (isset($this->request->get['filter_customer'])) {]]></search>
+            <add><![CDATA[if (isset($this->request->get['filter_invoice_no'])) {
+				$url .= '&filter_invoice_no=' . $this->request->get['filter_invoice_no'];
+			}]]></add>
+        </operation>
+		<operation error="log">
+            <search position="before" index="1,2,3,5,6,7,8,9"><![CDATA[if (isset($this->request->get['filter_customer'])) {]]></search>
+            <add><![CDATA[if (isset($this->request->get['filter_invoice_prefix'])) {
+				$url .= '&filter_invoice_prefix=' . $this->request->get['filter_invoice_prefix'];
+			}]]></add>
+        </operation>
+				
+		<operation error="log">
+            <search position="after" offset="2"><![CDATA[$filter_order_id = null;]]></search>
+            <add><![CDATA[if (isset($this->request->get['filter_invoice_no'])) {
+			$filter_invoice_no = $this->request->get['filter_invoice_no'];
+		} else {
+			$filter_invoice_no = null;
+		}]]></add>
+        </operation>
+		<operation error="log">
+            <search position="after" offset="2"><![CDATA[$filter_order_id = null;]]></search>
+            <add><![CDATA[if (isset($this->request->get['filter_invoice_prefix'])) {
+			$filter_invoice_prefix = $this->request->get['filter_invoice_prefix'];
+		} else {
+			$filter_invoice_prefix = null;
+		}]]></add>
+        </operation>
+				
+		<operation error="log">
+            <search position="after"><![CDATA['filter_order_id'        => $filter_order_id,]]></search>
+            <add><![CDATA['filter_invoice_no'        => $filter_invoice_prefix.$filter_invoice_no,]]></add>
+        </operation>
+		
+		<operation error="log">
+            <search position="after"><![CDATA['order_id'      => $result['order_id'],]]></search>
+            <add><![CDATA[
+				'invoice_no'    => $result['invoice_no'],
+				'invoice_prefix'    => $result['invoice_prefix'],
+				]]></add>
+        </operation>
+				
+		<operation error="log">
+            <search position="after"><![CDATA[$this->data['column_order_id'] = $this->language->get('column_order_id');]]></search>
+            <add><![CDATA[$this->data['text_invoice_no'] = $this->language->get('text_invoice_no');]]></add>
+        </operation>
+				
+		<operation error="log">
+            <search position="after"><![CDATA[$this->data['sort_order'] = $this->url->link('sale/order', 'token=' . $this->session->data['token'] . '&sort=o.order_id' . $url, 'SSL');]]></search>
+            <add><![CDATA[$this->data['sort_invoice_no'] = $this->url->link('sale/order', 'token=' . $this->session->data['token'] . '&sort=o.invoice_no' . $url, 'SSL');]]></add>
+        </operation>
+		
+		<operation error="log">
+            <search position="after"><![CDATA[$this->data['filter_order_id'] = $filter_order_id;]]></search>
+            <add><![CDATA[$this->data['filter_invoice_no'] = $filter_invoice_no;]]></add>
+        </operation>
+		<operation error="log">
+            <search position="after"><![CDATA[$this->data['filter_order_id'] = $filter_order_id;]]></search>
+            <add><![CDATA[$this->data['filter_invoice_prefix'] = $filter_invoice_prefix;]]></add>
+        </operation>
+		
+		<!--replace above code with code below?-->
+		<!--<operation error="log">
+            <search position="after"><![CDATA[$this->data['filter_order_id'] = $filter_order_id;]]></search>
+            <add><![CDATA[$this->data['filter_invoice_no'] = $filter_invoice_prefix.$filter_invoice_no;]]></add>
+        </operation>-->
+	</file>
+	
+	<file name="admin/model/sale/order.php">
+	
+		<operation error="log">            
+			<search position="after"><![CDATA['invoice_no'              => $order_query->row['invoice_no'],]]></search>
+            <add><![CDATA['invoice_no_clean'              => $order_query->row['invoice_no'],]]></add>
+        </operation>
+		
+		<operation error="log">
+            <search position="replace"><![CDATA[$sql = "SELECT o.order_id, CONCAT(o.firstname, ' ', o.lastname) AS customer, (SELECT os.name FROM " . DB_PREFIX . "order_status os WHERE os.order_status_id = o.order_status_id AND os.language_id = '" . (int)$this->config->get('config_language_id') . "') AS status, o.total, o.currency_code, o.currency_value, o.date_added, o.date_modified FROM `" . DB_PREFIX . "order` o";]]></search>
+            <add><![CDATA[$sql = "SELECT o.order_id, CONCAT(o.firstname, ' ', o.lastname) AS customer, (SELECT os.name FROM " . DB_PREFIX . "order_status os WHERE os.order_status_id = o.order_status_id AND os.language_id = '" . (int)$this->config->get('config_language_id') . "') AS status, o.invoice_prefix, o.invoice_no, o.total,  o.currency_code, o.currency_value, o.date_added, o.date_modified FROM `" . DB_PREFIX . "order` o";]]></add>
+        </operation>				
+		
+		<operation error="log">            
+			<search position="after" offset="2"><![CDATA[$sql .= " WHERE o.order_status_id > '0'";]]></search>
+            <add><![CDATA[if (!empty($data['filter_invoice_no'])) {
+			$sql .= " AND o.invoice_no = '" . (int)$data['filter_invoice_no'] . "'";
+		}]]></add>
+        </operation>
+		<operation error="log">            
+			<search position="after" offset="2"><![CDATA[$sql .= " WHERE o.order_status_id > '0'";]]></search>
+            <add><![CDATA[if (!empty($data['filter_invoice_prefix'])) {
+			$sql .= " AND o.invoice_prefix = '" . (int)$data['filter_invoice_prefix'] . "'";
+		}]]></add>
+        </operation>
+		
+		<operation error="log">            
+			<search position="before" offset="2"><![CDATA[$sql .= " AND order_id = '" . (int)$data['filter_order_id'] . "'";]]></search>
+            <add><![CDATA[if (!empty($data['filter_invoice_no'])) {
+			$sql .= " AND invoice_no = '" . (int)$data['filter_invoice_no'] . "'";
+		}]]></add>
+        </operation>		
+		<operation error="log">            
+			<search position="before" offset="2"><![CDATA[$sql .= " AND order_id = '" . (int)$data['filter_order_id'] . "'";]]></search>
+            <add><![CDATA[if (!empty($data['filter_invoice_prefix'])) {
+			$sql .= " AND invoice_prefix = '" . (int)$data['filter_invoice_prefix'] . "'";
+		}]]></add>
+        </operation>
+		
+		<operation error="log">
+            <search position="after"><![CDATA['o.order_id',]]></search>
+            <add><![CDATA['o.invoice_no',]]></add>
+        </operation>
+		<operation error="log">
+            <search position="after"><![CDATA['o.order_id',]]></search>
+            <add><![CDATA['o.invoice_prefix',]]></add>
+        </operation>
+	</file>
+	
+	<file name="admin/view/template/sale/order_list.tpl">
+		<operation error="log">
+            <search position="before"><![CDATA[<td class="right"><?php if ($sort == 'o.order_id') { ?>]]></search>
+            <add><![CDATA[<td class="right"><?php if ($sort == 'o.invoice_no') { ?>
+                <a href="<?php echo $sort_invoice_no; ?>" class="<?php echo strtolower($order); ?>"><?php echo $text_invoice_no; ?></a>
+                <?php } else { ?>
+                <a href="<?php echo $sort_invoice_no; ?>"><?php echo $text_invoice_no; ?></a>
+                <?php } ?></td>]]></add>
+        </operation>
+		<operation error="log">
+            <search position="before"><![CDATA[<td align="right"><input type="text" name="filter_order_id" value="<?php echo $filter_order_id; ?>" size="4" style="text-align: right;" /></td>]]></search>
+            <add><![CDATA[<td align="right"><input type="text" name="filter_invoice_no" value="<?php echo $filter_invoice_no; ?>" size="4" style="text-align: right;" /></td>]]></add>
+        </operation>
+		<operation error="log">
+            <search position="before"><![CDATA[<td class="right"><?php echo $order['order_id']; ?></td>]]></search>
+            <add><![CDATA[<td class="right"><?php if(empty($order['invoice_no'])){echo '-'; } else { echo $order['invoice_prefix'] . $order['invoice_no'];} ?></td>]]></add>
+        </operation>		
+		<operation error="log">
+            <search position="before"><![CDATA[var filter_order_id = $('input[name=\'filter_order_id\']').attr('value');]]></search>
+            <add><![CDATA[var filter_invoice_no = $('input[name=\'filter_invoice_no\']').attr('value');
+	
+	if (filter_invoice_no) {
+		url += '&filter_invoice_no=' + encodeURIComponent(filter_invoice_no);
+	}]]></add>
+        </operation>
+	</file>
+	
+</modification>

@@ -1,0 +1,49 @@
+<file name="catalog/model/catalog/review.php">
+	<operation>
+		<search position="after" offset="1" info="Insert below query"><![CDATA[
+			public function addReview($product_id, $data) { ]]></search>
+		<add><![CDATA[
+			$review_id = $this->db->getLastId();
+
+			$this->load->model('catalog/product');
+
+   			$product_info = $this->model_catalog_product->getProduct($product_id);
+			if(empty($product_info)) return false;
+
+			$template = new EmailTemplate($this->request, $this->registry);
+            
+			$template->addData($data, 'review');
+			$template->addData($product_info, 'product');
+
+			$template->data['product_link'] = $this->url->link('product/product', 'product_id=' . $product_id);
+			$template->data['product_link_tracking'] = $template->getTracking($template->data['product_link']);
+			$template->data['review_approve'] = (defined('HTTP_ADMIN') ? HTTP_ADMIN : HTTP_SERVER.'admin/') . 'index.php?route=catalog/review/update&review_id=' . $review_id;
+
+			$template->load('product.review');
+
+			$template->send(); ]]></add>
+	</operation>
+</file>
+<file name="catalog/model/catalog/review.php" error="log">
+	<operation error="log">
+		<search position="after" index="1"><![CDATA[$this->db->query("INSERT INTO " . DB_PREFIX . "review]]></search>
+		<ignoreif><![CDATA[
+		$review_id = $this->db->getLastId(); ]]></ignoreif>
+		<add><![CDATA[
+		$review_id = $this->db->getLastId();
+		]]></add>
+	</operation>	
+	<operation error="log">
+		<search position="ibefore" index="1"><![CDATA[product_id = '"]]></search>
+		<add trim="true"><![CDATA[
+		" . ($this->config->get('config_stv_auto_approve_review')==1 ? "status='1'," : "") . "
+		]]></add>
+	</operation>	
+	<operation error="log">
+		<search position="after" index="1"><![CDATA[$review_id = $this->db->getLastId();]]></search>
+		<add><![CDATA[
+		$this->load->model('setting/stvsetting');
+		$this->model_setting_stvsetting->addSettingMPQ('config',0,'config_stv_new_review',$review_id);
+		]]></add>
+	</operation>		
+</file>	
