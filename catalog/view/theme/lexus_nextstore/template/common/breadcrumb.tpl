@@ -36,7 +36,7 @@
       <div class="modal-footer" style=" padding: 8px 20px 8px !important;">
       <span class="alert alert-success" style=" padding:5px !important; margin-bottom:0px; display:none;"  id="success_msg1">Your order has been cleared successfully.</span>
       <span class="alert alert-danger" style=" padding:5px !important; margin-bottom:0px;display:none;" id="failure_msg1">failed</span>
-      	<img src="http://192.168.1.105/projects/Elakkiya/footloungeupdate_042016/image/	loading_spinner.gif" alt="loading..." id="image_spinner">
+      	<img src="https://gofootlounge.in/image/loading_spinner.gif" alt="loading..." id="image_spinner">
         <button type="button" class="btn btn-default" id="closebtn" onclick="continueorder();">No</button>
         <button type="button" class="btn btn-primary" id="sendbtn" onclick="unsetorder();">Yes</button>
       </div> 

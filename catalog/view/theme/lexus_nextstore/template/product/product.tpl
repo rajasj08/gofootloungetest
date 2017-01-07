@@ -253,7 +253,7 @@ if( $sum_total )  {
 							<?php } ?>
 							</span>
 							
-							&nbsp;<span class="price-new specialpricenew"><span class="showsploffmsg" data-toggle="popover" data-trigger="hover" data-content="<p class='proddisccontent'>(Special Price because you bought <span class='proddisccontent1'><a class='proddisccontent1' href='http://testourworks.com/footlounge/index.php?route=product/product&product_id=<?php echo trim($mainproductidinfo); ?>'><?php echo $mainproductname; ?></a></span>)</p>"><i class='fa fa-check' aria-hidden='true'></i></span>You Pay:&nbsp;<?php echo $special; ?> <!--<span class="income"><?php echo $saving; ?>% <?php echo $text_income; ?></span> --></span> 
+							&nbsp;<span class="price-new specialpricenew"><span class="showsploffmsg" data-toggle="popover" data-trigger="hover" data-content="<p class='proddisccontent'>(Special Price because you bought <span class='proddisccontent1'><a class='proddisccontent1' href='https://gofootlounge.in/index.php?route=product/product&product_id=<?php echo trim($mainproductidinfo); ?>'><?php echo $mainproductname; ?></a></span>)</p>"><i class='fa fa-check' aria-hidden='true'></i></span>You Pay:&nbsp;<?php echo $special; ?> <!--<span class="income"><?php echo $saving; ?>% <?php echo $text_income; ?></span> --></span> 
 							
 							<?php }
 							else{
@@ -270,7 +270,7 @@ if( $sum_total )  {
 						</div>	
 						<?php if($discountofferprod){
 								?>		
-		 			<!--<p class="proddisccontent">Special price by adding this product <span class="proddisccontent1"><a class="proddisccontent1" href="http://testourworks.com/footlounge/index.php?route=product/product&product_id=<?php echo trim($mainproductidinfo); ?>"><?php echo $mainproductname; ?></a></span></p> -->
+		 			<!--<p class="proddisccontent">Special price by adding this product <span class="proddisccontent1"><a class="proddisccontent1" href="https://gofootlounge.in/index.php?route=product/product&product_id=<?php echo trim($mainproductidinfo); ?>"><?php echo $mainproductname; ?></a></span></p> -->
 		 			
 		 			<?php } ?> 
 						<div class="other-price">

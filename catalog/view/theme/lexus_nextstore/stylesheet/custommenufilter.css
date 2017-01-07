@@ -879,7 +879,7 @@ border-radius: 0px;  background: #F47116; border:1px solid  #F47116 ;}
     height:100%;
     position:fixed;
     z-index:9999;
-    background:url("http://testourworks.com/footlounge/image/ajax-loader.gif") no-repeat center center;
+    background:url("https://gofootlounge.in/image/ajax-loader.gif") no-repeat center center;
 }
 .notopborder{ border-top: 0px !important;}
 .checkpagebanner .banner_outer{ display: none; }
