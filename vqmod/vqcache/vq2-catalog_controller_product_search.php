@@ -562,6 +562,7 @@ class ControllerProductSearch extends Controller {
 		}
 		echo json_encode( $data ); 
 	}
+
 	 public function autocomplete() {
 
 
@@ -729,6 +730,8 @@ class ControllerProductSearch extends Controller {
                         $this->response->setOutput(json_encode($json));
                     }
 	//]]>
-	// end search auto fill  
+	// end search auto fill
+	//]]>
+	// end search auto fill
 }
 ?> 

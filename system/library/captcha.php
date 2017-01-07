@@ -6,6 +6,7 @@ class Captcha {
 
 	function __construct() { 
 		$this->code = substr(sha1(mt_rand()), 17, 6); 
+		 $this->code = str_replace(array("\n", "\r", "\t", " "), "", $this->code);
 	}
 
 	function getCode(){
