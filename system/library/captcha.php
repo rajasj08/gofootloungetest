@@ -10,9 +10,13 @@ class Captcha {
 	}
 
 	function getCode(){
-		return $this->code;
-	}
+		$out = ob_get_contents();
+		$out = str_replace(array("\n", "\r", "\t", " "), "", $this->code);
+		ob_end_clean();
 
+		   return $out;
+	}
+	
 	function showImage() {
         $image = imagecreatetruecolor($this->height, $this->width);
 
