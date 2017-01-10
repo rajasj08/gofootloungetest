@@ -1,8 +1,8 @@
 <script type="text/javascript">
 	var timeout = 5000;
 	if (!$.fancybox) {
-		$('head').append('<link rel="stylesheet" type="text/css" href="catalog/view/javascript/jquery/fancybox/jquery.fancybox.css" />');
-		$('head').append('<script type="text/javascript" src="catalog/view/javascript/jquery/fancybox/jquery.fancybox.js"><'+'/script>');
+		$('head').append('<link rel="stylesheet" type="text/css" href="catalog/view/javascript/jquery/fancybox/jquery.fancybox.min.css" />');
+		$('head').append('<script type="text/javascript" src="catalog/view/javascript/jquery/fancybox/jquery.fancybox.min.js"><'+'/script>');
 	}
 	
 	var product_ids = [];

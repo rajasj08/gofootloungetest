@@ -36,8 +36,8 @@
 	<file name="catalog/view/theme/*/template/common/header.tpl">
 		<operation>
 			<search position="before"><![CDATA[</head>]]></search>
-			<add><![CDATA[<link rel="stylesheet" type="text/css" href="irsgroup/ind-font/font.css" />
-<script type="text/javascript" src="irsgroup/ind-font/inr.js"></script>]]></add>
+			<add><![CDATA[<link rel="stylesheet" type="text/css" href="irsgroup/ind-font/font.min.css" />
+<script type="text/javascript" src="irsgroup/ind-font/inr.min.js"></script>]]></add>
 		</operation>
 	</file>
 	

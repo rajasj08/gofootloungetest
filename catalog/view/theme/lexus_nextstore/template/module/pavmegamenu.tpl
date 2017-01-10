@@ -124,7 +124,7 @@
 
 	function showlink(link)//show link
 	{
-		window.location.href='https://gofootlounge.in/'+link;  
+		window.location.href='https://gofootlounge.in/'+link+'&C=INR&filter=Exclude+Out+Of+Stock_ss-n-a=yes';   
 		
 	}
 </script>  
