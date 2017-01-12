@@ -107,6 +107,7 @@ class ControllerFeedUksbGoogleMerchant extends Controller {
 			
 			if(!isset($this->request->get['mode']) || ($this->request->get['mode']=='cron' && $split[0] == 1)){
 				$output  = '<?xml version="1.0" encoding="UTF-8"?>'."\n";
+				$output=trim($output);  
 			
 				$output .= '<rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">'."\n";
 				
