@@ -109,17 +109,17 @@ class ControllerFeedUksbGoogleMerchant extends Controller {
 				$output  = '<?xml version="1.0" encoding="UTF-8"?>'."\n";
 				$output=trim($output);  
 			
-				$output .= '<rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">'."\n";
+				$output .= ' <rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">'."\n";
 				
-				$output .= '<channel>'."\n";
+				$output .= ' <channel>'."\n";
 				
-				$output .= '<title><![CDATA[' . $this->config->get('config_name') . ']]></title>'."\n";
+				$output .= ' <title><![CDATA[' . $this->config->get('config_name') . ']]></title>'."\n";
 				
 				if(!is_array($this->config->get('config_meta_description')) && $this->config->get('config_meta_description')!==''){
-					$output .= '<description><![CDATA[' . $this->config->get('config_meta_description') . ']]></description>'."\n";
+					$output .= ' <description><![CDATA[' . $this->config->get('config_meta_description') . ']]></description>'."\n";
 				}
 				
-				$output .= '<link>' . $server . '</link>'."\n\n\n";
+				$output .= ' <link>' . $server . '</link>'."\n\n\n";
 			}else{
 				$output = '';	
 			}
@@ -144,28 +144,28 @@ class ControllerFeedUksbGoogleMerchant extends Controller {
 						
 						$j = $i-1;
 						
-						$output .= '<item>'."\n";
+						$output .= ' <item>'."\n";
 						
-						$output .= '<title><![CDATA[' . $product['name'] . (isset($colours[$j])&&trim($colours[$j])!=''?' - '.trim($colours[$j]):'') . (isset($sizes[$j])&&trim($sizes[$j])!=''?' - '.trim($sizes[$j]):'') . ']]></title>'."\n";
+						$output .= ' <title><![CDATA[' . $product['name'] . (isset($colours[$j])&&trim($colours[$j])!=''?' - '.trim($colours[$j]):'') . (isset($sizes[$j])&&trim($sizes[$j])!=''?' - '.trim($sizes[$j]):'') . ']]></title>'."\n";
 						
-						$output .= '<link><![CDATA[' . $this->url->link('product/product', 'product_id=' . $product['product_id'] . '&language=' . $lang . '&currency='. $curr) . ']]></link>'."\n";
+						$output .= ' <link><![CDATA[' . $this->url->link('product/product', 'product_id=' . $product['product_id'] . '&language=' . $lang . '&currency='. $curr) . ']]></link>'."\n";
 						
-						$output .= '<description><![CDATA[' . $this->plainText($product['description']) . ']]></description>'."\n";
+						$output .= ' <description><![CDATA[' . $this->plainText($product['description']) . ']]></description>'."\n";
 						
 						if($product['g_brand'] || $product['manufacturer']){
-							$output .= '<g:brand><![CDATA[' . ($product['g_brand'] ? $product['g_brand'] : $product['manufacturer']) . ']]></g:brand>'."\n";
+							$output .= ' <g:brand><![CDATA[' . ($product['g_brand'] ? $product['g_brand'] : $product['manufacturer']) . ']]></g:brand>'."\n";
 						}
 						
-						$output .= '<g:condition>' . ($product['g_condition']?$product['g_condition']:$this->config->get('uksb_google_merchant_condition')) . '</g:condition>'."\n";
+						$output .= ' <g:condition>' . ($product['g_condition']?$product['g_condition']:$this->config->get('uksb_google_merchant_condition')) . '</g:condition>'."\n";
 						
-						$output .= '<g:item_group_id><![CDATA[' . $group_id . ']]></g:item_group_id>'."\n";
+						$output .= ' <g:item_group_id><![CDATA[' . $group_id . ']]></g:item_group_id>'."\n";
 						
-						$output .= '<g:id><![CDATA[' . $product['product_id'] . '_' . $i . '_' . $id_suffix . ']]></g:id>'."\n";
+						$output .= ' <g:id><![CDATA[' . $product['product_id'] . '_' . $i . '_' . $id_suffix . ']]></g:id>'."\n";
 						
 						if(isset($images[$j]) && $images[$j] != 'no_image.jpg' ){
-							$output .= '<g:image_link><![CDATA[' . $server . 'image/' . str_replace(" ", "%20", $images[$j]) . ']]></g:image_link>'."\n";
+							$output .= ' <g:image_link><![CDATA[' . $server . 'image/' . str_replace(" ", "%20", $images[$j]) . ']]></g:image_link>'."\n";
 						}elseif ($product['image'] != '' && $product['image'] != 'no_image.jpg') {
-							$output .= '<g:image_link><![CDATA[' . $server . 'image/' . str_replace(" ", "%20", $product['image']) . ']]></g:image_link>'."\n";
+							$output .= ' <g:image_link><![CDATA[' . $server . 'image/' . str_replace(" ", "%20", $product['image']) . ']]></g:image_link>'."\n";
 						}
 						
 						$addimages = $this->model_feed_uksb_google->getProductImages($product['product_id']);
@@ -173,32 +173,32 @@ class ControllerFeedUksbGoogleMerchant extends Controller {
 						$addimnum = 0;
 						foreach($addimages as $addimage){
 							if($addimnum<10){
-								$output .= '<g:additional_image_link><![CDATA[' . $server . 'image/' . str_replace(" ", "%20", $addimage['image']) . ']]></g:additional_image_link>'."\n";
+								$output .= ' <g:additional_image_link><![CDATA[' . $server . 'image/' . str_replace(" ", "%20", $addimage['image']) . ']]></g:additional_image_link>'."\n";
 							}
 							$addimnum++;
 						}
 						
 						if ($product['quantity']>0) {
-							$output .= '<g:availability>in stock</g:availability>'."\n";
+							$output .= ' <g:availability>in stock</g:availability>'."\n";
 						} else {
-							$output .= '<g:availability>' . ($this->config->get('config_stock_checkout')==0 ? 'out of stock' : 'in stock') . '</g:availability>'."\n";
+							$output .= ' <g:availability>' . ($this->config->get('config_stock_checkout')==0 ? 'out of stock' : 'in stock') . '</g:availability>'."\n";
 						}
 						
 						if($product['g_multipack']!='0'){
-							$output .= '<g:multipack><![CDATA[' . $product['g_multipack'] . ']]></g:multipack>'."\n";
+							$output .= ' <g:multipack><![CDATA[' . $product['g_multipack'] . ']]></g:multipack>'."\n";
 						}
 						
 						if($product['g_is_bundle']){
-							$output .= '<g:is_bundle>TRUE</g:is_bundle>'."\n";
+							$output .= ' <g:is_bundle>TRUE</g:is_bundle>'."\n";
 						}
 						
 						if($product['g_expiry_date']){
-							$output .= '<g:expiration_date>' . $product['g_expiry_date'] . '</g:expiration_date>'."\n";
+							$output .= ' <g:expiration_date>' . $product['g_expiry_date'] . '</g:expiration_date>'."\n";
 						}
 
 
 						if(isset($mpns[$j])&&trim($mpns[$j])!=''&&$product['g_identifier_exists']>0){
-							$output .= '<g:mpn><![CDATA[' . trim($mpns[$j]) . ']]></g:mpn>'."\n";
+							$output .= ' <g:mpn><![CDATA[' . trim($mpns[$j]) . ']]></g:mpn>'."\n";
 						}
 						
 						if(isset($prices[$j])&&trim($prices[$j])!=''){
@@ -219,31 +219,31 @@ class ControllerFeedUksbGoogleMerchant extends Controller {
 							$sprice = ($quantifier=='-'?$product['special'] - $pricevalue:$product['special'] + $pricevalue);
 							
 							if($tax > 0){
-								$output .= '<g:sale_price>' .  $this->currency->format($this->tax->calculate($sprice, $product['tax_class_id']), $currency, FALSE, FALSE) . ' ' . $currency . '</g:sale_price>'."\n";
+								$output .= ' <g:sale_price>' .  $this->currency->format($this->tax->calculate($sprice, $product['tax_class_id']), $currency, FALSE, FALSE) . ' ' . $currency . '</g:sale_price>'."\n";
 							}else{
-								$output .= '<g:sale_price>' .  $this->currency->format($sprice, $currency, FALSE, FALSE) . ' ' . $currency . '</g:sale_price>'."\n";
+								$output .= ' <g:sale_price>' .  $this->currency->format($sprice, $currency, FALSE, FALSE) . ' ' . $currency . '</g:sale_price>'."\n";
 							}
-							$output .= '<g:sale_price_effective_date>' . $this->model_feed_uksb_google->getFeedSpecialStartDate($product['product_id']).'T00:00:00'.date("P").'/'.$this->model_feed_uksb_google->getFeedSpecialEndDate($product['product_id']).'T23:59:59'.date("P").'</g:sale_price_effective_date>'."\n";
+							$output .= ' <g:sale_price_effective_date>' . $this->model_feed_uksb_google->getFeedSpecialStartDate($product['product_id']).'T00:00:00'.date("P").'/'.$this->model_feed_uksb_google->getFeedSpecialEndDate($product['product_id']).'T23:59:59'.date("P").'</g:sale_price_effective_date>'."\n";
 						}
 						
 						$price = ($quantifier=='-'?$product['price'] - $pricevalue:$product['price'] + $pricevalue);
 						if($tax > 0){
-							$output .= '<g:price>' . $this->currency->format($this->tax->calculate($price, $product['tax_class_id']), $currency, FALSE, FALSE) . ' ' . $currency . '</g:price>'."\n";
+							$output .= ' <g:price>' . $this->currency->format($this->tax->calculate($price, $product['tax_class_id']), $currency, FALSE, FALSE) . ' ' . $currency . '</g:price>'."\n";
 						}else{
-							$output .= '<g:price>' . $this->currency->format($price, $currency, FALSE, FALSE) . ' ' . $currency . '</g:price>'."\n";
+							$output .= ' <g:price>' . $this->currency->format($price, $currency, FALSE, FALSE) . ' ' . $currency . '</g:price>'."\n";
 						}
 						
 						if($product['g_unit_pricing_measure']!='' && !$product['g_energy_efficiency_class']){
-							$output .= '<g:unit_pricing_measure>' . $product['g_unit_pricing_measure'] . '</g:unit_pricing_measure>'."\n";
+							$output .= ' <g:unit_pricing_measure>' . $product['g_unit_pricing_measure'] . '</g:unit_pricing_measure>'."\n";
 						}
 						
 						if($product['g_unit_pricing_measure']!='' && $product['g_unit_pricing_base_measure']!='' && !$product['g_energy_efficiency_class']){
-							$output .= '<g:unit_pricing_base_measure>' . $product['g_unit_pricing_base_measure'] . '</g:unit_pricing_base_measure>'."\n";
+							$output .= ' <g:unit_pricing_base_measure>' . $product['g_unit_pricing_base_measure'] . '</g:unit_pricing_base_measure>'."\n";
 						}
 
 						if($product['reviews']>0){
-							$output .= '<g:product_review_count>' . $product['reviews'] . '</g:product_review_count>'."\n";
-							$output .= '<g:product_review_average>' . $product['rating'] . '</g:product_review_average>'."\n";
+							$output .= ' <g:product_review_count>' . $product['reviews'] . '</g:product_review_count>'."\n";
+							$output .= ' <g:product_review_average>' . $product['rating'] . '</g:product_review_average>'."\n";
 						}
 						
 						$categories = $this->model_feed_uksb_google->getCategories($product['product_id']);
@@ -270,118 +270,118 @@ class ControllerFeedUksbGoogleMerchant extends Controller {
 										}
 									}
 									
-									$output .= '<g:product_type><![CDATA[' . $string . ']]></g:product_type>'."\n";
+									$output .= ' <g:product_type><![CDATA[' . $string . ']]></g:product_type>'."\n";
 									$catno++;
 								}
 							}
 						}
 						
 						if(isset($gtins[$j])&&trim($gtins[$j])!=''&&$product['g_identifier_exists']>0){
-							$output .= '<g:gtin><![CDATA[' . $gtins[$j] . ']]></g:gtin>'."\n";
+							$output .= ' <g:gtin><![CDATA[' . $gtins[$j] . ']]></g:gtin>'."\n";
 						}
 						
-						$output .= '<g:identifier_exists><![CDATA[' . ($product['g_identifier_exists']>0 ? 'TRUE' : 'FALSE' ) . ']]></g:identifier_exists>'."\n";
+						$output .= ' <g:identifier_exists><![CDATA[' . ($product['g_identifier_exists']>0 ? 'TRUE' : 'FALSE' ) . ']]></g:identifier_exists>'."\n";
 						
 						if((float)$product['weight']){
-							$output .= '<g:shipping_weight>' . $this->weight->format($product['weight'], $product['weight_class_id']) . '</g:shipping_weight>'."\n";
+							$output .= ' <g:shipping_weight>' . $this->weight->format($product['weight'], $product['weight_class_id']) . '</g:shipping_weight>'."\n";
 						}
 						
 						if($product['g_size_type']){
-							$output .= '<g:size_type>' . $product['g_size_type'] . '</g:size_type>'."\n";
+							$output .= ' <g:size_type>' . $product['g_size_type'] . '</g:size_type>'."\n";
 						}
 
 						if($product['g_size_system']){
-							$output .= '<g:size_system>' . $product['g_size_system'] . '</g:size_system>'."\n";
+							$output .= ' <g:size_system>' . $product['g_size_system'] . '</g:size_system>'."\n";
 						}
 
 						if($gpc_suffix!=''){
 							if($product['google_category_'.$gpc_suffix]!=''){
-								$output .= '<g:google_product_category><![CDATA[' . html_entity_decode($product['google_category_'.$gpc_suffix], ENT_QUOTES, 'UTF-8') . ']]></g:google_product_category>'."\n";
+								$output .= ' <g:google_product_category><![CDATA[' . html_entity_decode($product['google_category_'.$gpc_suffix], ENT_QUOTES, 'UTF-8') . ']]></g:google_product_category>'."\n";
 							}elseif($gpcc!=''){
-								$output .= '<g:google_product_category><![CDATA[' . html_entity_decode($gpcc, ENT_QUOTES, 'UTF-8') . ']]></g:google_product_category>'."\n";
+								$output .= ' <g:google_product_category><![CDATA[' . html_entity_decode($gpcc, ENT_QUOTES, 'UTF-8') . ']]></g:google_product_category>'."\n";
 							}elseif($gpc!=''){
-								$output .= '<g:google_product_category><![CDATA[' . $gpc . ']]></g:google_product_category>'."\n";
+								$output .= ' <g:google_product_category><![CDATA[' . $gpc . ']]></g:google_product_category>'."\n";
 							}
 						}
 						
 						if($product['g_gender']){
-							$output .= '<g:gender>' . ($product['g_gender']?$product['g_gender']:$this->config->get('uksb_google_merchant_gender')) . '</g:gender>'."\n";
+							$output .= ' <g:gender>' . ($product['g_gender']?$product['g_gender']:$this->config->get('uksb_google_merchant_gender')) . '</g:gender>'."\n";
 						}
 						
 						if($product['g_age_group']){
-							$output .= '<g:age_group>' . ($product['g_age_group']?$product['g_age_group']:$this->config->get('uksb_google_merchant_age_group')) . '</g:age_group>'."\n";
+							$output .= ' <g:age_group>' . ($product['g_age_group']?$product['g_age_group']:$this->config->get('uksb_google_merchant_age_group')) . '</g:age_group>'."\n";
 						}
 						
 						if($product['g_adult']){
-							$output .= '<g:adult>TRUE</g:adult>'."\n";
+							$output .= ' <g:adult>TRUE</g:adult>'."\n";
 						}
 						
 						if($product['g_energy_efficiency_class']){
-							$output .= '<g:energy_efficiency_class>' . $product['g_energy_efficiency_class'] . '</g:energy_efficiency_class>'."\n";
+							$output .= ' <g:energy_efficiency_class>' . $product['g_energy_efficiency_class'] . '</g:energy_efficiency_class>'."\n";
 						}
 
 						if(isset($colours[$j])&&trim($colours[$j])!=''){
-							$output .= '<g:'.$col.'><![CDATA[' . trim($colours[$j]) . ']]></g:'.$col.'>'."\n";
+							$output .= ' <g:'.$col.'><![CDATA[' . trim($colours[$j]) . ']]></g:'.$col.'>'."\n";
 						}
 						
 						if(isset($sizes[$j])&&trim($sizes[$j])!=''){
-							$output .= '<g:size><![CDATA[' . trim($sizes[$j]) . ']]></g:size>'."\n";
+							$output .= ' <g:size><![CDATA[' . trim($sizes[$j]) . ']]></g:size>'."\n";
 						}
 						
 						if(isset($materials[$j])&&trim($materials[$j])!=''){
-							$output .= '<g:material><![CDATA[' . trim($materials[$j]) . ']]></g:material>'."\n";
+							$output .= ' <g:material><![CDATA[' . trim($materials[$j]) . ']]></g:material>'."\n";
 						}
 						
 						if(isset($patterns[$j])&&trim($patterns[$j])!=''){
-							$output .= '<g:pattern><![CDATA[' . trim($patterns[$j]) . ']]></g:pattern>'."\n";
+							$output .= ' <g:pattern><![CDATA[' . trim($patterns[$j]) . ']]></g:pattern>'."\n";
 						}
 						
 						if($product['g_custom_label_0']!=''){
-							$output .= '<g:custom_label_0><![CDATA[' . $product['g_custom_label_0'] . ']]></g:custom_label_0>'."\n";
+							$output .= ' <g:custom_label_0><![CDATA[' . $product['g_custom_label_0'] . ']]></g:custom_label_0>'."\n";
 						}
 
 						if($product['g_custom_label_1']!=''){
-							$output .= '<g:custom_label_1><![CDATA[' . $product['g_custom_label_1'] . ']]></g:custom_label_1>'."\n";
+							$output .= ' <g:custom_label_1><![CDATA[' . $product['g_custom_label_1'] . ']]></g:custom_label_1>'."\n";
 						}
 
 						if($product['g_custom_label_2']!=''){
-							$output .= '<g:custom_label_2><![CDATA[' . $product['g_custom_label_2'] . ']]></g:custom_label_2>'."\n";
+							$output .= ' <g:custom_label_2><![CDATA[' . $product['g_custom_label_2'] . ']]></g:custom_label_2>'."\n";
 						}
 
 						if($product['g_custom_label_3']!=''){
-							$output .= '<g:custom_label_3><![CDATA[' . $product['g_custom_label_3'] . ']]></g:custom_label_3>'."\n";
+							$output .= ' <g:custom_label_3><![CDATA[' . $product['g_custom_label_3'] . ']]></g:custom_label_3>'."\n";
 						}
 
 						if($product['g_custom_label_4']!=''){
-							$output .= '<g:custom_label_4><![CDATA[' . $product['g_custom_label_4'] . ']]></g:custom_label_4>'."\n";
+							$output .= ' <g:custom_label_4><![CDATA[' . $product['g_custom_label_4'] . ']]></g:custom_label_4>'."\n";
 						}
 
 						if($product['g_adwords_redirect']!=''){
-							$output .= '<g:adwords_redirect><![CDATA[' . $product['g_adwords_redirect'] . ']]></g:adwords_redirect>'."\n";
+							$output .= ' <g:adwords_redirect><![CDATA[' . $product['g_adwords_redirect'] . ']]></g:adwords_redirect>'."\n";
 						}
 						
-						$output .= '</item>'."\n\n\n";
+						$output .= ' </item>'."\n\n\n";
 					}
 				}else{
 				
-					$output .= '<item>'."\n";
+					$output .= ' <item>'."\n";
 					
-					$output .= '<title><![CDATA[' . $product['name'] . ']]></title>'."\n";
+					$output .= ' <title><![CDATA[' . $product['name'] . ']]></title>'."\n";
 					
-					$output .= '<link><![CDATA[' . $this->url->link('product/product', 'product_id=' . $product['product_id'] . '&language=' . $lang . '&currency='. $curr) . ']]></link>'."\n";
+					$output .= ' <link><![CDATA[' . $this->url->link('product/product', 'product_id=' . $product['product_id'] . '&language=' . $lang . '&currency='. $curr) . ']]></link>'."\n";
 					
-					$output .= '<description><![CDATA[' . $this->plainText($product['description']) . ']]></description>'."\n";
+					$output .= ' <description><![CDATA[' . $this->plainText($product['description']) . ']]></description>'."\n";
 					
 					if($product['g_brand'] || $product['manufacturer']){
-						$output .= '<g:brand><![CDATA[' . ($product['g_brand'] ? $product['g_brand'] : $product['manufacturer']) . ']]></g:brand>'."\n";
+						$output .= ' <g:brand><![CDATA[' . ($product['g_brand'] ? $product['g_brand'] : $product['manufacturer']) . ']]></g:brand>'."\n";
 					}
 					
-					$output .= '<g:condition>' . ($product['g_condition']?$product['g_condition']:$this->config->get('uksb_google_merchant_condition')) . '</g:condition>'."\n";
+					$output .= ' <g:condition>' . ($product['g_condition']?$product['g_condition']:$this->config->get('uksb_google_merchant_condition')) . '</g:condition>'."\n";
 					
-					$output .= '<g:id><![CDATA[' . $product['product_id'] . '_' . $id_suffix . ']]></g:id>'."\n";
+					$output .= ' <g:id><![CDATA[' . $product['product_id'] . '_' . $id_suffix . ']]></g:id>'."\n";
 					
 					if ($product['image']) {
-						$output .= '<g:image_link><![CDATA[' . $server . 'image/' . str_replace(" ", "%20", $product['image']) . ']]></g:image_link>'."\n";
+						$output .= ' <g:image_link><![CDATA[' . $server . 'image/' . str_replace(" ", "%20", $product['image']) . ']]></g:image_link>'."\n";
 					}
 					
 					$addimages = $this->model_feed_uksb_google->getProductImages($product['product_id']);
@@ -389,45 +389,45 @@ class ControllerFeedUksbGoogleMerchant extends Controller {
 					$addimnum = 0;
 					foreach($addimages as $addimage){
 						if($addimnum<10){
-							$output .= '<g:additional_image_link><![CDATA[' . $server . 'image/' . str_replace(" ", "%20", $addimage['image']) . ']]></g:additional_image_link>'."\n";
+							$output .= ' <g:additional_image_link><![CDATA[' . $server . 'image/' . str_replace(" ", "%20", $addimage['image']) . ']]></g:additional_image_link>'."\n";
 						}
 						$addimnum++;
 					}
 					
 					if ($product['quantity']>0) {
-						$output .= '<g:availability>in stock</g:availability>'."\n";
+						$output .= ' <g:availability>in stock</g:availability>'."\n";
 					} else {
-						$output .= '<g:availability>' . ($this->config->get('config_stock_checkout')==0 ? 'out of stock' : 'in stock') . '</g:availability>'."\n";
+						$output .= ' <g:availability>' . ($this->config->get('config_stock_checkout')==0 ? 'out of stock' : 'in stock') . '</g:availability>'."\n";
 					}
 					
 					if($product['g_multipack']!='0'){
-						$output .= '<g:multipack><![CDATA[' . $product['g_multipack'] . ']]></g:multipack>'."\n";
+						$output .= ' <g:multipack><![CDATA[' . $product['g_multipack'] . ']]></g:multipack>'."\n";
 					}
 					
 					if($product['g_is_bundle']){
-						$output .= '<g:is_bundle>TRUE</g:is_bundle>'."\n";
+						$output .= ' <g:is_bundle>TRUE</g:is_bundle>'."\n";
 					}
 					
 					if($product['g_expiry_date']){
-						$output .= '<g:expiration_date>' . $product['g_expiry_date'] . '</g:expiration_date>'."\n";
+						$output .= ' <g:expiration_date>' . $product['g_expiry_date'] . '</g:expiration_date>'."\n";
 					}
 	
 					if($product['g_identifier_exists']>0){
 						if($this->config->get('uksb_google_merchant_mpn')=='mpn'){
 							if($product['mpn']){
-								$output .= '<g:mpn><![CDATA[' . $product['mpn'] . ']]></g:mpn>'."\n";
+								$output .= ' <g:mpn><![CDATA[' . $product['mpn'] . ']]></g:mpn>'."\n";
 							}
 						}elseif($this->config->get('uksb_google_merchant_mpn')=='location'){
 							if($product['location']){
-								$output .= '<g:mpn><![CDATA[' . $product['location'] . ']]></g:mpn>'."\n";
+								$output .= ' <g:mpn><![CDATA[' . $product['location'] . ']]></g:mpn>'."\n";
 							}
 						}elseif($this->config->get('uksb_google_merchant_mpn')=='sku'){
 							if($product['sku']){
-								$output .= '<g:mpn><![CDATA[' . $product['sku'] . ']]></g:mpn>'."\n";
+								$output .= ' <g:mpn><![CDATA[' . $product['sku'] . ']]></g:mpn>'."\n";
 							}
 						}else{
 							if($product['model']){
-								$output .= '<g:mpn><![CDATA[' . $product['model'] . ']]></g:mpn>'."\n";
+								$output .= ' <g:mpn><![CDATA[' . $product['model'] . ']]></g:mpn>'."\n";
 							}
 						}
 					}
@@ -435,30 +435,30 @@ class ControllerFeedUksbGoogleMerchant extends Controller {
 					
 					if ((float)$product['special']) {
 						if($tax > 0){
-							$output .= '<g:sale_price>' .  $this->currency->format($this->tax->calculate($product['special'], $product['tax_class_id']), $currency, FALSE, FALSE) . ' ' . $currency . '</g:sale_price>'."\n";
+							$output .= ' <g:sale_price>' .  $this->currency->format($this->tax->calculate($product['special'], $product['tax_class_id']), $currency, FALSE, FALSE) . ' ' . $currency . '</g:sale_price>'."\n";
 						}else{
-							$output .= '<g:sale_price>' .  $this->currency->format($product['special'], $currency, FALSE, FALSE) . ' ' . $currency . '</g:sale_price>'."\n";
+							$output .= ' <g:sale_price>' .  $this->currency->format($product['special'], $currency, FALSE, FALSE) . ' ' . $currency . '</g:sale_price>'."\n";
 						}
-						$output .= '<g:sale_price_effective_date>' . $this->model_feed_uksb_google->getFeedSpecialStartDate($product['product_id']).'T00:00:00'.date("P").'/'.$this->model_feed_uksb_google->getFeedSpecialEndDate($product['product_id']).'T23:59:59'.date("P").'</g:sale_price_effective_date>'."\n";
+						$output .= ' <g:sale_price_effective_date>' . $this->model_feed_uksb_google->getFeedSpecialStartDate($product['product_id']).'T00:00:00'.date("P").'/'.$this->model_feed_uksb_google->getFeedSpecialEndDate($product['product_id']).'T23:59:59'.date("P").'</g:sale_price_effective_date>'."\n";
 					}
 					
 					if($tax > 0){
-						$output .= '<g:price>' . $this->currency->format($this->tax->calculate($product['price'], $product['tax_class_id']), $currency, FALSE, FALSE) . ' ' . $currency . '</g:price>'."\n";
+						$output .= ' <g:price>' . $this->currency->format($this->tax->calculate($product['price'], $product['tax_class_id']), $currency, FALSE, FALSE) . ' ' . $currency . '</g:price>'."\n";
 					}else{
-						$output .= '<g:price>' . $this->currency->format($product['price'], $currency, FALSE, FALSE) . ' ' . $currency . '</g:price>'."\n";
+						$output .= ' <g:price>' . $this->currency->format($product['price'], $currency, FALSE, FALSE) . ' ' . $currency . '</g:price>'."\n";
 					}
 					
 					if($product['g_unit_pricing_measure']!='' && !$product['g_energy_efficiency_class']){
-						$output .= '<g:unit_pricing_measure>' . $product['g_unit_pricing_measure'] . '</g:unit_pricing_measure>'."\n";
+						$output .= ' <g:unit_pricing_measure>' . $product['g_unit_pricing_measure'] . '</g:unit_pricing_measure>'."\n";
 					}
 					
 					if($product['g_unit_pricing_measure']!='' && $product['g_unit_pricing_base_measure']!='' && !$product['g_energy_efficiency_class']){
-						$output .= '<g:unit_pricing_base_measure>' . $product['g_unit_pricing_base_measure'] . '</g:unit_pricing_base_measure>'."\n";
+						$output .= ' <g:unit_pricing_base_measure>' . $product['g_unit_pricing_base_measure'] . '</g:unit_pricing_base_measure>'."\n";
 					}
 	
 					if($product['reviews']>0){
-						$output .= '<g:product_review_count>' . $product['reviews'] . '</g:product_review_count>'."\n";
-						$output .= '<g:product_review_average>' . $product['rating'] . '</g:product_review_average>'."\n";
+						$output .= ' <g:product_review_count>' . $product['reviews'] . '</g:product_review_count>'."\n";
+						$output .= ' <g:product_review_average>' . $product['rating'] . '</g:product_review_average>'."\n";
 					}
 					
 					$categories = $this->model_feed_uksb_google->getCategories($product['product_id']);
@@ -487,7 +487,7 @@ class ControllerFeedUksbGoogleMerchant extends Controller {
 									}
 								}
 								
-								$output .= '<g:product_type><![CDATA[' . $string . ']]></g:product_type>'."\n";
+								$output .= ' <g:product_type><![CDATA[' . $string . ']]></g:product_type>'."\n";
 								$catno++;
 							}
 						}
@@ -496,86 +496,86 @@ class ControllerFeedUksbGoogleMerchant extends Controller {
 					if($product['g_identifier_exists']>0){
 						if($this->config->get('uksb_google_merchant_g_gtin')=='gtin'){
 							if($product['g_gtin']){
-								$output .= '<g:gtin><![CDATA[' . $product['g_gtin'] . ']]></g:gtin>'."\n";
+								$output .= ' <g:gtin><![CDATA[' . $product['g_gtin'] . ']]></g:gtin>'."\n";
 							}
 						}elseif($this->config->get('uksb_google_merchant_g_gtin')=='location'){
 							if($product['location']){
-								$output .= '<g:gtin><![CDATA[' . $product['location'] . ']]></g:gtin>'."\n";
+								$output .= ' <g:gtin><![CDATA[' . $product['location'] . ']]></g:gtin>'."\n";
 							}
 						}elseif($this->config->get('uksb_google_merchant_g_gtin')=='sku'){
 							if($product['sku']){
-								$output .= '<g:gtin><![CDATA[' . $product['sku'] . ']]></g:gtin>'."\n";
+								$output .= ' <g:gtin><![CDATA[' . $product['sku'] . ']]></g:gtin>'."\n";
 							}
 						}else{
 							if($product['upc']!=''){
-								$output .= '<g:gtin><![CDATA[' . $product['upc'] . ']]></g:gtin>'."\n";
+								$output .= ' <g:gtin><![CDATA[' . $product['upc'] . ']]></g:gtin>'."\n";
 							}
 							elseif($product['ean']!=''){
-								$output .= '<g:gtin><![CDATA[' . $product['ean'] . ']]></g:gtin>'."\n";
+								$output .= ' <g:gtin><![CDATA[' . $product['ean'] . ']]></g:gtin>'."\n";
 							}
 							elseif($product['jan']!=''){
-								$output .= '<g:gtin><![CDATA[' . $product['jan'] . ']]></g:gtin>'."\n";
+								$output .= ' <g:gtin><![CDATA[' . $product['jan'] . ']]></g:gtin>'."\n";
 							}
 							elseif($product['isbn']!=''){
-								$output .= '<g:gtin><![CDATA[' . $product['isbn'] . ']]></g:gtin>'."\n";
+								$output .= ' <g:gtin><![CDATA[' . $product['isbn'] . ']]></g:gtin>'."\n";
 							}
 						}
 					}
 					
-					$output .= '<g:identifier_exists><![CDATA[' . ($product['g_identifier_exists']>0 ? 'TRUE' : 'FALSE' ) . ']]></g:identifier_exists>'."\n";
+					$output .= ' <g:identifier_exists><![CDATA[' . ($product['g_identifier_exists']>0 ? 'TRUE' : 'FALSE' ) . ']]></g:identifier_exists>'."\n";
 					
 					if((float)$product['weight']){
-						$output .= '<g:shipping_weight>' . $this->weight->format($product['weight'], $product['weight_class_id']) . '</g:shipping_weight>'."\n";
+						$output .= ' <g:shipping_weight>' . $this->weight->format($product['weight'], $product['weight_class_id']) . '</g:shipping_weight>'."\n";
 					}
 					
 					if($product['g_size_type']){
-						$output .= '<g:size_type>' . $product['g_size_type'] . '</g:size_type>'."\n";
+						$output .= ' <g:size_type>' . $product['g_size_type'] . '</g:size_type>'."\n";
 					}
 	
 					if($product['g_size_system']){
-						$output .= '<g:size_system>' . $product['g_size_system'] . '</g:size_system>'."\n";
+						$output .= ' <g:size_system>' . $product['g_size_system'] . '</g:size_system>'."\n";
 					}
 	
 					if($gpc_suffix != ''){
 						if($product['google_category_'.$gpc_suffix]!=''){
-							$output .= '<g:google_product_category><![CDATA[' . html_entity_decode($product['google_category_'.$gpc_suffix], ENT_QUOTES, 'UTF-8') . ']]></g:google_product_category>'."\n";
+							$output .= ' <g:google_product_category><![CDATA[' . html_entity_decode($product['google_category_'.$gpc_suffix], ENT_QUOTES, 'UTF-8') . ']]></g:google_product_category>'."\n";
 						}elseif($gpcc!=''){
-							$output .= '<g:google_product_category><![CDATA[' . html_entity_decode($gpcc, ENT_QUOTES, 'UTF-8') . ']]></g:google_product_category>'."\n";
+							$output .= ' <g:google_product_category><![CDATA[' . html_entity_decode($gpcc, ENT_QUOTES, 'UTF-8') . ']]></g:google_product_category>'."\n";
 						}elseif($gpc!=''){
-							$output .= '<g:google_product_category><![CDATA[' . $gpc . ']]></g:google_product_category>'."\n";
+							$output .= ' <g:google_product_category><![CDATA[' . $gpc . ']]></g:google_product_category>'."\n";
 						}
 					}
 					
 					if($product['g_gender']){
-						$output .= '<g:gender>' . ($product['g_gender']?$product['g_gender']:$this->config->get('uksb_google_merchant_gender')) . '</g:gender>'."\n";
+						$output .= ' <g:gender>' . ($product['g_gender']?$product['g_gender']:$this->config->get('uksb_google_merchant_gender')) . '</g:gender>'."\n";
 					}
 					
 					if($product['g_age_group']){
-						$output .= '<g:age_group>' . ($product['g_age_group']?$product['g_age_group']:$this->config->get('uksb_google_merchant_age_group')) . '</g:age_group>'."\n";
+						$output .= ' <g:age_group>' . ($product['g_age_group']?$product['g_age_group']:$this->config->get('uksb_google_merchant_age_group')) . '</g:age_group>'."\n";
 					}
 					
 					if($product['g_adult']){
-						$output .= '<g:adult>TRUE</g:adult>'."\n";
+						$output .= ' <g:adult>TRUE</g:adult>'."\n";
 					}
 					
 					if($product['g_energy_efficiency_class']){
-						$output .= '<g:energy_efficiency_class>' . $product['g_energy_efficiency_class'] . '</g:energy_efficiency_class>'."\n";
+						$output .= ' <g:energy_efficiency_class>' . $product['g_energy_efficiency_class'] . '</g:energy_efficiency_class>'."\n";
 					}
 	
 					if($product['g_colour']){
-						$output .= '<g:'.$col.'><![CDATA[' . $product['g_colour'] . ']]></g:'.$col.'>'."\n";
+						$output .= ' <g:'.$col.'><![CDATA[' . $product['g_colour'] . ']]></g:'.$col.'>'."\n";
 					}
 					
 					if($product['g_size']){
-						$output .= '<g:size><![CDATA[' . $product['g_size'] . ']]></g:size>'."\n";
+						$output .= ' <g:size><![CDATA[' . $product['g_size'] . ']]></g:size>'."\n";
 					}
 					
 					if($product['g_material']){
-						$output .= '<g:material><![CDATA[' . $product['g_material'] . ']]></g:material>'."\n";
+						$output .= ' <g:material><![CDATA[' . $product['g_material'] . ']]></g:material>'."\n";
 					}
 					
 					if($product['g_pattern']){
-						$output .= '<g:pattern><![CDATA[' . $product['g_pattern'] . ']]></g:pattern>'."\n";
+						$output .= ' <g:pattern><![CDATA[' . $product['g_pattern'] . ']]></g:pattern>'."\n";
 					}
 					
 					if($product['g_custom_label_0']!=''){
@@ -583,15 +583,15 @@ class ControllerFeedUksbGoogleMerchant extends Controller {
 					}
 
 					if($product['g_custom_label_1']!=''){
-						$output .= '<g:custom_label_1><![CDATA[' . $product['g_custom_label_1'] . ']]></g:custom_label_1>'."\n";
+						$output .= ' <g:custom_label_1><![CDATA[' . $product['g_custom_label_1'] . ']]></g:custom_label_1>'."\n";
 					}
 
 					if($product['g_custom_label_2']!=''){
-						$output .= '<g:custom_label_2><![CDATA[' . $product['g_custom_label_2'] . ']]></g:custom_label_2>'."\n";
+						$output .= ' <g:custom_label_2><![CDATA[' . $product['g_custom_label_2'] . ']]></g:custom_label_2>'."\n";
 					}
 
 					if($product['g_custom_label_3']!=''){
-						$output .= '<g:custom_label_3><![CDATA[' . $product['g_custom_label_3'] . ']]></g:custom_label_3>'."\n";
+						$output .= ' <g:custom_label_3><![CDATA[' . $product['g_custom_label_3'] . ']]></g:custom_label_3>'."\n";
 					}
 
 					if($product['g_custom_label_4']!=''){
@@ -602,13 +602,13 @@ class ControllerFeedUksbGoogleMerchant extends Controller {
 						$output .= '<g:adwords_redirect><![CDATA[' . $product['g_adwords_redirect'] . ']]></g:adwords_redirect>'."\n";
 					}
 					
-					$output .= '</item>'."\n\n\n";
+					$output .= ' </item>'."\n\n\n";
 				}
 			}
 			
 			if(!isset($this->request->get['mode'])){
-				$output .= '</channel>'."\n"; 
-				$output .= '</rss>';	
+				$output .= ' </channel>'."\n"; 
+				$output .= ' </rss>';	
 			
 				if(!isset($this->request->get['mode'])){
 					$this->response->addHeader('Content-Type: text/xml; charset=utf-8');
@@ -619,8 +619,8 @@ class ControllerFeedUksbGoogleMerchant extends Controller {
 			
 			if(isset($this->request->get['mode'])){
 				if($this->model_feed_uksb_google->getTotalProducts() <= $split[1]){
-					$output .= '</channel>'."\n"; 
-					$output .= '</rss>';	
+					$output .= ' </channel>'."\n"; 
+					$output .= ' </rss>';	
 				}
 
 				$fspath = str_replace("/system/", "/uksb_feeds/google_".$lang."-".$curr.".xml", DIR_SYSTEM);
