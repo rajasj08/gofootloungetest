@@ -333,7 +333,7 @@ print_r($products); die; */$bagtot=0;
 											}
 
 											if (($this->config->get('config_customer_price') && $this->customer->isLogged()) || !$this->config->get('config_customer_price')) {
-												$total = $this->currency->format($this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax')) * ($product['quantity'] - 1) + $productpriceval); 
+												$total = $this->currency->format($this->tax->calculate($product['price'], 0, $this->config->get('config_tax')) * ($product['quantity'] - 1) + $productpriceval); 
 											} else {
 												$total = false;
 											}
@@ -354,7 +354,7 @@ print_r($products); die; */$bagtot=0;
 
 
 											if (($this->config->get('config_customer_price') && $this->customer->isLogged()) || !$this->config->get('config_customer_price')) {
-												$total = $this->currency->format($this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax')) * $product['quantity']);
+												$total = $this->currency->format($this->tax->calculate($product['price'], 0, $this->config->get('config_tax')) * $product['quantity']);
 											} else {
 												$total = false;
 											}
@@ -367,7 +367,7 @@ print_r($products); die; */$bagtot=0;
 							else
 							{
 								if (($this->config->get('config_customer_price') && $this->customer->isLogged()) || !$this->config->get('config_customer_price')) {
-									$total = $this->currency->format($this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax')) * $product['quantity']);
+									$total = $this->currency->format($this->tax->calculate($product['price'], 0, $this->config->get('config_tax')) * $product['quantity']);
 								} else {
 									$total = false;
 								} 
@@ -377,7 +377,7 @@ print_r($products); die; */$bagtot=0;
 						else
 							{
 								if (($this->config->get('config_customer_price') && $this->customer->isLogged()) || !$this->config->get('config_customer_price')) {
-									$total = $this->currency->format($this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax')) * $product['quantity']);
+									$total = $this->currency->format($this->tax->calculate($product['price'],0, $this->config->get('config_tax')) * $product['quantity']);
 								} else {
 									$total = false;
 								} 
@@ -458,7 +458,7 @@ $bagtot+=round($prod_orgprice * $product['quantity'] );
       		}
 
       		//print_r('<pre>');
-      	        //print_r($this->data['products']); die;
+      	       // print_r($this->data['products']); die;
  $this->data['bagtotdispval']=$bagtot;
 if ($bagtot) {
                                         $this->data['bagtot'] = $this->currency->format($this->tax->calculate($bagtot, 0, $this->config->get('config_tax')));   
@@ -647,7 +647,7 @@ $this->data['bagtotdisp']=$this->data['bagtot'];
 
                        }*/
 			
-//print_r('<pre>'); print_r($total_data); die; 
+//print_r('<pre>'); print_r($total_data); die;  
 			$this->data['totals'] = $total_data;
 			
 			$this->data['continue'] = $this->url->link('common/home');

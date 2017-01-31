@@ -339,11 +339,9 @@ class ControllerProductProduct extends Controller {
 			$newarrivalProductIDS = explode(',', $this->config->get('featured_product'));
 			$this->data['priceorg']=$product_info['price'];
 			$this->data['specialorg']=$product_info['special'];
-			foreach ($results as $result) {
 
 
-
-				$currProductID = $result['product_id'];
+                         $currProductID = $this->request->get['product_id'];
 
 		//***upsell product details start here		
 
@@ -409,6 +407,11 @@ class ControllerProductProduct extends Controller {
 				}
 
 				$this->data['is_newarrival'] = $productNewArrival;
+			foreach ($results as $result) {
+
+
+
+				
 				$this->data['images'][] = array(
 					'popup' => $this->model_tool_image->resize($result['image'], $this->config->get('config_image_popup_width'), $this->config->get('config_image_popup_height')),
 					'thumb' => $this->model_tool_image->resize($result['image'], $this->config->get('config_image_additional_width'), $this->config->get('config_image_additional_height'))

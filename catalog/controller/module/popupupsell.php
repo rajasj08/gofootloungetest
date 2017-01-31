@@ -189,7 +189,7 @@ class ControllerModulePopupUpsell extends Controller  {
 							      $i=0; $z=1; $counttotval=count($matches[4]);
 							      foreach($matches[4] as $product_id) {
 
-							      	if(in_array($product_id, $cartIDS) || ($clicked_product_id == $product_id)) {$this->response->setOutput(array()); exit;} // When the suggested product is already in the cart
+							      	if(in_array($product_id, $cartIDS) || ($clicked_product_id == $product_id)) {$this->response->setOutput(array()); echo 0; die;} // When the suggested product is already in the cart
 
 
 								  	$product = $this->getProduct($product_id, $this->data['upsell']['image_width'], $this->data['upsell']['image_height'], $this->data['upsell']['upsell_id'],$matches1[4][$i],$matches2[4][$i],$this->request->post['product_id'],$z,$counttotval);    
@@ -260,7 +260,7 @@ $i++; $z++;
 											}
 																		
 											$randIndex = rand(0,count($productIDS)-1);
-											if(in_array($productIDS[$randIndex], $cartIDS) || ($clicked_product_id == $productIDS[$randIndex])) {$this->response->setOutput(array()); exit;} // When the suggested product is already in the cart
+											if(in_array($productIDS[$randIndex], $cartIDS) || ($clicked_product_id == $productIDS[$randIndex])) {$this->response->setOutput(array()); echo 0; die;} // When the suggested product is already in the cart
 											$product = $this->getProduct($productIDS[$randIndex], $this->data['upsell']['image_width'], $this->data['upsell']['image_height'], $this->data['upsell']['upsell_id'], $matches1[4][$i],$matches2[4][$i],$this->request->post['product_id'],$z,$counttotval);
 											
 										     if(isset($product)) {
@@ -344,7 +344,7 @@ $i++; $z++;
 							    
 							      $i=0;$z=1; $counttotval=count($matches[4]);
 						      foreach($matches[4] as $product_id) {
-						      	if(in_array($product_id, $cartIDS) || ($clicked_product_id == $product_id)) {$this->response->setOutput(array()); exit;} // When the suggested product is already in the cart
+						      	if(in_array($product_id, $cartIDS) || ($clicked_product_id == $product_id)) {$this->response->setOutput(array()); echo 0; die;} // When the suggested product is already in the cart
 							  	$product = $this->getProduct($product_id, $this->data['upsell']['image_width'], $this->data['upsell']['image_height'],$this->data['upsell']['upsell_id'], $matches1[4][$i],$matches2[4][$i],$this->request->post['product_id'],$z,$counttotval);
 								     if(isset($product)) {
 
@@ -405,7 +405,7 @@ $i++; $z++;
 										}
 										    							
 										$randIndex = rand(0,count($productIDS)-1);
-										if(in_array($productIDS[$randIndex], $cartIDS) || ($clicked_product_id == $productIDS[$randIndex])) {$this->response->setOutput(array()); exit;} // When the suggested product is already in the cart
+										if(in_array($productIDS[$randIndex], $cartIDS) || ($clicked_product_id == $productIDS[$randIndex])) {$this->response->setOutput(array()); echo 0; die;} // When the suggested product is already in the cart
 										$product = $this->getProduct($productIDS[$randIndex], $this->data['upsell']['image_width'], $this->data['upsell']['image_height'],$this->data['upsell']['upsell_id'],$matches1[4][$i],$matches2[4][$i],$this->request->post['product_id'],$z,$counttotval);
 										
 									     if(isset($product)) {
@@ -520,7 +520,7 @@ $i++; $z++;
 
 						/*if (!$option_value['subtract'] || (!$option_value['quantity'] > 0)) {*/
 							if ((($this->config->get('config_customer_price') && $this->customer->isLogged()) || !$this->config->get('config_customer_price')) && (float)$option_value['price']) {
-								$priceval = $this->currency->format($this->tax->calculate($option_value['price'], $product_info['tax_class_id'], $this->config->get('config_tax')));
+								$priceval = $this->currency->format($this->tax->calculate($option_value['price'], 0, $this->config->get('config_tax')));
 							} else {
 								$priceval = false;
 							}
@@ -592,7 +592,7 @@ $i++; $z++;
 			
 
 			if (($this->config->get('config_customer_price') && $this->customer->isLogged()) || !$this->config->get('config_customer_price')) {
-				$orgprice = $this->currency->format($this->tax->calculate($result['price'], $result['tax_class_id'], $this->config->get('config_tax')));
+				$orgprice = $this->currency->format($this->tax->calculate($result['price'], 0, $this->config->get('config_tax')));
 			} else {
 				$orgprice = false;
 			}
@@ -619,13 +619,13 @@ $i++; $z++;
 			}
 						
 			if (($this->config->get('config_customer_price') && $this->customer->isLogged()) || !$this->config->get('config_customer_price')) {
-				$price = $this->currency->format($this->tax->calculate($result['price'], $result['tax_class_id'], $this->config->get('config_tax')));
+				$price = $this->currency->format($this->tax->calculate($result['price'], 0, $this->config->get('config_tax')));
 			} else {
 				$price = false;
 			}
 					
 			if ((float)$result['special']) {
-				$special = $this->currency->format($this->tax->calculate($result['special'], $result['tax_class_id'], $this->config->get('config_tax')));
+				$special = $this->currency->format($this->tax->calculate($result['special'], 0, $this->config->get('config_tax')));
 			} else {
 				$special = false;
 			}
@@ -648,7 +648,7 @@ $i++; $z++;
 			foreach ($discounts as $discount) {
 				$this->data['discounts'][] = array(
 					'quantity' => $discount['quantity'],
-					'price'    => $this->currency->format($this->tax->calculate($discount['price'], $result['tax_class_id'], $this->config->get('config_tax')))
+					'price'    => $this->currency->format($this->tax->calculate($discount['price'], 0, $this->config->get('config_tax')))
 				);
 			}
 			
@@ -1043,7 +1043,7 @@ $i++; $z++;
 							      $i=0; $z=1; $counttotval=count($matches[4]);
 							      foreach($matches[4] as $product_id) {
 
-							      	if(in_array($product_id, $cartIDS) || ($clicked_product_id == $product_id)) {$this->response->setOutput(array()); exit;} // When the suggested product is already in the cart
+							      	if(in_array($product_id, $cartIDS) || ($clicked_product_id == $product_id)) {$this->response->setOutput(array()); echo 0; die;} // When the suggested product is already in the cart
 
 
 								  	$product = $this->getProduct($product_id, $this->data['upsell']['image_width'], $this->data['upsell']['image_height'], $this->data['upsell']['upsell_id'],$matches1[4][$i],$matches2[4][$i],$this->request->post['product_id'],$z,$counttotval);    
@@ -1114,7 +1114,7 @@ $i++; $z++;
 											}
 																		
 											$randIndex = rand(0,count($productIDS)-1);
-											if(in_array($productIDS[$randIndex], $cartIDS) || ($clicked_product_id == $productIDS[$randIndex])) {$this->response->setOutput(array()); exit;} // When the suggested product is already in the cart
+											if(in_array($productIDS[$randIndex], $cartIDS) || ($clicked_product_id == $productIDS[$randIndex])) {$this->response->setOutput(array()); echo 0; die;} // When the suggested product is already in the cart
 											$product = $this->getProduct($productIDS[$randIndex], $this->data['upsell']['image_width'], $this->data['upsell']['image_height'], $this->data['upsell']['upsell_id'], $matches1[4][$i],$matches2[4][$i],$this->request->post['product_id'],$z,$counttotval);
 											
 										     if(isset($product)) {
@@ -1234,7 +1234,7 @@ $i++; $z++;
 							    
 							      $i=0;$z=1; $counttotval=count($matches[4]);
 						      foreach($matches[4] as $product_id) {
-						      	if(in_array($product_id, $cartIDS) || ($clicked_product_id == $product_id)) {$this->response->setOutput(array()); exit;} // When the suggested product is already in the cart
+						      	if(in_array($product_id, $cartIDS) || ($clicked_product_id == $product_id)) {$this->response->setOutput(array());echo 0; die; } // When the suggested product is already in the cart
 							  	$product = $this->getProduct($product_id, $this->data['upsell']['image_width'], $this->data['upsell']['image_height'],$this->data['upsell']['upsell_id'], $matches1[4][$i],$matches2[4][$i],$this->request->post['product_id'],$z,$counttotval);
 								     if(isset($product)) {
 
@@ -1295,11 +1295,11 @@ $i++; $z++;
 										}
 										    							
 										$randIndex = rand(0,count($productIDS)-1);
-										if(in_array($productIDS[$randIndex], $cartIDS) || ($clicked_product_id == $productIDS[$randIndex])) {$this->response->setOutput(array()); exit;} // When the suggested product is already in the cart
+										if(in_array($productIDS[$randIndex], $cartIDS) || ($clicked_product_id == $productIDS[$randIndex])) {$this->response->setOutput(array()); echo 0; die;} // When the suggested product is already in the cart
 										$product = $this->getProduct($productIDS[$randIndex], $this->data['upsell']['image_width'], $this->data['upsell']['image_height'],$this->data['upsell']['upsell_id'],$matches1[4][$i],$matches2[4][$i],$this->request->post['product_id'],$z,$counttotval);
 										
 									     if(isset($product)) {
-									     	$product_upsell = $this->getProductTemplate($product);
+									     	$product_upsell = $this->getProductTemplate($product); 
 									    	
 									      $this->data['upsell']['content'] = str_replace('[category_upsell='.$category_id.']', $product_upsell, $this->data['upsell']['content']);
 
