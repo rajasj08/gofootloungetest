@@ -1,7 +1,7 @@
 <?php
 
-error_reporting(E_ALL);
-ini_set("display_errors", 1);
+//error_reporting(E_ALL);
+//ini_set("display_errors", 1);
 
 // HTTP
 define('HTTP_SERVER', 'https://gofootlounge.in/');
@@ -27,7 +27,7 @@ define('DIR_LOGS', $documentRoot. 'system/logs/');
 // DB
 
 define('DB_DRIVER', 'mysql');
-define('DB_HOSTNAME', 'aa175eca4p5ixoi.cvwrkeif9dtm.ap-south-1.rds.amazonaws.com');
+define('DB_HOSTNAME', 'aa128rcsxrj96v2.cvwrkeif9dtm.ap-south-1.rds.amazonaws.com');
 define('DB_USERNAME', 'fladmin');
 define('DB_PASSWORD', 'Welcome!23'); 
 define('DB_DATABASE', 'ebdb');
