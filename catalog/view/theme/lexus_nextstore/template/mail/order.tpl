@@ -25,11 +25,11 @@
 	              <td> 
  <a class="new_order_text" href="#14ad24ec8c2bf6af_14ad24d32399553c_14ad249f79bf65b3_14aca23085d85ca4_146c2260d4597c2f_"><span class="new_order_colc">Lets Talk</span></a></td>
 	               <td width="28" valign="middle" align="right" class="new_order_fonts"><a target="_blank" href="#">
-                   <img width="21" height="20" border="0" class="CToWUd" src="https://gofootlounge.in/catalog/view/theme/lexus_nextstore/template/common/ins.jpg" alt="<?php echo $title; ?>"></a></td>
+                   <img width="21" height="20" border="0" class="CToWUd" src="https://footlounge.in/catalog/view/theme/lexus_nextstore/template/common/ins.jpg" alt="<?php echo $title; ?>"></a></td>
 
-	               <td width="26" valign="middle" align="right"class="new_order_fonts"><a target="_blank" href="https://twitter.com/Footlounge_in"><img width="21" height="20" border="0" class="CToWUd" src="https://gofootlounge.in/catalog/view/theme/lexus_nextstore/template/common/tw.jpg" alt="<?php echo $title; ?>"></a></td>
+	               <td width="26" valign="middle" align="right"class="new_order_fonts"><a target="_blank" href="https://twitter.com/Footlounge_in"><img width="21" height="20" border="0" class="CToWUd" src="https://footlounge.in/catalog/view/theme/lexus_nextstore/template/common/tw.jpg" alt="<?php echo $title; ?>"></a></td>
 
-	               <td width="24" valign="middle" align="right" class="new_order_fonts"><a target="_blank" href="https://www.facebook.com/pages/Footlounge/1524200924491161"><img width="21" height="20" border="0" class="CToWUd" src="https://gofootlounge.in/catalog/view/theme/lexus_nextstore/template/common/fb.png" alt="<?php echo $title; ?>"></a>
+	               <td width="24" valign="middle" align="right" class="new_order_fonts"><a target="_blank" href="https://www.facebook.com/pages/Footlounge/1524200924491161"><img width="21" height="20" border="0" class="CToWUd" src="https://footlounge.in/catalog/view/theme/lexus_nextstore/template/common/fb.png" alt="<?php echo $title; ?>"></a>
 
 </td>
 	               </tr>

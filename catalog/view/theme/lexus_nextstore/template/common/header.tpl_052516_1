@@ -238,7 +238,7 @@ function valids()
 var searches = document.getElementById('category_id').value;
 var sval = document.getElementById('searchs').value; 
 
-window.location.href ="https://gofootlounge.in/index.php?route=product/search&search=" + sval + "&category_id=" +searches;
+window.location.href ="https://footlounge.in/index.php?route=product/search&search=" + sval + "&category_id=" +searches;
 }
 
 </script>
@@ -372,16 +372,16 @@ window.location.href ="https://gofootlounge.in/index.php?route=product/search&se
 							<!--* </div>
 							<div class="search-middle1"> **-->
 							 
-								<!--<div class="fb-like" data-href="https://gofootlounge.in" data-width="300px" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div> -->
+								<!--<div class="fb-like" data-href="https://footlounge.in" data-width="300px" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div> -->
 								  
-								<!---**<iframe src="//www.facebook.com/plugins/like.php?href=https://gofootlounge.in/&amp;send=false&amp;layout=button_count&amp;width=90&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" title="Like Foot Locker on Facebook" style="border:none; overflow:hidden; width:90px; height:21px; margin-top:5px;" allowtransparency="true" tabindex="2"></iframe> 
+								<!---**<iframe src="//www.facebook.com/plugins/like.php?href=https://footlounge.in/&amp;send=false&amp;layout=button_count&amp;width=90&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" title="Like Foot Locker on Facebook" style="border:none; overflow:hidden; width:90px; height:21px; margin-top:5px;" allowtransparency="true" tabindex="2"></iframe> 
 
 							</div>  
 
 							<div class="cart-mini-right1">
-								<div class="social-icon1"><img src="https://gofootlounge.in/image/social-icons/Twitter_Logo_Mini.svg.png" style=" height:40px; width:40px;"></div>  
-								<div class="social-icon1"><img src="https://gofootlounge.in/image/social-icons/instagram-transparent.png" style=" height:40px; width:40px;"></div> 
-								<div class="social-icon1"><img src="https://gofootlounge.in/image/social-icons/Youtube-Icon-2.png" style=" height:40px; width:40px;"></div>
+								<div class="social-icon1"><img src="https://footlounge.in/image/social-icons/Twitter_Logo_Mini.svg.png" style=" height:40px; width:40px;"></div>  
+								<div class="social-icon1"><img src="https://footlounge.in/image/social-icons/instagram-transparent.png" style=" height:40px; width:40px;"></div> 
+								<div class="social-icon1"><img src="https://footlounge.in/image/social-icons/Youtube-Icon-2.png" style=" height:40px; width:40px;"></div>
 
 							</div>
 							
@@ -396,10 +396,10 @@ window.location.href ="https://gofootlounge.in/index.php?route=product/search&se
 								<p><?php //echo $headerdata; ?></p>
 							</div> 
 							<div class="g_rightpanel">
-								<div class="social-icon"><img src="https://gofootlounge.in/image/social-icons/Facebook-Thumb-Up-Like-Button.jpg" style=" height:30px; width:50px;"></div>
-								<div class="social-icon1"><img src="https://gofootlounge.in/image/social-icons/twitter.png" style=" height:30px; width:30px;"></div>
-								<div class="social-icon1"><img src="https://gofootlounge.in/image/social-icons/icon-instagram.png" style=" height:30px; width:30px;"></div>
-								<div class="social-icon1"><img src="https://gofootlounge.in/image/social-icons/you-tube-icon.png" style=" height:30px; width:30px;"></div>
+								<div class="social-icon"><img src="https://footlounge.in/image/social-icons/Facebook-Thumb-Up-Like-Button.jpg" style=" height:30px; width:50px;"></div>
+								<div class="social-icon1"><img src="https://footlounge.in/image/social-icons/twitter.png" style=" height:30px; width:30px;"></div>
+								<div class="social-icon1"><img src="https://footlounge.in/image/social-icons/icon-instagram.png" style=" height:30px; width:30px;"></div>
+								<div class="social-icon1"><img src="https://footlounge.in/image/social-icons/you-tube-icon.png" style=" height:30px; width:30px;"></div>
 							</div>  
 
 						</div> --**-->
@@ -410,10 +410,10 @@ window.location.href ="https://gofootlounge.in/index.php?route=product/search&se
 
 							<div class="fbclsmain">	
 								<div class="fbcls">
-								<a href="https://www.linkedin.com/company/footlounge-in"><img src="https://gofootlounge.in/image/social-icons/linkedsmall1.png" class="firsticon"></a>
-								<a href="https://www.instagram.com/go_footlounge"><img src="https://gofootlounge.in/image/social-icons/instagramsmall.png" style=" margin-left:5px;" class="secondicon"></a>
-								<a href="https://twitter.com/go_footlounge"><img src="https://gofootlounge.in/image/social-icons/twittersmall1.png" class="thirdicon"></a>
-								<a href="https://www.youtube.com/c/adidas"><img src="https://gofootlounge.in/image/social-icons/youtube-iconsmall.png" style=" margin-left:5px;" class="fourthicon"></a> 
+								<a href="https://www.linkedin.com/company/footlounge-in"><img src="https://footlounge.in/image/social-icons/linkedsmall1.png" class="firsticon"></a>
+								<a href="https://www.instagram.com/go_footlounge"><img src="https://footlounge.in/image/social-icons/instagramsmall.png" style=" margin-left:5px;" class="secondicon"></a>
+								<a href="https://twitter.com/go_footlounge"><img src="https://footlounge.in/image/social-icons/twittersmall1.png" class="thirdicon"></a>
+								<a href="https://www.youtube.com/c/adidas"><img src="https://footlounge.in/image/social-icons/youtube-iconsmall.png" style=" margin-left:5px;" class="fourthicon"></a> 
 								</div>   
 
 								
@@ -421,9 +421,9 @@ window.location.href ="https://gofootlounge.in/index.php?route=product/search&se
 
 
 								<iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Ffootlounge.online&tabs=timeline&width=282&height=73&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="282" height="68" style="border:none;overflow:hidden; float:right;" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
-								<!--<div class="social-icon1"><img src="https://gofootlounge.in/image/social-icons/twitter-icon.png" style=" height:30px; width:30px;"></div>   
-								<div class="social-icon1"><img src="https://gofootlounge.in/image/social-icons/insta40px.jpg" style=" height:30px; width:30px;"></div> 
-								<div class="social-icon1"><img src="https://gofootlounge.in/image/social-icons/youtube_40px.png" style=" height:30px; width:30px;"></div> -->
+								<!--<div class="social-icon1"><img src="https://footlounge.in/image/social-icons/twitter-icon.png" style=" height:30px; width:30px;"></div>   
+								<div class="social-icon1"><img src="https://footlounge.in/image/social-icons/insta40px.jpg" style=" height:30px; width:30px;"></div> 
+								<div class="social-icon1"><img src="https://footlounge.in/image/social-icons/youtube_40px.png" style=" height:30px; width:30px;"></div> -->
 
 							</div>   
 
@@ -450,12 +450,12 @@ window.location.href ="https://gofootlounge.in/index.php?route=product/search&se
 							<!---<div class="login-register">
 
 							<div class="fbcls">
-								<img src="https://gofootlounge.in/image/social-icons/linkedsmall1.png">
-								<img src="https://gofootlounge.in/image/social-icons/instagramsmall.png" style=" margin-left:5px;">
+								<img src="https://footlounge.in/image/social-icons/linkedsmall1.png">
+								<img src="https://footlounge.in/image/social-icons/instagramsmall.png" style=" margin-left:5px;">
 							</div>  
 							<div class="fbcls">
-								<img src="https://gofootlounge.in/image/social-icons/twittersmall1.png">
-								<img src="https://gofootlounge.in/image/social-icons/youtube-iconsmall.png" style=" margin-left:5px;">
+								<img src="https://footlounge.in/image/social-icons/twittersmall1.png">
+								<img src="https://footlounge.in/image/social-icons/youtube-iconsmall.png" style=" margin-left:5px;">
 							</div> -->
 
 

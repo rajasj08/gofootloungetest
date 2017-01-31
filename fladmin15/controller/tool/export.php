@@ -602,7 +602,7 @@ $totalval=0;
          							//{	
          							
  
-$cutimage= "https://gofootlounge.in/image/".$valuen->image;
+$cutimage= "https://footlounge.in/image/".$valuen->image;
 $cutimage = str_replace(' ', '%20', $cutimage);
 if($valuen->price){$shopprodprice=$valuen->price;}
 
@@ -616,8 +616,8 @@ if($valuen->price){$shopprodprice=$valuen->price;}
 if($option_value){ $shopbag.='<p><span>- Size : '.$option_value.'</span></p>'; }
 $shopbag.='</td>
 <td style="text-align:left; width:15%">* '.$valuen->quantity.'</td>
-<td style="text-align:right; width:15%"><img src="https://gofootlounge.in/image/data/Social%20Icons/IndianRupee.png" style="height:8px; width:8px;"> '.round($shopprodprice).'</td>
-<td style="text-align:right; width:15%"><img src="https://gofootlounge.in/image/data/Social%20Icons/IndianRupee.png" style="height:8px;width:8px;"> '.round($shopprodprice).'</td>
+<td style="text-align:right; width:15%"><img src="https://footlounge.in/image/data/Social%20Icons/IndianRupee.png" style="height:8px; width:8px;"> '.round($shopprodprice).'</td>
+<td style="text-align:right; width:15%"><img src="https://footlounge.in/image/data/Social%20Icons/IndianRupee.png" style="height:8px;width:8px;"> '.round($shopprodprice).'</td>
 </tr>';
 
 
@@ -626,8 +626,8 @@ $shopbag.='</td>
          						}
          }  
 
-         $shopbag.='<tr style="background:#f0f0c3; "><td colspan="4" align="right">Sub-Total : </td><td style="float:right;"><img src="https://gofootlounge.in/image/data/Social%20Icons/IndianRupee.png" style="height:8px;width:8px;"> '.round($totalval).'</td></tr>
-<tr style="background:#f0f0c3; "><td colspan="4" align="right">Total : </td><td style="float:right;"><img src="https://gofootlounge.in/image/data/Social%20Icons/IndianRupee.png" style="height:8px;width:8px;"> '.round($totalval).'</td></tr></tbody></table>'; 
+         $shopbag.='<tr style="background:#f0f0c3; "><td colspan="4" align="right">Sub-Total : </td><td style="float:right;"><img src="https://footlounge.in/image/data/Social%20Icons/IndianRupee.png" style="height:8px;width:8px;"> '.round($totalval).'</td></tr>
+<tr style="background:#f0f0c3; "><td colspan="4" align="right">Total : </td><td style="float:right;"><img src="https://footlounge.in/image/data/Social%20Icons/IndianRupee.png" style="height:8px;width:8px;"> '.round($totalval).'</td></tr></tbody></table>'; 
 
 } 
 
@@ -696,7 +696,7 @@ foreach ($productcinfos as $result) {
 				'name'    	 => $result['name'],
 				'price'   	 => $price,
 				'special' 	 => $special,
-				'href'    	 => 'https://gofootlounge.in/index.php?route=product/product&amp;product_id='.$result['product_id'],
+				'href'    	 => 'https://footlounge.in/index.php?route=product/product&amp;product_id='.$result['product_id'],
 				'quantity' =>$result['quantity'],
 				
 			);
@@ -720,11 +720,11 @@ $pos = strrpos($info['thumb'], $search);
     }*/
 $subjectaa=$info['thumb'];
 $subjectaa = str_replace(' ', '%20', $subjectaa);
-$subjectaa ="https://gofootlounge.in/image/".$subjectaa;
+$subjectaa ="https://footlounge.in/image/".$subjectaa;
 if($info['special']) $pricevali=$info['special']; else $pricevali=$info['price'];
  
   $latestpros.= '<td class="col-md-3 testssls" style="width:25%;"><p class="latcls" style="font-size:14px; text-align:center;"><img src="'.$subjectaa.'" style="height:50px; width:50px;" title="'.$name.'" class="product-image-zoom img-responsive"></p><p>'.$info['name'].'</p>
-<p style="text-align:center;"><span><img src="https://gofootlounge.in/image/data/Social%20Icons/IndianRupee.png" style="height:8px;width:8px;"> '.round($pricevali).'</span></p>
+<p style="text-align:center;"><span><img src="https://footlounge.in/image/data/Social%20Icons/IndianRupee.png" style="height:8px;width:8px;"> '.round($pricevali).'</span></p>
 <p style="text-align:center;">
 <a style="color:#FFF !important; text-align:center; cursor:pointer;" href="'.$info['href'].'" class="shopnownbtn"><div style="cursor:pointer;"><button class="mybtnccls" style="height:35px; width:80%; color: #000;border: 2px solid #ccc !important; cursor:pointer;">Shop Now</button></div></a></p>
 </td>';
@@ -742,11 +742,11 @@ if($info['special']) $pricevali=$info['special']; else $pricevali=$info['price']
          
         //shopping bag product list
        if($abuserid){
-	$checkoutnowbtnval='https://gofootlounge.in/cart?abuserid='.$abuserid; } 
-else{$checkoutnowbtnval='https://gofootlounge.in/';}
+	$checkoutnowbtnval='https://footlounge.in/cart?abuserid='.$abuserid; } 
+else{$checkoutnowbtnval='https://footlounge.in/';}
 //echo 'http://'. $_SERVER['SERVER_NAME']."<br/>" . $_SERVER['REQUEST_URI']; 
 /*
-$url = "https://gofootlounge.in/discountmsg.html";
+$url = "https://footlounge.in/discountmsg.html";
 $ch = curl_init();
 curl_setopt ($ch, CURLOPT_URL, $url);
 curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, 5);
@@ -765,7 +765,7 @@ if (!is_string($contents) || !strlen($contents)) {
 $contents = '';
 }
 */
-        $message1= htmlentities(file_get_contents("https://gofootlounge.in/discountmsg.html"));   
+        $message1= htmlentities(file_get_contents("https://footlounge.in/discountmsg.html"));   
 
         //$message1= htmlentities(file_get_contents("discountmsg.html"));  
 
@@ -776,7 +776,7 @@ $discountdisn=$discountdisn.'%';
               $strn2=str_replace('ndispercent',$discountdisn,$message1);
 } else if($discounttypen=='F')
 {
-$discountdisn='<img src="https://gofootlounge.in/image/data/Social%20Icons/IndianRupee.png" style="height:10px;width:10px;">'.$discountdisn;
+$discountdisn='<img src="https://footlounge.in/image/data/Social%20Icons/IndianRupee.png" style="height:10px;width:10px;">'.$discountdisn;
               $strn2=str_replace('ndispercent',$discountdisn,$message1);  
 }
               $strn3=str_replace('ndiscode',$discountcoden,$strn2);

@@ -5,7 +5,7 @@ ini_set("display_errors", 1);
 
 // HTTP
 //define('HTTP_SERVER', 'http://localhost/GitHub/gofootlounge/');
-define('HTTP_SERVER', 'https://gofootlounge.in/');
+define('HTTP_SERVER', 'https://footlounge.in/');
 
 //$documentRoot = $_SERVER['DOCUMENT_ROOT'].'GitHub/gofootlounge/';
 $documentRoot = "/var/app/current/";
@@ -14,7 +14,7 @@ define('DOCUMENT_ROOT', $documentRoot);
 
 // HTTPS
 //define('HTTPS_SERVER', 'http://localhost/GitHub/gofootlounge/');
-define('HTTPS_SERVER', 'https://gofootlounge.in/');
+define('HTTPS_SERVER', 'https://footlounge.in/');
 
 
 

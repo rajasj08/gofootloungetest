@@ -183,7 +183,7 @@ function valids()
 var searches = document.getElementById('category_id').value;
 var sval = document.getElementById('searchs').value; 
 
-window.location.href ="https://gofootlounge.in/index.php?route=product/search&search=" + sval + "&category_id=" +searches;
+window.location.href ="https://footlounge.in/index.php?route=product/search&search=" + sval + "&category_id=" +searches;
 }
 
 </script>

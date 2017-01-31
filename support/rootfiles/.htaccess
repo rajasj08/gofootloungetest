@@ -4,7 +4,7 @@ RewriteRule .* – [F,L]
 RewriteBase /
 RewriteEngine on
 # RewriteCond %{HTTP_HOST} ^footlounge\.in$ [NC]
-# RewriteRule ^(.*)$ https://gofootlounge.in/$1 [R=301,L]
+# RewriteRule ^(.*)$ https://footlounge.in/$1 [R=301,L]
 
 RewriteRule ^sitemap.xml$ sitemap.xml [L]
 RewriteRule ^googlebase.xml$ index.php?route=feed/google_base [L]

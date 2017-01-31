@@ -120,6 +120,7 @@
 					</table>
 				</div>
 <!--<div class="left"><a href="<?php echo $continue; ?>" class="button btn btn-theme-default btnconmovecls"><?php echo $button_shopping; ?></a></div> -->
+<div class="left mycartleftdivq"><a href="<?php echo $continue; ?>" class="button btn btn-theme-default btnconmovecls"><?php echo $button_shopping; ?></a></div>
 			</form>
 			
 			<!--<div class="cart_coupon_voucher_reward_msg"> <h5 class="text-right">All coupon codes/gift vouchers can be applied at checkout.</h5></div> -->
@@ -194,7 +195,7 @@
 		<div class="buttons buttonpadcls">
 			<div class="right"><a onclick="smartcheckoutpopup();" class="button btn btn-theme-default">CHECKOUT NOW<?php //echo $button_checkout; ?></a></div>
 		
-<div class="left"><a href="<?php echo $continue; ?>" class="button btn btn-theme-default btnconmovecls"><?php echo $button_shopping; ?></a></div>
+<!--<div class="left"><a href="<?php echo $continue; ?>" class="button btn btn-theme-default btnconmovecls"><?php echo $button_shopping; ?></a></div> -->
 		</div>	
 		
 		
@@ -453,7 +454,7 @@ ecomm_totalvalue: [<?php $count=count($products); $j=1;$priceval='';
         <h4 class="modal-title">APPLY COUPON</h4>
       </div>
       <div class="modal-body">
-      <!--<div style="margin-bottom: 20px;" ><p>This product has been solded out! Kindly fill the following details, our executive will contact you in another 48 hours. <a href="https://gofootlounge.in/new-arrivals"><span style="color: #CD6927 " id="modal_content">Happy Shopping</span><a></p></div>-->
+      <!--<div style="margin-bottom: 20px;" ><p>This product has been solded out! Kindly fill the following details, our executive will contact you in another 48 hours. <a href="https://footlounge.in/new-arrivals"><span style="color: #CD6927 " id="modal_content">Happy Shopping</span><a></p></div>-->
 		<!--<div style="margin-bottom: 20px;" ><p> Notify me when the product is back in Stock!</p></div> -->
 
        	<form class="form-horizontal">
@@ -491,7 +492,7 @@ ecomm_totalvalue: [<?php $count=count($products); $j=1;$priceval='';
       <!---<div class="modal-footer" style=" padding: 8px 20px 8px !important;">
       <span class="alert alert-success" style=" padding:5px !important; margin-bottom:0px; display:none;"  id="success_msgaa">Request sent successfully</span>
       <span class="alert alert-danger" style=" padding:5px !important; margin-bottom:0px;display:none;" id="failure_msg">sending failed</span>
-      	<img src="https://gofootlounge.in/image/loading_spinner.gif" alt="loading..." id="image_spinner">
+      	<img src="https://footlounge.in/image/loading_spinner.gif" alt="loading..." id="image_spinner">
         <button type="button" class="btn btn-default" id="closebtn" onclick="closemodal();">Close</button>
         <button type="button" class="btn btn-primary" id="sendbtn" onclick="sendnotify();">Send</button>
       </div> -->
@@ -506,7 +507,7 @@ ecomm_totalvalue: [<?php $count=count($products); $j=1;$priceval='';
         <h4 class="modal-title">Change Product Size</h4>
       </div>
       <div class="modal-body">
-      <!--<div style="margin-bottom: 20px;" ><p>This product has been solded out! Kindly fill the following details, our executive will contact you in another 48 hours. <a href="https://gofootlounge.in/new-arrivals"><span style="color: #CD6927 " id="modal_content">Happy Shopping</span><a></p></div>-->
+      <!--<div style="margin-bottom: 20px;" ><p>This product has been solded out! Kindly fill the following details, our executive will contact you in another 48 hours. <a href="https://footlounge.in/new-arrivals"><span style="color: #CD6927 " id="modal_content">Happy Shopping</span><a></p></div>-->
 		<div style="margin-bottom: 20px;" ><p></p></div>
 
        	<form class="form-horizontal">
@@ -557,7 +558,7 @@ ecomm_totalvalue: [<?php $count=count($products); $j=1;$priceval='';
       <div class="modal-footer" style=" padding: 8px 20px 8px !important;">
       <span class="alert alert-success" style=" padding:5px !important; margin-bottom:0px; display:none;"  id="success_msgaa">Request sent successfully</span>
       <span class="alert alert-danger" style=" padding:5px !important; margin-bottom:0px;display:none;" id="failure_msg">sending failed</span>
-      	<img src="https://gofootlounge.in/image/loading_spinner.gif" alt="loading..." id="image_spinner">
+      	<img src="https://footlounge.in/image/loading_spinner.gif" alt="loading..." id="image_spinner">
         <button type="button" class="btn btn-default" id="closebtn" onclick="closeproductSizeModal();">Close</button>
         <button type="button" class="btn btn-primary" id="sendbtn" onclick="updatecartprodsize();">Submit</button>
       </div>

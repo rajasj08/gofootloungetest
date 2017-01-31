@@ -106,7 +106,7 @@ if (view) {
         <h4 class="modal-title">EMAIL NOTIFICATION</h4>
       </div>
       <div class="modal-body">
-      <!--<div style="margin-bottom: 20px;" ><p>This product has been solded out! Kindly fill the following details, our executive will contact you in another 48 hours. <a href="https://gofootlounge.in/new-arrivals"><span style="color: #CD6927 " id="modal_content">Happy Shopping</span><a></p></div>-->
+      <!--<div style="margin-bottom: 20px;" ><p>This product has been solded out! Kindly fill the following details, our executive will contact you in another 48 hours. <a href="https://footlounge.in/new-arrivals"><span style="color: #CD6927 " id="modal_content">Happy Shopping</span><a></p></div>-->
 		<div class="new_asearch_mb" ><p> Notify me when the product is back in Stock!</p></div>
 
        	<form class="form-horizontal">
@@ -152,7 +152,7 @@ if (view) {
       <div class="modal-footer new_asearch_padd">
       <span class="alert alert-success new_asearch_padd1" id="success_msg">send successfully</span>
       <span class="alert alert-danger new_asearch_padd1" id="failure_msg">sending failed</span>
-      	<img src="https://gofootlounge.in/image/loading_spinner.gif" alt="loading..." id="image_spinner">
+      	<img src="https://footlounge.in/image/loading_spinner.gif" alt="loading..." id="image_spinner">
         <button type="button" class="btn btn-default" id="closebtn" onclick="closemodal();">Close</button>
         <button type="button" class="btn btn-primary" id="sendbtn" onclick="sendnotify();">Send</button>
       </div>

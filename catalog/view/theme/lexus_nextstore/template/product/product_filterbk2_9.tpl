@@ -17,9 +17,9 @@
 			<option value="<?php echo $sorts['href']; ?>"><?php echo $sorts['text']; ?></option>
 			<?php } ?>
 			<?php } ?>
-                          <option value="https://gofootlounge.in/index.php?route=product/asearch&path=60&C=USD&filter=General_o-n-23-86=Discount">Discount</option>
-<option value="https://gofootlounge.in/index.php?route=product/asearch&path=60&C=USD&filter=General_o-n-23-84=New">New</option>
-<option value="https://gofootlounge.in/index.php?route=product/asearch&path=60&C=USD&filter=General_o-n-23-85=Popular">Popular</option>
+                          <option value="https://footlounge.in/index.php?route=product/asearch&path=60&C=USD&filter=General_o-n-23-86=Discount">Discount</option>
+<option value="https://footlounge.in/index.php?route=product/asearch&path=60&C=USD&filter=General_o-n-23-84=New">New</option>
+<option value="https://footlounge.in/index.php?route=product/asearch&path=60&C=USD&filter=General_o-n-23-85=Popular">Popular</option>
 		</select>
 	</div>	
 	

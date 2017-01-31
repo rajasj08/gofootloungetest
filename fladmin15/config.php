@@ -1,14 +1,14 @@
 <?php
 // HTTP
-define('HTTP_SERVER', 'https://gofootlounge.in/fladmin15/');
-define('HTTP_CATALOG', 'https://gofootlounge.in/');
+define('HTTP_SERVER', 'https://footlounge.in/fladmin15/');
+define('HTTP_CATALOG', 'https://footlounge.in/');
 
 $documentRoot = $_SERVER['DOCUMENT_ROOT'].'/';
 define('DOCUMENT_ROOT', $documentRoot); 
 
 // HTTPS
-define('HTTPS_SERVER', 'https://gofootlounge.in/fladmin15/');
-define('HTTPS_CATALOG', 'https://gofootlounge.in/');
+define('HTTPS_SERVER', 'https://footlounge.in/fladmin15/');
+define('HTTPS_CATALOG', 'https://footlounge.in/');
 
 // DIR
 define('DIR_APPLICATION', $documentRoot. 'fladmin15/');
@@ -24,7 +24,7 @@ define('DIR_LOGS', $documentRoot. 'system/logs/');
 define('DIR_CATALOG', $documentRoot. 'catalog/');
 
 define('DB_DRIVER', 'mysql');
-define('DB_HOSTNAME', 'aa128rcsxrj96v2.cvwrkeif9dtm.ap-south-1.rds.amazonaws.com');
+define('DB_HOSTNAME', 'aa175eca4p5ixoi.cvwrkeif9dtm.ap-south-1.rds.amazonaws.com');
 define('DB_USERNAME', 'fladmin');
 define('DB_PASSWORD', 'Welcome!23');
 define('DB_DATABASE', 'ebdb');
