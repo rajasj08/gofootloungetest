@@ -249,6 +249,10 @@ jQuery(function($) {
 <link rel="stylesheet" type="text/css" href="catalog/view/theme/lexus_nextstore/stylesheet/latest/latest.min.css" />
 <link rel="stylesheet" type="text/css" href="catalog/view/theme/lexus_nextstore/stylesheet/custommenufilter.min.css" />
 <!------ styles for filter in mobile-->
+
+<script>
+function gotocheckout() { console.log("checkout"); window.location.href="checkout"}
+</script>
 <link rel="stylesheet" type="text/css" href="catalog/view/theme/lexus_nextstore/stylesheet/mobileadsmartsearch.min.css" />
  
 <script src="catalog/view/javascript/jquery/livesearch.min.js"></script>
