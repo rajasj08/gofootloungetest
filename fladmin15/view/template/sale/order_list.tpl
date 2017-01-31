@@ -313,7 +313,7 @@ if(mailid!='')
             //sending mail
             $.ajax({
             type: "POST",
-            url: 'https://footlounge.in/orderemail.php',  
+            url: 'https://gofootlounge.in/orderemail.php',  
             data: { 
               orderid:orderid,
               timestamp:timestamp,

@@ -90,7 +90,7 @@ if ($result->num_rows > 0) {
     	
     	if($row['email']) {$tomail=$row['email'];} else $tomail=''; 
 
-    	 $message1= htmlentities(file_get_contents("https://footlounge.in/newmail.html"));   
+    	 $message1= htmlentities(file_get_contents("https://gofootlounge.in/newmail.html"));   
          $message1=html_entity_decode($message1);    
 
          if($tomail)

@@ -301,7 +301,7 @@ flag=0;} else {$("#couponcodes").css('border','1px solid #ccc');}
             //sending mail
             $.ajax({
             type: "POST",
-            url: 'https://footlounge.in/orderemail.php', 
+            url: 'https://gofootlounge.in/orderemail.php', 
             data: { 
               orderid:orderid,
               timestamp:timestamp,

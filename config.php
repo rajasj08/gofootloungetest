@@ -4,12 +4,12 @@ error_reporting(E_ALL);
 ini_set("display_errors", 1);
 
 // HTTP
-define('HTTP_SERVER', 'https://footlounge.in/');
+define('HTTP_SERVER', 'https://gofootlounge.in/');
 $documentRoot = $_SERVER['DOCUMENT_ROOT'].'/';
 define('DOCUMENT_ROOT', $documentRoot); 
 
 // HTTPS
-define('HTTPS_SERVER', 'https://footlounge.in/');
+define('HTTPS_SERVER', 'https://gofootlounge.in/');
 
 $documentRoot = $_SERVER['DOCUMENT_ROOT'].'/';
 

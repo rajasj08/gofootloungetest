@@ -253,7 +253,7 @@ if( $sum_total )  {
 							<?php } ?>
 							</span>
 							
-							&nbsp;<span class="price-new specialpricenew"><span class="showsploffmsg" data-toggle="popover" data-trigger="hover" data-content="<p class='proddisccontent'>(Special Price because you bought <span class='proddisccontent1'><a class='proddisccontent1' href='https://footlounge.in/index.php?route=product/product&product_id=<?php echo trim($mainproductidinfo); ?>'><?php echo $mainproductname; ?></a></span>)</p>"><i class='fa fa-check' aria-hidden='true'></i></span>You Pay:&nbsp;<?php echo $special; ?> <!--<span class="income"><?php echo $saving; ?>% <?php echo $text_income; ?></span> --></span> 
+							&nbsp;<span class="price-new specialpricenew"><span class="showsploffmsg" data-toggle="popover" data-trigger="hover" data-content="<p class='proddisccontent'>(Special Price because you bought <span class='proddisccontent1'><a class='proddisccontent1' href='https://gofootlounge.in/index.php?route=product/product&product_id=<?php echo trim($mainproductidinfo); ?>'><?php echo $mainproductname; ?></a></span>)</p>"><i class='fa fa-check' aria-hidden='true'></i></span>You Pay:&nbsp;<?php echo $special; ?> <!--<span class="income"><?php echo $saving; ?>% <?php echo $text_income; ?></span> --></span> 
 							
 							<?php }
 							else{
@@ -270,7 +270,7 @@ if( $sum_total )  {
 						</div>	
 						<?php if($discountofferprod){
 								?>		
-		 			<!--<p class="proddisccontent">Special price by adding this product <span class="proddisccontent1"><a class="proddisccontent1" href="https://footlounge.in/index.php?route=product/product&product_id=<?php echo trim($mainproductidinfo); ?>"><?php echo $mainproductname; ?></a></span></p> -->
+		 			<!--<p class="proddisccontent">Special price by adding this product <span class="proddisccontent1"><a class="proddisccontent1" href="https://gofootlounge.in/index.php?route=product/product&product_id=<?php echo trim($mainproductidinfo); ?>"><?php echo $mainproductname; ?></a></span></p> -->
 		 			
 		 			<?php } ?> 
 						<div class="other-price">
@@ -636,8 +636,8 @@ $ps = split("<span class='WebRupee'>Rs</span>", $option_value['price']);
 			<a class="sharesocial">SHARE: &nbsp;</a> 
 				<!-- AddThis Button END --> 				
 				<div class="addthis_default_style">
-				<a onclick="PopupCenter('https://plus.google.com/share?url=https://footlounge.in','xtf','450','400');"><img class="piconcls" src="https://footlounge.in/image/social-icons/google_plus27.png"></a>&nbsp;&nbsp;<a onclick="PopupCenter('https://twitter.com/intent/tweet?text=@go_footlounge&','xtf','450','400');"><img class="piconcls" src="https://footlounge.in/image/social-icons/twittersmall1.png"></a>&nbsp; 
-				<a onclick="PopupCenter('http://www.facebook.com/sharer/sharer.php?u=https://footlounge.in','xtf','450','400');"> <img class="piconcls" src="https://footlounge.in/image/icon-facebook.png"></a>
+				<a onclick="PopupCenter('https://plus.google.com/share?url=https://gofootlounge.in','xtf','450','400');"><img class="piconcls" src="https://gofootlounge.in/image/social-icons/google_plus27.png"></a>&nbsp;&nbsp;<a onclick="PopupCenter('https://twitter.com/intent/tweet?text=@go_footlounge&','xtf','450','400');"><img class="piconcls" src="https://gofootlounge.in/image/social-icons/twittersmall1.png"></a>&nbsp; 
+				<a onclick="PopupCenter('http://www.facebook.com/sharer/sharer.php?u=https://gofootlounge.in','xtf','450','400');"> <img class="piconcls" src="https://gofootlounge.in/image/icon-facebook.png"></a>
 				
 				</div>
 				<script type="text/javascript" src="//s7.addthis.com/js/250/addthis_widget.js"></script> 
@@ -1339,7 +1339,7 @@ $finval=str_replace("<span class='WebRupee'>Rs</span>","",$finalprice1); echo nu
         <h4 class="modal-title">EMAIL NOTIFICATION</h4>
       </div>
       <div class="modal-body">
-      <!--<div style="margin-bottom: 20px;" ><p>This product has been solded out! Kindly fill the following details, our executive will contact you in another 48 hours. <a href="https://footlounge.in/new-arrivals"><span style="color: #CD6927 " id="modal_content">Happy Shopping</span><a></p></div>-->
+      <!--<div style="margin-bottom: 20px;" ><p>This product has been solded out! Kindly fill the following details, our executive will contact you in another 48 hours. <a href="https://gofootlounge.in/new-arrivals"><span style="color: #CD6927 " id="modal_content">Happy Shopping</span><a></p></div>-->
 		<div class="new_asearch_mb" ><p> Notify me when the product is back in Stock!</p></div>
 
        	<form class="form-horizontal">
@@ -1389,7 +1389,7 @@ $finval=str_replace("<span class='WebRupee'>Rs</span>","",$finalprice1); echo nu
       <div class="modal-footer new_asearch_padd">
       <span class="alert alert-success new_asearch_padd1" id="success_msgaa">send successfully</span>
       <span class="alert alert-danger new_asearch_padd1" id="failure_msg">sending failed</span>
-      	<img src="https://footlounge.in/image/loading_spinner.gif" alt="loading..." id="image_spinner">
+      	<img src="https://gofootlounge.in/image/loading_spinner.gif" alt="loading..." id="image_spinner">
         <button type="button" class="btn btn-default" id="closebtn" onclick="closemodal();">Close</button>
         <button type="button" class="btn btn-primary" id="sendbtn" onclick="sendnotify();">Send</button>
       </div>

@@ -1,14 +1,14 @@
 <?php
 // HTTP
-define('HTTP_SERVER', 'https://footlounge.in/fladmin15/');
-define('HTTP_CATALOG', 'https://footlounge.in/');
+define('HTTP_SERVER', 'https://gofootlounge.in/fladmin15/');
+define('HTTP_CATALOG', 'https://gofootlounge.in/');
 
 $documentRoot = $_SERVER['DOCUMENT_ROOT'].'/';
 define('DOCUMENT_ROOT', $documentRoot); 
 
 // HTTPS
-define('HTTPS_SERVER', 'https://footlounge.in/fladmin15/');
-define('HTTPS_CATALOG', 'https://footlounge.in/');
+define('HTTPS_SERVER', 'https://gofootlounge.in/fladmin15/');
+define('HTTPS_CATALOG', 'https://gofootlounge.in/');
 
 // DIR
 define('DIR_APPLICATION', $documentRoot. 'fladmin15/');

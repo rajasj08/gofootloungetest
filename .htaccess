@@ -15,8 +15,8 @@ RewriteCond %{HTTP_USER_AGENT} libwww-perl.*
 RewriteRule .* – [F,L]
 RewriteBase /
 RewriteEngine on
-# RewriteCond %{HTTP_HOST} ^footlounge\.in$ [NC]
-# RewriteRule ^(.*)$ https://footlounge.in/$1 [R=301,L]
+# RewriteCond %{HTTP_HOST} ^gofootlounge\.in$ [NC]
+# RewriteRule ^(.*)$ https://gofootlounge.in/$1 [R=301,L]
 
 RewriteRule ^sitemap.xml$ sitemap.xml [L]
 RewriteRule ^googlebase.xml$ index.php?route=feed/google_base [L]

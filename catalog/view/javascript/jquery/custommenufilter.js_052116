@@ -70,7 +70,7 @@ if(flag==1){
    $('#sendbtn').prop('disabled', true);
   $.ajax({
     type: "POST",
-    url: 'https://footlounge.in/emailus.php', 
+    url: 'https://gofootlounge.in/emailus.php', 
     data: {
       Nproductname:Nproductname,
       Nemail:Nemail,
