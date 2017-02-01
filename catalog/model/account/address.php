@@ -139,6 +139,75 @@ class ModelAccountAddress extends Model {
 		return $query->row['total'];
 	}
 
+	public function getAddresspincodeinfo($address_id) // get pincode for the address id
+	{
+		$query = $this->db->query("SELECT postcode FROM " . DB_PREFIX . "address WHERE customer_id = '" . (int)$this->customer->getId() . "' and address_id='".$address_id."'");
+	
+		//return $query->row['postcode'];
+		if($query->row['postcode'])
+		{
+		 $query = $this->db->query("SELECT pincode FROM " . DB_PREFIX . "zipcode WHERE pincode = ".$query->row['postcode']." and (fedex_cod='yes' or aramex_cod='yes' or delhivery_cod='yes')");		
+
+			if ($query->num_rows > 0 ) { 
+			 
+	  
+				return $query->num_rows;
+			}
+			else
+			{
+				return -1;
+			}
+		}
+		else
+		{
+			return -2;
+		}
+	}
+
+	public function resetuserpincode($pincode,$address_id) //reset user pincode
+	{
+		$zone_id='';
+		$city='';
+
+		$query1 = $this->db->query("SELECT city,state FROM pincode WHERE pincode = '" . $pincode . "'"); 
+
+		if($query1->num_rows > 0)
+		{
+			$city=$query1->row['city'];
+		$query2 = $this->db->query("SELECT country_id,zone_id FROM " . DB_PREFIX . "zone WHERE name = '" . $query1->row['state'] . "'");  
+		$zone_id=$query2->row['zone_id']; 
+		}
+
+		$this->db->query("UPDATE " . DB_PREFIX . "address SET postcode = '" .$pincode . "', city='".$city."', zone_id='".$zone_id."' WHERE customer_id = '" . (int)$this->customer->getId() . "' and address_id='".$address_id."'");
+ 
+		return 1; 
+	}
+	public function getAddresspincodeinfo1($address_id) // get pincode for the address id
+	{
+		$query = $this->db->query("SELECT postcode FROM " . DB_PREFIX . "address WHERE customer_id = '" . (int)$this->customer->getId() . "' and address_id='".$address_id."'");
+	
+		//return $query->row['postcode'];
+		if($query->row['postcode'])
+		{
+		 $query = $this->db->query("SELECT pincode FROM " . DB_PREFIX . "zipcode WHERE pincode = ".$query->row['postcode']." and (fedex_cod='yes' or aramex_cod='yes' or delhivery_cod='yes')");		
+
+			if ($query->num_rows > 0 ) {
+			 
+	  
+				return $query->row['pincode'];
+			}
+			else
+			{
+				return -1;
+			}
+		}
+		else
+		{
+			return -2;
+		}
+	}
+
+
           public function saveabdandoneduser1($mailid,$custid)//save abdandoned user
 	{
 		$this->db->query("INSERT INTO " . DB_PREFIX . "abandoned_customer SET userid = $custid, cust_mailid = '" . $mailid.trim() . "', st1 = 1, st2 = '0', st3 = '0', st4 = '0', status = '0', order_date='".date('Y-m-d')."'");

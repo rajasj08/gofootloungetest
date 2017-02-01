@@ -135,7 +135,7 @@ public function checkpostcodeaddress()//check post code address
 	 //echo $this->model_menu_megamenu->getstatecityinfos($zipcode);
 	$postcode=$this->model_menu_megamenu->checkpostcodeaddressinfos($n_postcodeaddr); 
 	
-		$this->load->model('menu/megamenu'); 	 
+		//$this->load->model('menu/megamenu'); 	 
 			$zipcode=$postcode;
 			$codstatus = $this->model_menu_megamenu->getcodstatus($zipcode); 
 			

@@ -302,17 +302,19 @@ class ControllerCheckoutPaymentAddress extends Controller {
 	}
 	public function getpincode()//get pincode
 	{
+
 		// Default Payment Address
 		$this->load->model('account/address');
 		$codstatus=$this->model_account_address->getAddresspincodeinfo($this->request->post['address_id']);
-				if($codstatus == 1)
+		//echo $codstatus; die; 
+			if($codstatus == 1)
 			{
 				$zipcode=$this->model_account_address->getAddresspincodeinfo1($this->request->post['address_id']);
 				$this->session->data['user_zipcode']=$zipcode;  	
 			}
 			else{ if($this->session->data['user_zipcode']) unset($this->session->data['user_zipcode']);}
 			
-			echo $codstatus;
+			echo $codstatus; 
 							
 	}
 

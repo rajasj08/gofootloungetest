@@ -687,5 +687,19 @@ public function getstatecodeinfos($statename)
 		 else { return 0;}  
 } 
 
+public function checkpostcodeaddressinfos($addressid)//check post code
+{
+	$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "address WHERE address_id = $addressid");   
+
+
+		if ($query->num_rows > 0 ) {
+		 
+  
+			return $query->row['postcode']; 
+		}
+		
+		 else { return 0;}  
+} 
+
 }
 ?>

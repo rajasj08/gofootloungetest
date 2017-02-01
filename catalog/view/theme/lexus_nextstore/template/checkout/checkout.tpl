@@ -316,7 +316,7 @@ $('#button-account').live('click', function() {
 });
 
 // Login
-$('#button-login').live('click', function() {
+/*$('#button-login').live('click', function() {
 	$.ajax({
 		url: 'index.php?route=checkout/login/validate',
 		type: 'post',
@@ -331,6 +331,8 @@ $('#button-login').live('click', function() {
 			$('.wait').remove();
 		},				
 		success: function(json) {
+			alert(json);
+			alert('sdfsdf');
 			$('.warning, .error').remove();
 			
 			if (json['redirect']) {
@@ -342,10 +344,11 @@ $('#button-login').live('click', function() {
 			}
 		},
 		error: function(xhr, ajaxOptions, thrownError) {
+			alert('test'); 
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});	
-});
+});*/ 
 
 // Login
 $('#button-login').live('click', function() {
@@ -364,26 +367,32 @@ $('#button-login').live('click', function() {
 		},				
 		success: function(json) {
 			$('.warning, .error').remove();
+
 			
 			if (json['redirect']) {
-				location = json['redirect'];
-			} else if (json['error']) {
-				$('#checkout .checkout-content').prepend('<div class="warning" style="display: none;">' + json['error']['warning'] + '</div>');
-				
-				$('.warning').fadeIn('slow');
-			}
-                         $.ajax({
+				  $.ajax({
 				                                type: "POST",
 				                                url: 'index.php?route=checkout/login/saveabuserproduct',   
 				                                data: {
 				                               
 				                                },
 				                                success: function(respnew1){
+				                                	                //alert('sdfds'); 
+				                                	                location = json['redirect'];
+				                                	                return;
                                                                     //alert(respnew1); 
                                                                 } 
                                                                 });
+				//location = json['redirect'];
+			} else if (json['error']) {
+				$('#checkout .checkout-content').prepend('<div class="warning" style="display: none;">' + json['error']['warning'] + '</div>');
+				
+				$('.warning').fadeIn('slow');
+			}
+                       
 		},
 		error: function(xhr, ajaxOptions, thrownError) {
+			alert('dfdsfd'); 
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});	
@@ -617,6 +626,7 @@ $('#button-register').live('click', function() {
 // Payment Address	
 $('#button-payment-address').live('click', function() {
 
+
 if($("#payment-address-new").prop( "checked" ))
 	{
 		var address_id=0;
@@ -626,6 +636,7 @@ if($("#payment-address-new").prop( "checked" ))
 
 		{var address_id=$('select[name="address_id"]').val();}
 
+	
   $.ajax({
     type: "POST",
     url: 'index.php?route=checkout/payment_address/getpincode/',   
@@ -633,6 +644,7 @@ if($("#payment-address-new").prop( "checked" ))
       address_id:address_id
     },
     success: function(resp1){
+    	
    if(resp1!=1 && address_id != 0 ){
     	$("#resetcodModal").modal('show'); 
     	$("#hiddenaddressid").val(address_id); 
@@ -656,6 +668,8 @@ if($("#payment-address-new").prop( "checked" ))
 			$('.wait').remove();
 		},			
 		success: function(json) {
+
+		
 			
 			$('.warning, .error').remove();
 			
@@ -713,6 +727,8 @@ if($("#payment-address-new").prop( "checked" ))
 					$('#payment-address select[name=\'zone_id\']').after('<span class="error">' + json['error']['zone'] + '</span>');
 				}
 			} else {
+
+
 				var n_postcodeaddr=$('#payment-address select[name=\'address_id\']').val(); 
 				
 					 $.ajax({
@@ -724,9 +740,10 @@ if($("#payment-address-new").prop( "checked" ))
 			              	n_postcodeaddr:n_postcodeaddr,                               
 			              },
 			              success: function(resp){
-			            
+			           
 				
 				<?php if ($shipping_required) { ?>
+					
                              
                                  $.ajax({
 					    type: "POST",
@@ -786,6 +803,7 @@ if($("#payment-address-new").prop( "checked" ))
 				});*/
 			
 				<?php } else { ?>
+					
 
 				$.ajax({
 					url: 'index.php?route=checkout/payment_method', 
