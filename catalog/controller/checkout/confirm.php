@@ -66,17 +66,17 @@ class ControllerCheckoutConfirm extends Controller {
 		foreach ($products as $product) {
 
                           // get Origional price for  the product
-                             $this->load->model('catalog/product');
+                          /*   $this->load->model('catalog/product');
                              $prod_orgprice=$this->model_catalog_product->getprodmrppricevalue($product['product_id']);
                               
 $bagtot+=round($prod_orgprice * $product['quantity']); 
                              //assign org price value
                              if ($prod_orgprice) {
                                         $n_orgprice = $this->currency->format($this->tax->calculate($prod_orgprice, 0, $this->config->get('config_tax')));   
-					/*$price = $this->currency->format($this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax')));*/
+					
 				} else {
 					$n_orgprice = false;
-				}
+				}*/
 
 
     
@@ -95,13 +95,13 @@ $bagtot+=round($prod_orgprice * $product['quantity']);
 			}				
 		}
  
-                if ($bagtot) {
+              /*  if ($bagtot) {
                                        // $this->data['bagtot'] = $this->currency->format($this->tax->calculate($bagtot, 0, $this->config->get('config_tax'))); 
                                            $this->data['bagtot'] =$bagtot ;  
-					/*$price = $this->currency->format($this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax')));*/
+					
 				} else {
 					$this->data['bagtot'] = false;
-				} 
+				} */
 						
 		if (!$redirect) {
 			$total_data = array();
@@ -439,6 +439,21 @@ $bagtot+=round($prod_orgprice * $product['quantity']);
 				/*} else {
 					$n_orgprice = false;
 				}*/
+
+				 // get Origional price for  the product
+                             $this->load->model('catalog/product');
+                             $prod_orgprice=$this->model_catalog_product->getprodmrppricevalue($product['product_id']);
+                              
+$bagtot+=round($prod_orgprice * $product['quantity']); 
+                             //assign org price value
+                             if ($prod_orgprice) {
+                                        $n_orgprice = $this->currency->format($this->tax->calculate($prod_orgprice, 0, $this->config->get('config_tax'))* $product['quantity']);   
+					/*$price = $this->currency->format($this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax')));*/
+				} else {
+					$n_orgprice = false;
+				} 
+
+
                                // finding discount for the product
                                  $scda=$product['price'];
 				//$scda = preg_replace('/\D/', '', $scda);
@@ -459,8 +474,8 @@ $bagtot+=round($prod_orgprice * $product['quantity']);
                                         'price'      => $this->currency->format($this->tax->calculate($product['price'], 0, $this->config->get('config_tax'))),
 					'total'      => $this->currency->format($this->tax->calculate($product['price'], 0, $this->config->get('config_tax')) * $product['quantity']),   
 					'href'       => $this->url->link('product/product', 'product_id=' . $product['product_id']),
-                                        'prod_subtot'  =>$n_orgprice,
-                                         'discount' => $disc_percent
+                     'prod_subtot'  =>$n_orgprice,
+                     'discount' => $disc_percent
 				); 
 			} 
                         $data['bagtotpriceval']=$bagtot;

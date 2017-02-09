@@ -2723,6 +2723,7 @@ array_push($returnArray,$responseArray,$errorArray);
 
 
 protected function sizegetOptions( &$database, $languageId ) {
+
 		$query  = "SELECT p.model ,";
 		$query .= "  po.product_id,";
 		$query .= "  po.option_id,";
@@ -2752,6 +2753,8 @@ protected function sizegetOptions( &$database, $languageId ) {
 		$query .= "LEFT JOIN `".DB_PREFIX."option_value_description` ovd ON ovd.option_value_id=ov.option_value_id AND ovd.language_id=$languageId ";
 		$query .= "LEFT JOIN `".DB_PREFIX."option_description` od ON od.option_id=o.option_id AND od.language_id=$languageId ";
 		$query .= "ORDER BY po.product_id, po.option_id, pov.option_value_id,po.option_value,ovd.name;";
+
+
 		$result = $database->query( $query );
 
 
@@ -2827,15 +2830,17 @@ $kidsStdSizeValues = array(
 );
 
 
-$v=1;
+//$v=1;
 
 foreach($options as $row)
 	{
 
-if($v==2) { break;}
 
 
-$v++;
+//if($v==2) { break;}
+
+
+//$v++;
 
 
 
@@ -2908,9 +2913,12 @@ $kidsStdSizeValues = array('XS','S','M','L','M','XL','XXL');
 
 }
 
+ 
+
 
 	if (trim($row['option_name'] == "Brand"))
 		{
+
 		$BrandArray = array();
 		$BrandArray['model'] = $row['model'];
 		$BrandArray['option_value_id'] = $row['option_value_id'];
@@ -2920,15 +2928,17 @@ $kidsStdSizeValues = array('XS','S','M','L','M','XL','XXL');
 		$BrandArray['image'] = $row['image'];
 		$BrandArray['quantity'] = $row['quantity'];
 		}
+
+
 	  else
 	if (trim($row['option_name'] == "Gender") && trim($row['option_value'] != "Unisex"))
 		{
 
 
-
 		$PendingStdSizeValues = array();
 		if ($row['option_value'] == "Men")
 			{
+				
 			$PendingStdSizeValues = array_diff($MenStdSizeValues, $checkOptionValueExists);
 
 
@@ -2984,17 +2994,19 @@ $kidsStdSizeValues = array('XS','S','M','L','M','XL','XXL');
 				$opt_val_id = $result->rows[0]['option_value_id'];
 
 
-
-				$worksheet->getRowDimension($i)->setRowHeight(13);
-				$this->setCell($worksheet, $i, $j++, $row['model']);
-				$this->setCell($worksheet, $i, $j++, $opt_val_id);
-				$this->setCell($worksheet, $i, $j++, 'Size');
-				$this->setCell($worksheet, $i, $j++, 'image');
-				$this->setCell($worksheet, $i, $j++, $value);
-				$this->setCell($worksheet, $i, $j++, "data/SIZE/Shoe Size/" . $value . ".png");
-				$this->setCell($worksheet, $i, $j++, 0);
-				$i+= 1;
-				$j = 0;
+              if($opt_val_id){
+					$worksheet->getRowDimension($i)->setRowHeight(13);
+					$this->setCell($worksheet, $i, $j++, $row['model']);
+					$this->setCell($worksheet, $i, $j++, $opt_val_id);
+					$this->setCell($worksheet, $i, $j++, 'Size');
+					$this->setCell($worksheet, $i, $j++, 'image');
+					$this->setCell($worksheet, $i, $j++, $value);
+					$this->setCell($worksheet, $i, $j++, "data/SIZE/Shoe Size/" . $value . ".png");
+					$this->setCell($worksheet, $i, $j++, 0);
+				   
+					$i+= 1;
+					$j = 0;
+					 }
 				}
 
 
@@ -3029,27 +3041,31 @@ $kidsStdSizeValues = array(
 ); 
 
 			}
+       if($row['option_value_id']){
+			$worksheet->getRowDimension($i)->setRowHeight(13);
+			$this->setCell($worksheet, $i, $j++, $row['model']);
+			$this->setCell($worksheet, $i, $j++, $row['option_value_id']);
+			$this->setCell($worksheet, $i, $j++, $row['option_name']);
+			$this->setCell($worksheet, $i, $j++, $row['type']);
+			$this->setCell($worksheet, $i, $j++, ($row['default_value']) ? $row['default_value'] : $row['option_value']);
+			$this->setCell($worksheet, $i, $j++, $row['image']);
+			$this->setCell($worksheet, $i, $j++, $row['quantity']);
 
-		$worksheet->getRowDimension($i)->setRowHeight(13);
-		$this->setCell($worksheet, $i, $j++, $row['model']);
-		$this->setCell($worksheet, $i, $j++, $row['option_value_id']);
-		$this->setCell($worksheet, $i, $j++, $row['option_name']);
-		$this->setCell($worksheet, $i, $j++, $row['type']);
-		$this->setCell($worksheet, $i, $j++, ($row['default_value']) ? $row['default_value'] : $row['option_value']);
-		$this->setCell($worksheet, $i, $j++, $row['image']);
-		$this->setCell($worksheet, $i, $j++, $row['quantity']);
+			$i+= 1;
+			$j = 0;
+
+			$worksheet->getRowDimension($i)->setRowHeight(13);
+			$this->setCell($worksheet, $i, $j++, $BrandArray['model']);
+			$this->setCell($worksheet, $i, $j++, $BrandArray['option_value_id']);
+			$this->setCell($worksheet, $i, $j++, $BrandArray['option_name']);
+			$this->setCell($worksheet, $i, $j++, $BrandArray['type']);
+			$this->setCell($worksheet, $i, $j++, $BrandArray['option_value']);
+			$this->setCell($worksheet, $i, $j++, $BrandArray['image']);
+			$this->setCell($worksheet, $i, $j++, $BrandArray['quantity']);
+			
 		$i+= 1;
 		$j = 0;
-		$worksheet->getRowDimension($i)->setRowHeight(13);
-		$this->setCell($worksheet, $i, $j++, $BrandArray['model']);
-		$this->setCell($worksheet, $i, $j++, $BrandArray['option_value_id']);
-		$this->setCell($worksheet, $i, $j++, $BrandArray['option_name']);
-		$this->setCell($worksheet, $i, $j++, $BrandArray['type']);
-		$this->setCell($worksheet, $i, $j++, $BrandArray['option_value']);
-		$this->setCell($worksheet, $i, $j++, $BrandArray['image']);
-		$this->setCell($worksheet, $i, $j++, $BrandArray['quantity']);
-		$i+= 1;
-		$j = 0;
+		}
 
 
 			unset($checkOptionValueExists);
@@ -3090,22 +3106,26 @@ $kidsStdSizeValues = array(
 		}
 	  else
 		{
-		$worksheet->getRowDimension($i)->setRowHeight(13);
-		$this->setCell($worksheet, $i, $j++, $row['model']);
-		$this->setCell($worksheet, $i, $j++, $row['option_value_id']);
-		$this->setCell($worksheet, $i, $j++, $row['option_name']);
-		$this->setCell($worksheet, $i, $j++, $row['type']);
-		$this->setCell($worksheet, $i, $j++, ($row['default_value']) ? $row['default_value'] : $row['option_value']);
-		$this->setCell($worksheet, $i, $j++, $row['image']);
-		$this->setCell($worksheet, $i, $j++, $row['quantity']);
-		$i+= 1;
-		$j = 0;
+
+			if($row['option_value_id']){
+					$worksheet->getRowDimension($i)->setRowHeight(13);
+					$this->setCell($worksheet, $i, $j++, $row['model']);
+					$this->setCell($worksheet, $i, $j++, $row['option_value_id']);
+					$this->setCell($worksheet, $i, $j++, $row['option_name']);
+					$this->setCell($worksheet, $i, $j++, $row['type']);
+					$this->setCell($worksheet, $i, $j++, ($row['default_value']) ? $row['default_value'] : $row['option_value']);
+					$this->setCell($worksheet, $i, $j++, $row['image']);
+					$this->setCell($worksheet, $i, $j++, $row['quantity']);
+					$i+= 1;
+					$j = 0;
+				}
 		}
 
 
 
 
 		}
+		
 	}
 
 
@@ -3160,6 +3180,8 @@ protected function populateOptionsWorksheet( &$worksheet, &$database, $languageI
 		$j = 0;
 		$options = $this->getOptions( $database, $languageId );
 		foreach ($options as $row) {
+
+			if(trim($row['option_value'])==7){$row['option_value']=trim($row['option_value']);}
 			$worksheet->getRowDimension($i)->setRowHeight(13);
 			$this->setCell( $worksheet, $i, $j++, $row['product_id'] );
 			$this->setCell( $worksheet, $i, $j++, $languageId );
@@ -3410,7 +3432,7 @@ protected function populateOptionsWorksheet( &$worksheet, &$database, $languageI
 
 
 
-               ini_set('memory_limit', '1024M'); //Extend memory limit 
+              // ini_set('memory_limit', '1024M'); //Extend memory limit 
 		// we use our own error handler
                	global $registry;
 		$registry = $this->registry;
@@ -3568,12 +3590,19 @@ protected function populateOptionsWorksheet( &$worksheet, &$database, $languageI
                        
 
 			 // redirect output to client browser
-			header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+			/*header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 			header('Content-Disposition: attachment;filename="backup_categories_products.xlsx"');
-			header('Cache-Control: max-age=0');                    
+			header('Cache-Control: max-age=0');  */                   
  //ob_end_clean(); 
 
 			$objWriter = PHPExcel_IOFactory::createWriter($workbook, 'Excel2007');
+
+			ob_end_clean(); 
+
+			header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+			header('Content-Disposition: attachment;filename="backup_categories_products.xlsx"');
+			header('Cache-Control: max-age=0'); 
+
                         // $this->ob_clean();   
 			$objWriter->save('php://output');
 			// Clear the spreadsheet caches
@@ -3599,7 +3628,7 @@ protected function populateOptionsWorksheet( &$worksheet, &$database, $languageI
 
 	function sizedownload() {
 
-                ini_set('memory_limit', '1024M'); //Extend memory limit 
+               // ini_set('memory_limit', '1024M'); //Extend memory limit 
 		global $registry;
 		$registry = $this->registry;
 		set_error_handler('error_handler_for_export',E_ALL);
@@ -3692,6 +3721,8 @@ protected function populateOptionsWorksheet( &$worksheet, &$database, $languageI
 			$worksheet = $workbook->getActiveSheet();
 			$worksheet->setTitle( 'Options' );
 			$this->sizepopulateOptionsWorksheet( $worksheet, $database, $languageId, $priceFormat, $boxFormat, $weightFormat, $textFormat );
+
+
 		   $worksheet->freezePaneByColumnAndRow( 1, 2);
 			
 
@@ -3700,12 +3731,16 @@ protected function populateOptionsWorksheet( &$worksheet, &$database, $languageI
 
 
 			
+//print_r('<pre>'); print_r($workbook); die; 
+			
+			$objWriter = PHPExcel_IOFactory::createWriter($workbook, 'Excel2007');
+			ob_end_clean(); 
 
-			// redirect output to client browser
+            // redirect output to client browser
 			header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 			header('Content-Disposition: attachment;filename="backup_categories_products.xlsx"');
 			header('Cache-Control: max-age=0');
-			$objWriter = PHPExcel_IOFactory::createWriter($workbook, 'Excel2007');
+
 			$objWriter->save('php://output');
 
 			// Clear the spreadsheet caches
