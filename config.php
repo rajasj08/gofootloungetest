@@ -1,4 +1,4 @@
-sudo<?php
+<?php
 
 //error_reporting(E_ALL);
 //ini_set("display_errors", 1);
@@ -10,7 +10,7 @@ define('DOCUMENT_ROOT', $documentRoot);
 
 // HTTPS
 define('HTTPS_SERVER', 'https://gofootlounge.in/');
-
+ 
 $documentRoot = $_SERVER['DOCUMENT_ROOT'].'/';
 
 // DIR
