@@ -222,7 +222,7 @@ $(function(){
 		<section id="sys-notification">
 			<div class="container">
 				<?php if ($error) { ?>
-				<div class="warning"><?php echo $error ?><img src="catalog/view/theme/<?php echo $this->config->get('config_template');?>/image/close.png" alt="" class="close" /></div>
+				<div class="warning"><?php echo $error ?><img src="catalog/view/theme/<?php echo $this->config->get('config_template');?>/image/close.png" alt="Close" class="close" /></div>
 				<?php } ?>
 				<div id="notification"></div>
 			<script type="text/javascript">
@@ -715,7 +715,7 @@ $('#button-cart').bind('click', function() {
 			} 
 			
 			if (json['success']) {
-				$('#notification').html('<div class="success" style="display: none;">' + json['success'] + '<img src="catalog/view/theme/default/image/close.png" alt="" class="close" /></div>');
+				$('#notification').html('<div class="success" style="display: none;">' + json['success'] + '<img src="catalog/view/theme/default/image/close.png" alt="Close" class="close" /></div>');
 					
 				$('.success').fadeIn('slow');
 					
@@ -746,7 +746,7 @@ $('#button-buynow').bind('click', function() {
 			} 
 			
 			if (json['success']) {
-				$('#notification').html('<div class="success" style="display: none;">' + json['success'] + '<img src="catalog/view/theme/default/image/close.png" alt="" class="close" /></div>');
+				$('#notification').html('<div class="success" style="display: none;">' + json['success'] + '<img src="catalog/view/theme/default/image/close.png" alt="Close" class="close" /></div>');
 
 					var url = "index.php?route=checkout/checkout";    
 					//$(location).attr('href',url);

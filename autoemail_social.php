@@ -58,10 +58,10 @@ $conn->close(); */
 
 <?php 
 
-$servername = "localhost";
-$username = "footlounge_footn";
+$servername = "aa128rcsxrj96v2.cvwrkeif9dtm.ap-south-1.rds.amazonaws.com";
+$username = "fladmin";
 $password = "Welcome!23";
-$dbname = "footlounge_010317";
+$dbname = "ebdb";
 /*
 $servername = "localhost";
 $username = "foot_footnew";
@@ -83,7 +83,7 @@ $sql = "SELECT a.order_status_id,a.date_added,a.date_modified,a.order_id,a.email
 
 $result = $conn->query($sql); 
       $count=1; 
-  
+ 
 if ($result->num_rows > 0) {
 
  

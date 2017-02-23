@@ -21,8 +21,8 @@
 		<operation>
 			<search position="after"><![CDATA[<div id="notification">]]></search>
 			<add><![CDATA[
-			<div style="display:none;" class="nav_up" id="nav_up"></div>
-			<div style="display:none;" class="nav_down" id="nav_down"></div>
+			<div class="nav_up reentryclsimg6" id="nav_up"></div>
+			<div class="nav_down reentryclsimg6" id="nav_down"></div>
 			]]></add>
 		</operation>
 	</file>

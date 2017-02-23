@@ -8,6 +8,35 @@
   </FilesMatch>
 
 </IfModule>
+
+<IfModule mod_expires.c>
+    ExpiresActive on
+ 
+    ExpiresByType image/jpg "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType image/gif "access plus 1 month"
+    ExpiresByType image/png "access plus 1 month"
+</IfModule>
+
+
+
+# compress text, html, javascript, css, xml:
+AddOutputFilterByType DEFLATE text/plain
+AddOutputFilterByType DEFLATE text/html
+AddOutputFilterByType DEFLATE text/xml
+AddOutputFilterByType DEFLATE text/css
+AddOutputFilterByType DEFLATE application/xml
+AddOutputFilterByType DEFLATE application/xhtml+xml
+AddOutputFilterByType DEFLATE application/rss+xml
+AddOutputFilterByType DEFLATE application/javascript
+AddOutputFilterByType DEFLATE application/x-javascript
+
+# Or, compress certain file types by extension:
+<files *.html>
+SetOutputFilter DEFLATE
+</files>
+
+
 ## EXPIRES CACHING ##
 
 RewriteEngine on
@@ -18,6 +47,10 @@ RewriteEngine on
 # RewriteCond %{HTTP_HOST} ^gofootlounge\.in$ [NC]
 # RewriteRule ^(.*)$ https://gofootlounge.in/$1 [R=301,L]
 
+
+
+
+ 
 RewriteRule ^sitemap.xml$ sitemap.xml [L]
 RewriteRule ^googlebase.xml$ index.php?route=feed/google_base [L]
 RewriteRule ^system/download/(.*) index.php?route=error/not_found [L]
@@ -26,6 +59,16 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_URI} !.*\.(ico|gif|jpg|jpeg|png|js|css)
 RewriteRule ^([^?]*) index.php?_route_=$1 [L,QSA] 
 
+
+# rewrite url www.gofootlounge to gofootlounge
+RewriteCond %{HTTP_HOST} ^www\.gofootlounge\.in$
+RewriteRule ^/?$ "https\:\/\/gofootlounge\.in\/" [R=301,L]
+
+# Ip canonicalization
+
+RewriteCond %{HTTP_HOST} ^35\.154\.146\.187 [nc,or]
+RewriteCond %{HTTP_HOST} ^gofootlounge\.in [nc]
+RewriteRule (.*) https://gofootlounge.in/$1 [R=301,L] 
 
 redirect 301 /product/special https://gofootlounge.in/online-shopping-offers?
 redirect 301 /information/sitemap https://gofootlounge.in/sitemap?
@@ -1175,4 +1218,3 @@ redirect 301 /reebok-ws-std-sock-pack3 https://gofootlounge.in/men/accessories/c
 redirect 301 /reebok-wtr-btl-pi-65cl-blue- https://gofootlounge.in/fitness/water-bottle?
 redirect 301 /reebok-yourflex-trainette-7.0-black-running-shoes https://gofootlounge.in/men/shoes/running-shoes?
 redirect 301 /reebok-zquick-dash-city-navy-blue-training-shoes https://gofootlounge.in/men/shoes/training-shoes?
-

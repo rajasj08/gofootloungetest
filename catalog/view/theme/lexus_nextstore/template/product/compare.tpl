@@ -12,7 +12,7 @@
 
 		<section class="col-lg-<?php echo $SPAN[1];?> col-md-<?php echo $SPAN[1];?> col-sm-12 col-xs-12">
 			<?php if ($success) { ?>
-				<div class="success"><?php echo $success; ?><img src="catalog/view/theme/<?php echo $this->config->get('config_template');?>/image/close.png" alt="" class="close" /></div>
+				<div class="success"><?php echo $success; ?><img src="catalog/view/theme/<?php echo $this->config->get('config_template');?>/image/close.png" alt="Close" class="close" /></div>
 			<?php } ?>
  
 			<div id="content">

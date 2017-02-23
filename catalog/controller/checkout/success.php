@@ -12,9 +12,43 @@ class ControllerCheckoutSuccess extends Controller {
 		if(isset($this->session->data['user_zipcode'])) unset($this->session->data['user_zipcode']);   
 		
 			if($this->session->data['order_id'])
-		{	
-		
-		$order_status_info=$this->model_checkout_order->getorder_statusdetails($this->session->data['order_id']);  
+		    {	
+              
+
+            //send know your size mail to the user  
+		    	$order_status_mailinfo=$this->model_checkout_order->getorder_useremail($this->session->data['order_id']);
+		    	
+               
+
+			    	
+			    	 $message1= htmlentities(file_get_contents("https://gofootlounge.in/autoemail_social.html"));   
+			         $message1=html_entity_decode($message1);    
+  
+ 
+			         if($order_status_mailinfo)
+			        { 
+			         
+			        	
+			        	$headers  = 'MIME-Version: 1.0' . "\r\n";
+					$headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
+			        	$headers .= 'From: FootLounge <order@footlounge.in>'."\r\n".
+			        	//$headers .= 'From: rselakki@gmail.com'."\r\n".
+			        	//'CC: rajesh@tech-bee.comm'.
+			    		//'Reply-To: '.$emailid."\r\n" .
+			    		'X-Mailer: PHP/' . phpversion(); 
+
+
+			        	// Create email headers$emailid
+						
+				      // if( mail('Pooja_khatri@yahoo.com', 'Email Notification Request Received', $str1, $headers))
+				     if( mail($order_status_mailinfo, 'Don’t know your accurate Shoe Size??? Find out from FootLounge!', $message1, $headers))
+				     { }         
+			 
+			        }                
+
+
+           		
+				$order_status_info=$this->model_checkout_order->getorder_statusdetails($this->session->data['order_id']);  
 		 
                 //code for abandonened user update table
                 if(isset($this->session->data['abduserid'])){

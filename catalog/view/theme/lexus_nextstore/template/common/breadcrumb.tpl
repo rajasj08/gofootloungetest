@@ -26,16 +26,16 @@
         <h4 class="modal-title">View Order</h4>
       </div>
       <div class="modal-body">
-      <div style="margin-bottom: 20px;" ><p> You are making modification to the order ID: <span class="ordernocls"><?php if(isset($this->session->data['customer_id']) && isset($this->session->data['order_id']))
+      <div class="reentryclsimg2"><p> You are making modification to the order ID: <span class="ordernocls"><?php if(isset($this->session->data['customer_id']) && isset($this->session->data['order_id']))
 { echo $this->session->data['order_id'];}
 	?> </span></p></div>
 	<p> Would you like to clear this process?</p>
 
        	
       </div>
-      <div class="modal-footer" style=" padding: 8px 20px 8px !important;">
-      <span class="alert alert-success" style=" padding:5px !important; margin-bottom:0px; display:none;"  id="success_msg1">Your order has been cleared successfully.</span>
-      <span class="alert alert-danger" style=" padding:5px !important; margin-bottom:0px;display:none;" id="failure_msg1">failed</span>
+      <div class="modal-footer reentryclsimg4">
+      <span class="alert alert-success reentryclsimg5" id="success_msg1">Your order has been cleared successfully.</span>
+      <span class="alert alert-danger reentryclsimg5" id="failure_msg1">failed</span>
       	<img src="https://gofootlounge.in/image/loading_spinner.gif" alt="loading..." id="image_spinner">
         <button type="button" class="btn btn-default" id="closebtn" onclick="continueorder();">No</button>
         <button type="button" class="btn btn-primary" id="sendbtn" onclick="unsetorder();">Yes</button>

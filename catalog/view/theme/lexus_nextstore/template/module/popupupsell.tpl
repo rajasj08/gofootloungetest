@@ -236,7 +236,7 @@ function checkupsellproduct1(productid,upsellid,upsellproductprice,upsellproduct
 			}
 			
 			if (json['success']) {
-				$('#notificationpopup').html('<div class="success" style="display: none;">' + json['success'] + '<img src="catalog/view/theme/default/image/close.png" alt="" class="close" /></div>');
+				$('#notificationpopup').html('<div class="success" style="display: none;">' + json['success'] + '<img src="catalog/view/theme/default/image/close.png" alt="Close" class="close" /></div>');
 				
 				$('.success').fadeIn('slow');
 				

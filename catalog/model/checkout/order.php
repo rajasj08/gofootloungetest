@@ -685,6 +685,18 @@ class ModelCheckoutOrder extends Model {
 		  
 		return $arrayval;    
 	}	
+
+    //get ordered user email
+    public function getorder_useremail($order_id) //get order user email
+    {
+    	 $query = $this->db->query("select email from " . DB_PREFIX . "order WHERE order_id='".$order_id."'");
+
+			if( $query->num_rows){ return $query->row['email']; } 
+
+				else { return 0;}
+
+    }
+
 	public function getcustomersmsalert($id)
 	{
 		$query = $this->db->query("select * from " . DB_PREFIX . "customer WHERE customer_id = $id");

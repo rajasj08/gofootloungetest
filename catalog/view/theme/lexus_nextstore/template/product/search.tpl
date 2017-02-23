@@ -234,7 +234,7 @@ if (view) {
         <h4 class="modal-title">EMAIL NOTIFICATION</h4>
       </div>
       <div class="modal-body">
-     <div style="margin-bottom: 20px;" ><p> Notify me when the product is back in Stock!</p></div>
+     <div class="reentryclsimg2"><p> Notify me when the product is back in Stock!</p></div>
 
        	<form class="form-horizontal">
        	<input type="hidden" id="npro_id" name="npro_id">
@@ -279,9 +279,9 @@ if (view) {
 
 		</form>
       </div>
-      <div class="modal-footer" style=" padding: 8px 20px 8px !important;">
-      <span class="alert alert-success" style=" padding:5px !important; margin-bottom:0px; display:none;"  id="success_msgaa">send successfully</span>
-      <span class="alert alert-danger" style=" padding:5px !important; margin-bottom:0px;display:none;" id="failure_msg">sending failed</span>
+      <div class="modal-footer reentryclsimg4">
+      <span class="alert alert-success reentryclsimg5" id="success_msgaa">send successfully</span>
+      <span class="alert alert-danger reentryclsimg5" id="failure_msg">sending failed</span>
       	<img src="https://gofootlounge.in/image/loading_spinner.gif" alt="loading..." id="image_spinner">
         <button type="button" class="btn btn-default" id="closebtn" onclick="closemodal();">Close</button>
         <button type="button" class="btn btn-primary" id="sendbtn" onclick="sendnotify();">Send</button>

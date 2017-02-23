@@ -241,13 +241,13 @@ $class = $helper->calculateSpans( $ospans, $cols );
 
 		 <div class="col-xs-12">
  <div class="footext new_foot_border">	
-<div class="footer-linktext footernstyle">Top Brands</div>
+<h1><div class="footer-linktext footernstyle">Top Brands</div></h1>
 <p class="category-p"><a href="https://gofootlounge.in/adidas-shoes-online" class="linklight">Adidas</a>&nbsp;/&nbsp;<a class="linklight" href="https://gofootlounge.in/reebok-shoes-online">Reebok</a>&nbsp;/&nbsp;<a class="linklight" href="https://gofootlounge.in/nike-shoes-online">Nike</a>&nbsp;/&nbsp;<a class="linklight" href="https://gofootlounge.in/american-tourister-travel-bags-online">American Tourister</a>&nbsp;/&nbsp;<a class="linklight" href="https://gofootlounge.in/fila-shoes-online">Fila</a>&nbsp;/&nbsp;<a class="linklight" href="https://gofootlounge.in/footlounge-sports-clothing-online">Foot Lounge</a>&nbsp;/&nbsp;<a class="linklight" href="https://gofootlounge.in/lee-cooper-shoes-online">Lee Cooper</a>&nbsp;/&nbsp;<a class="linklight" href="https://gofootlounge.in/puma-shoes-online">Puma</a></p>
 </div>
 </div>
 		 <div class="col-xs-12"> 	
 		 <div class="footext">
-<div class="footer-linktext footernstyle">Top Categories</div>
+<h1><div class="footer-linktext footernstyle">Top Categories</div></h1>
 
 <!--<a href="javascript:void(0)" class="linklight">Men Shoes</a>&nbsp;/&nbsp;<a class="linklight" href="javascript:void(0)">Men Clothing</a>&nbsp;/&nbsp;<a class="linklight" href="javascript:void(0)">Men Accessories</a>&nbsp;/&nbsp;<a class="linklight" href="javascript:void(0)">Men Fitness</a>&nbsp;/&nbsp;<a class="linklight" href="javascript:void(0)">running shoes</a>/<a href="javascript:void(0)">tennis shoes</a>/<a href="javascript:void(0)">cricket shoes</a>/<a href="javascript:void(0)">football shoes</a>/<a href="javascript:void(0)">basketball shoes</a>/<a href="javascript:void(0)">training shoes</a>/<a href="javascript:void(0)">walking shoes</a>/<a href="javascript:void(0)">floaters</a>/<a href="javascript:void(0)">flip-flops/sandals</a>/<a href="javascript:void(0)">hiking shoes</a>/<a href="javascript:void(0)">cardio shoes</a>/<a href="javascript:void(0)">dance shoes</a>/<a href="javascript:void(0)">sports clothing</a>/<a href="javascript:void(0)">sports shorts</a>/<a href="javascript:void(0)">sports t-shirts</a>/<a href="javascript:void(0)">sports track pants</a>/<a href="javascript:void(0)">caps</a>/<a href="javascript:void(0)">wallets</a>/<a href="javascript:void(0)">socks</a>/<a href="javascript:void(0)">headbands</a>/<a href="javascript:void(0)">back pack</a>/<a href="javascript:void(0)">travel bag</a>/<a href="javascript:void(0)">yoga mat</a>/<a href="javascript:void(0)">fitness mat</a>/<a href="javascript:void(0)">resistance tube</a>/<a href="javascript:void(0)">power tube</a>/<a href="javascript:void(0)">dumbbells</a>/<a href="javascript:void(0)">kettle bells</a>/<a href="javascript:void(0)">weights</a>/<a href="javascript:void(0)">bottle</a> -->
 <p class="category-p"><a href="https://gofootlounge.in/men" class="linklight">Men</a>&nbsp;/&nbsp;<a class="linklight" href="https://gofootlounge.in/women">Women</a>&nbsp;/&nbsp;<a class="linklight" href="https://gofootlounge.in/kids">Kids</a>&nbsp;/&nbsp;<a class="linklight" href="https://gofootlounge.in/men/shoes">Sport Shoes</a>&nbsp;/&nbsp;<a class="linklight" href="https://gofootlounge.in/men/shoes/running-shoes">running Shoes</a>&nbsp;/&nbsp;<a href="https://gofootlounge.in/men/shoes/sports/tennis-shoes" class="linklight">Tennis Shoes</a>&nbsp;/&nbsp;<a href="https://gofootlounge.in/men/shoes/sports/cricket-shoes" class="linklight">Cricket Shoes</a>&nbsp;/&nbsp;<a href="https://gofootlounge.in/men/shoes/sports/football-shoes" class="linklight">Football Shoes</a>&nbsp;/&nbsp;<a href="https://gofootlounge.in/men/shoes/sports/basketball-shoes" class="linklight">Basketball Shoes</a>&nbsp;/&nbsp;<a href="https://gofootlounge.in/men/shoes/training-shoes" class="linklight">Training Shoes</a>&nbsp;/&nbsp;<a href="https://gofootlounge.in/women/shoes/walking-shoes" class="linklight">Walking Shoes</a>&nbsp;/&nbsp;<a href="https://gofootlounge.in/men/shoes/sandals-floaters" class="linklight">Floaters</a>&nbsp;/&nbsp;<a href="https://gofootlounge.in/women/shoes/flip-flops-slippers" class="linklight">Flip - Flops</a>&nbsp;/&nbsp;<a href="https://gofootlounge.in/men/shoes/sandals-floaters" class="linklight">Sandals</a>&nbsp;/&nbsp;<a href="https://gofootlounge.in/men/shoes/outdoor-hiking-shoes" class="linklight">Hiking Shoes</a>&nbsp;/&nbsp;<a href="https://gofootlounge.in/women/shoes/cardio-shoes" class="linklight">Cardio Shoes</a>&nbsp;/&nbsp;<a href="https://gofootlounge.in/women/shoes/dance-shoes" class="linklight">Dance Shoes</a>&nbsp;/&nbsp;<a href="https://gofootlounge.in/men/clothing" class="linklight">Sport Clothing</a>&nbsp;/&nbsp;<a href="https://gofootlounge.in/men/clothing/shorts" class="linklight">Sport Shorts</a>&nbsp;/&nbsp;<a href="https://gofootlounge.in/men/clothing/t-shirt" class="linklight">Sport T-Shirts</a>&nbsp;/&nbsp;<a href="https://gofootlounge.in/men/clothing/track-pants" class="linklight">Sports Track Pants</a>&nbsp;/&nbsp;<a href="https://gofootlounge.in/men/accessories/caps" class="linklight">Caps</a>&nbsp;/&nbsp;<a href="https://gofootlounge.in/men/accessories/wallet" class="linklight">Wallets</a>&nbsp;/&nbsp;<a href="https://gofootlounge.in/men/accessories/socks" class="linklight">Socks</a>&nbsp;/&nbsp;<a href="https://gofootlounge.in/men/accessories/headband" class="linklight">Headbands</a>&nbsp;/&nbsp;<a href="https://gofootlounge.in/men/accessories/backpack" class="linklight">Back Pack</a>&nbsp;/&nbsp;<a href="https://gofootlounge.in/men/accessories/travel-bag" class="linklight">Travel Bag</a>&nbsp;/&nbsp;<a href="https://gofootlounge.in/fitness/yoga-mat" class="linklight">Yoga Mat</a>&nbsp;/&nbsp;<a href="https://gofootlounge.in/fitness/fitness-mat" class="linklight">Fitness Mat</a>&nbsp;/&nbsp;<a href="https://gofootlounge.in/fitness/resistance-tube" class="linklight">Resistance Tube</a>&nbsp;/&nbsp;<a href="https://gofootlounge.in/fitness/power-tube" class="linklight">power Tube</a>&nbsp;/&nbsp;<a href="https://gofootlounge.in/fitness/dumbells" class="linklight">Dumbbells</a>&nbsp;/&nbsp;<a href="https://gofootlounge.in/fitness/kettle-bells" class="linklight">Kettle Bells</a>&nbsp;/&nbsp;<a href="https://gofootlounge.in/fitness/ankle-weight" class="linklight">Weights</a>&nbsp;/&nbsp;<a href="https://gofootlounge.in/fitness/water-bottle" class="linklight">Bottle</a></p>
@@ -310,7 +310,7 @@ $(".mobcnt").hide();
 You should use a sports specific shoe if you play a sport 3 times a week or more.
 Sports Shoes enhance your performance on the field and help prevent injuries. 
 <b class="boldc">Treat Your Feet Right. Get them a Sports Shoe.</b>  
-<u>Shoes Do Not Multi-task</u>. When you walk / run or play a sport your feet need the right shoe for each.
+<span class="underlinecls">Shoes Do Not Multi-task</span>. When you walk / run or play a sport your feet need the right shoe for each.
 
 <div class="footernstyle">Sports Shoes at FootLounge</div>
 Footlounge is a leading sports footwear and apparel retailer based out of Chennai, India. We opened doors in April 2007 and have grown to 19 stores since inception. We offer sports specific performance products manufactured by leading athletic brands. Our specialized service includes providing our customers expert guidance on the type of shoe needed for their sport. Our reputed range of brands include Adidas, Reebok, Nike, Puma, Fila, Lee Cooper and Woodland.
@@ -359,7 +359,7 @@ Prices starting from Rs 454/- . Try us out Now!
 			<div class="col-md-12 paypart">
 				<div class="row topclasspay">
 				<!--<h3><b>Payment Options</b></h3> -->
-					<div class="payoptdivcls"><img src="image/Payment-Options/FL-Mobile-Payment-Options.jpg" class="payoptcls1x"></div> 
+					<div class="payoptdivcls"><img src="image/Payment-Options/FL-Mobile-Payment-Options.jpg" class="payoptcls1x" alt="FootLounge Payment Options"></div> 
 					
 				</div>
 			</div>	
@@ -391,12 +391,6 @@ $class = $helper->calculateSpans( $ospans, $cols );
 	<?php  $j++;  } ?>	
 </div>
 <?php } ?>
-
-<!--
-OpenCart is open source software and you are free to remove the powered by OpenCart if you want, but its generally accepted practise to make a small donation.
-Please donate via PayPal to donate@opencart.com
-//-->
-
 
 </footer>
 
@@ -496,7 +490,7 @@ src="//www.googleadservices.com/pagead/conversion.js">
 </script>
 <noscript>
 <div class="new_page_disp2">
-<img height="1" width="1" class="new_page_disp1" alt=""
+<img height="1" width="1" class="new_page_disp1" alt="FootLounge Google ads"
 src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/956201375/?v
 alue=0&amp;guid=ON&amp;script=0"/>
 </div>

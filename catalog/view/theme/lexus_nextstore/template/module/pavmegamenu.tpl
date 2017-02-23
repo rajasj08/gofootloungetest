@@ -33,7 +33,7 @@
         <h4 class="modal-title">Cash On Delivery Status</h4>
       </div>
       <div class="modal-body">
-      <div style="margin-bottom: 20px;" ><p> Please check cash on delivery status for your pincode</p></div>
+      <div class="reentryclsimg2"><p> Please check cash on delivery status for your pincode</p></div>
 
        	<form class="form-horizontal">
       
@@ -61,9 +61,9 @@
 
 		</form>
       </div>
-      <div class="modal-footer" style=" padding: 8px 20px 8px !important;">
-       <span class="newspanpopup"><span class="alert alert-success" style=" padding:5px !important; margin-bottom:0px; display:none;"  id="success_msg">COD Available for Pincode <span id="dzipcode"></span></span>
-      <span class="alert alert-danger" style=" padding:5px !important; margin-bottom:0px;display:none;" id="failure_msg">Prepaid Delivery Only for Pincode <span id="dzipcode1"></span></span><span class="alert alert-danger" style=" padding:5px !important; margin-bottom:0px;display:none;" id="failure_msg2">Invalid pincode <span id="dzipcode2"></span></span>  
+      <div class="modal-footer reentryclsimg4">
+       <span class="newspanpopup"><span class="alert alert-success reentryclsimg5" id="success_msg">COD Available for Pincode <span id="dzipcode"></span></span>
+      <span class="alert alert-danger reentryclsimg5" id="failure_msg">Prepaid Delivery Only for Pincode <span id="dzipcode1"></span></span><span class="alert alert-danger" style=" padding:5px !important; margin-bottom:0px;display:none;" id="failure_msg2">Invalid pincode <span id="dzipcode2"></span></span>  
       </span>
       	<img src="https://gofootlounge.in/image/loading_spinner.gif" alt="loading..." id="image_spinner">
         <button type="button" class="btn btn-default" id="closebtn" onclick="closecodmodal();">Close</button> 

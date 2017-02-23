@@ -889,7 +889,7 @@ $('#button-buynow').bind('click', function() {
 			} 
 			
 			if (json['success']) {
-				$('#notification').html('<div class="success" style="display: none;">' + json['success'] + '<img src="catalog/view/theme/default/image/close.png" alt="" class="close" /></div>');
+				$('#notification').html('<div class="success" style="display: none;">' + json['success'] + '<img src="catalog/view/theme/default/image/close.png" alt="Close" class="close" /></div>');
 				var order_id='<?php if(isset($this->session->data["order_id"])) echo $this->session->data["order_id"]; else "";?>';
 				var totalval=json['total'];
 

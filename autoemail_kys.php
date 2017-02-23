@@ -58,10 +58,10 @@ $conn->close(); */
 
 <?php 
 
-$servername = "localhost";
-$username = "footlounge_footn";
+$servername = "aa128rcsxrj96v2.cvwrkeif9dtm.ap-south-1.rds.amazonaws.com";
+$username = "fladmin";
 $password = "Welcome!23";
-$dbname = "footlounge_010317";
+$dbname = "ebdb";
 /*
 $servername = "localhost";
 $username = "foot_footnew";
@@ -78,13 +78,12 @@ if ($conn->connect_error) {
 
 //$sql = "SELECT a.order_status_id,a.date_added,a.date_modified,a.order_id,a.email,a.firstname,a.lastname FROM `oc_order` as a left join oc_order_status as b on b.order_status_id=a.order_status_id where b.name='completed' and (DATE(a.date_modified)=CURDATE() OR DATE(a.date_modified) =DATE_SUB(CURDATE(), INTERVAL 1 DAY) OR DATE(a.date_modified) =DATE_SUB(CURDATE(), INTERVAL 2 DAY))";
 
-$sql = "SELECT a.order_status_id,a.date_added,a.date_modified,a.order_id,a.email,a.firstname,a.lastname FROM `oc_order` as a where DATE(a.date_added) = CURDATE()";
+/*$sql = "SELECT a.order_status_id,a.date_added,a.date_modified,a.order_id,a.email,a.firstname,a.lastname FROM `oc_order` as a where DATE(a.date_added) = CURDATE() and TIME(a.date_added) >=  (TIME( NOW( ) ) - INTERVAL 1 MINUTE)"; */
 
-echo $sql; die; 
+$sql ="SELECT * FROM  `oc_order` ORDER BY order_id DESC LIMIT 1";
 
 $result = $conn->query($sql); 
       $count=1;
-
 
 if ($result->num_rows > 0) {
     // output data of each row

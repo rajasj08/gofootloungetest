@@ -36,7 +36,20 @@ class ControllerCommonSeoUrl extends Controller {
 			$this->url->addRewrite($this);
 		}
 
+			$test404link = $_SERVER['REQUEST_URI'];
+ 
+			$test404link=trim($test404link);
 			
+            
+            if($test404link=="/index.php?route=themecontrol/product&amp;amp;product_id=1626" || $test404link== "/index.php?route=themecontrol/product&amp;amp;product_id=1627" || $test404link== "/index.php?route=themecontrol/product&amp;amp;product_id=1628" || $test404link== "/index.php?route=themecontrol/product&amp;amp;product_id=1629" || $test404link== "/index.php?route=themecontrol/product&amp;amp;product_id=1630" || $test404link== "/index.php?route=themecontrol/product&amp;amp;product_id=1631" || $test404link== "/index.php?route=themecontrol/product&amp;amp;product_id=1632" || $test404link== "/index.php?route=themecontrol/product&amp;amp;product_id=1633" || $test404link== "/index.php?route=themecontrol/product&amp;amp;product_id=1634" || $test404link== "/index.php?route=themecontrol/product&amp;amp;product_id=1635" || $test404link== "/index.php?route=themecontrol/product&amp;amp;product_id=1636" || $test404link== "/index.php?route=themecontrol/product&amp;amp;product_id=1637" || $test404link== "/index.php?route=themecontrol/product&amp;amp;product_id=1638" || $test404link== "/index.php?route=themecontrol/product&amp;amp;product_id=1640" || $test404link== "/index.php?route=themecontrol/product&amp;amp;product_id=1641" || $test404link== "/index.php?route=themecontrol/product&amp;amp;product_id=1642" || $test404link== "/index.php?route=themecontrol/product&amp;amp;product_id=1643" || $test404link== "/index.php?route=themecontrol/product&amp;amp;product_id=1644" || $test404link== "/index.php?route=themecontrol/product&amp;amp;product_id=1645") 
+            {
+            	
+            	$this->request->get['route']='common/home/page404';
+               	return $this->forward($this->request->get['route']);
+
+            }
+           
+
 		// Decode URL
 		if (isset($this->request->get['_route_'])) {
 			$parts = explode('/', $this->request->get['_route_']);
@@ -106,8 +119,8 @@ class ControllerCommonSeoUrl extends Controller {
 											}
 										}
 									}
-								}
-							}
+								}  //foreach end
+							} //inner if end
 							else
 							{
 								
@@ -118,20 +131,21 @@ class ControllerCommonSeoUrl extends Controller {
 								}
 								$categoryArray[] = $url[1];
 							}
-						}			
+						}		//outer if end	
 						
 							
-					} else {
+					} //query if end 
+					else {
 
 						
 						$this->request->get['route'] = 'common/home/page404';	
 					}
-				} 
+				} //outer query if
 
-			}
+			} //foreach end
 			
 
-			
+		
 			if ( $_s = $this->setURL($this->request->get['_route_']) ) {
 				
                 $this->request->get['route'] = $_s;
@@ -196,6 +210,8 @@ class ControllerCommonSeoUrl extends Controller {
                       	$this->request->get['route']='common/home/page410';
                       	return $this->forward($this->request->get['route']);
                  	 }
+
+
          
 	}
 	
