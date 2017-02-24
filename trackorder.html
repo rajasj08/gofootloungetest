@@ -6,9 +6,9 @@
    <style>
 
 @media (min-width: 320px) and (max-width: 767px) {
-.maindiv{ height:500px; width:100%;}
+.maindiv{ height:500px; width:90%; margin: 0 auto;}
 .tracksubcls{ margin-left:3%; height:60px; width:120px; border:2px solid #f39c12; float: left; border-radius: 5px; margin-top: 10.5%; font-size: 24px; background-color: #f39c12; color:#FFF;}
-.trackcls{ width:85% !important; }
+.trackcls{ width:100% !important; }
 .loadcls{float: none !important; }
 .optioncls{ width: 100% !important; float:left;}
 .btnoutercls1{}
@@ -27,7 +27,7 @@
     .subdiv{ margin-top: 0%;}
     .iframestyle{width:100%; height:400px; border: 1px solid #ccc; margin-top: 40px;} 
     .loadcls{float: left; margin-left: 40%; margin-top: 5%;}   
-    .optioncls{ width: 25%; float:left;}
+    .optioncls{ width: 25%; float:left; font-size: 18px;}
     .btnoutercls{ height:30px;}
     
     .txtdecorcls{text-decoration: none; }
@@ -84,15 +84,15 @@
    var iframetxt='';
    if(trackid){
 
-    if(couriercomp == 'dtdc'){ iframetxt='http://track.aftership.com/dtdc/'+trackid; }
-    else if(couriercomp == 'fedex'){ iframetxt='http://track.aftership.com/fedex/'+trackid; }
-    else if(couriercomp == 'delhivery'){ iframetxt='http://track.aftership.com/delhivery/'+trackid; }
-    else if(couriercomp == 'aramex'){ iframetxt='http://track.aftership.com/aramex/'+trackid; }
+    if(couriercomp == 'dtdc'){ iframetxt='https://track.aftership.com/dtdc/'+trackid; }
+    else if(couriercomp == 'fedex'){ iframetxt='https://track.aftership.com/fedex/'+trackid; }
+    else if(couriercomp == 'delhivery'){ iframetxt='https://track.aftership.com/delhivery/'+trackid; }
+    else if(couriercomp == 'aramex'){ iframetxt='https://track.aftership.com/aramex/'+trackid; }
               
 
               $("#frametrame").html('<div class="loadcls"><img src="https://gofootlounge.in/image/loading_spinner.gif" alt="loading..."><div>');
-              $("#frametrame").html('<iframe src="'+iframetxt+'" name="iframe_a" class="iframestyle"></iframe>');
-            /* $.ajax({ 
+             // $("#frametrame").html('<iframe src="'+iframetxt+'" name="iframe_a" class="iframestyle"></iframe>');
+            $.ajax({ 
                     type: "POST",
                     url: 'trackordership.php',   
                     data: { 
@@ -100,7 +100,7 @@
                     },
                    
                     success: function(jsonresp){
-
+ 
                        $("#frametrame").html('<iframe src="'+iframetxt+'" name="iframe_a" class="iframestyle"></iframe>');
 
                      //$("#frametrame").html(jsonresp);
@@ -108,7 +108,7 @@
                       // $("#frametrame").html('<iframe src="'+jsonresp+'" name="iframe_a" class="iframestyle"></iframe>');
                     }
 
-              });   */ 
+              });   
               //$("#frametrame").html('<iframe src="'+iframetxt+'" name="iframe_a" class="iframestyle"></iframe>');  
 
             }

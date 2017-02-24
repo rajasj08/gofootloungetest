@@ -60,15 +60,11 @@ RewriteCond %{REQUEST_URI} !.*\.(ico|gif|jpg|jpeg|png|js|css)
 RewriteRule ^([^?]*) index.php?_route_=$1 [L,QSA] 
 
 
+
 # rewrite url www.gofootlounge to gofootlounge
 RewriteCond %{HTTP_HOST} ^www\.gofootlounge\.in$
 RewriteRule ^/?$ "https\:\/\/gofootlounge\.in\/" [R=301,L]
 
-# Ip canonicalization
-
-RewriteCond %{HTTP_HOST} ^35\.154\.146\.187 [nc,or]
-RewriteCond %{HTTP_HOST} ^gofootlounge\.in [nc]
-RewriteRule (.*) https://gofootlounge.in/$1 [R=301,L] 
 
 redirect 301 /product/special https://gofootlounge.in/online-shopping-offers?
 redirect 301 /information/sitemap https://gofootlounge.in/sitemap?
