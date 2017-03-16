@@ -282,7 +282,7 @@ if (view) {
       <div class="modal-footer reentryclsimg4">
       <span class="alert alert-success reentryclsimg5" id="success_msgaa">send successfully</span>
       <span class="alert alert-danger reentryclsimg5" id="failure_msg">sending failed</span>
-      	<img src="https://footlounge.in/image/loading_spinner.gif" alt="loading..." id="image_spinner">
+      	<img src="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/image/loading_spinner.gif" alt="loading..." id="image_spinner">
         <button type="button" class="btn btn-default" id="closebtn" onclick="closemodal();">Close</button>
         <button type="button" class="btn btn-primary" id="sendbtn" onclick="sendnotify();">Send</button>
       </div>

@@ -103,7 +103,7 @@ $(document).ready(function () {
 			    alert(resp);
 			      
 			    	if(resp==1){
-			      window.location.href='https://footlounge.in/index.php?route=account/order/goorderinfos';  
+			      window.location.href='http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/index.php?route=account/order/goorderinfos';  
 			  		}
 			  		else
 			  		{

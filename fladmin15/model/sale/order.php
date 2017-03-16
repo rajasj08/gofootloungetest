@@ -1282,16 +1282,18 @@ public function getProduct($product_id) {
          public function getallcusts($data = array()) //get abandoned user orders
         {
            
-            $sql = "SELECT a.* FROM `" . DB_PREFIX . "abandoned_customer` as a where status !=1 and a.userid =0";
+            $sql = "SELECT a.* FROM `" . DB_PREFIX . "abandoned_customer` as a where status_type=1 and status !=1 and userid=0";
 
 		if (isset($data['filter_usertype'])) {
                         if($data['filter_usertype'] == 'Guest'){
-			$sql .= " AND a.userid=0";}
-                       else {$sql .= " AND a.userid <0";}
+			$sql .= " AND a.userid=0";} 
+                       else if($data['filter_usertype'] == 'Out Of Stock'){ $sql .= " AND a.userid < 0";}
+                       else{$sql .= " AND a.userid !=0";}
 		} 
                 if (!empty($data['filter_cust_mailid'])) {
 			$sql .= " AND a.cust_mailid = '" . $data['filter_cust_mailid'].trim() . "'";
 		}
+                
 
 		/*if (!empty($data['filter_userid'])) {
 			$sql .= " AND a.userid = '" . (int)$data['filter_userid'] . "'";
@@ -1317,8 +1319,10 @@ public function getProduct($product_id) {
 			$sql .= " ASC";
 		} */
 
+             
+               $sql .= " ORDER BY a.ab_cust_id DESC";
 
-		if (isset($data['start']) || isset($data['limit'])) {
+	/*	if (isset($data['start']) || isset($data['limit'])) {
 			if ($data['start'] < 0) {
 				$data['start'] = 0;
 			}
@@ -1329,7 +1333,9 @@ public function getProduct($product_id) {
 
 			$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
 		}
-              
+
+               */
+             //echo $sql; die; 
 		$query = $this->db->query($sql);
 
 
@@ -1372,7 +1378,7 @@ public function getProduct($product_id) {
         }
  
 
-          public function getallregcusts($data = array()){
+        public function getallregcusts($data = array()){
 
            $sql = "SELECT * FROM `" . DB_PREFIX . "customer` where status=1 and approved=1";
          
@@ -1385,6 +1391,7 @@ public function getProduct($product_id) {
             if (!empty($data['filter_cust_mailid'])) {
 			$sql .= " AND email = '" . $data['filter_cust_mailid'].trim() . "'";
 		} 
+		$sql.=" ORDER BY customer_id DESC";
          
          
            
@@ -1394,6 +1401,41 @@ public function getProduct($product_id) {
 		return $query->rows;
 
         }
+
+         function removecustomer($userid,$usertype)
+     {
+        if($usertype == 'Guest'){
+        $this->db->query("UPDATE `" . DB_PREFIX . "abandoned_customer` SET status_type=0 where ab_cust_id=$userid");
+         return 1;
+        }
+        else if($usertype == 'Registered')
+        {
+         
+       /*$this->db->query("UPDATE `" . DB_PREFIX . "abandoned_customer` SET status_type=0 where ab_cust_id=$userid");
+
+        $sql2 = "SELECT userid FROM `" . DB_PREFIX . "abandoned_customer` where ab_cust_id=$userid";
+
+
+		$query2 = $this->db->query($sql2);
+
+
+		if($query2->num_rows >0){ $cust_id=$query2->row['userid']; } else $cust_id='';*/
+
+                $this->db->query("UPDATE `" . DB_PREFIX . "customer` SET status=0 where customer_id=$userid");
+
+         return 1;
+        }
+        else if($usertype == 'Out Of Stock')
+        {
+          $this->db->query("UPDATE `" . DB_PREFIX . "outofstock_customers` SET status=0 where os_cust_id=$userid");
+          return 1; 
+        } 
+        else
+        {return 0;}
+      }
+
+
+        
 
     
 

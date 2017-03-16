@@ -286,53 +286,52 @@ flag=0;} else {$("#couponcodes").css('border','1px solid #ccc');}
     $("#mailsendbtnnew").prop('disabled', true);
 
 
-$.ajax({
+    $.ajax({
     type: "POST",
-    url: 'http://testourwork.com/footlounge/discountmail.php', 
+    url: 'http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/discountmail.php', 
     data: {
-     abuserid:abuserid,
-     
+     abuserid:abuserid,      
     },
      
       success: function(disresp) {  
-alert(disresp);  
+ 
 
-    $.ajax({
-    type: "POST",
-    url: 'index.php?route=tool/export/updateabuserorder&token=<?php echo $token; ?>', 
-    data: {
-     abuserid:abuserid,
-      mailid:mailid,
-     couponcode:couponcode,
-     //message1:''+disresp
-    },
-     
-      success: function(resp) {  
-  $("#mailsendbtn").prop('disabled', false); 
-     
-      if(resp==1)
-      {
-        $("#s_sendmail").show();
+          $.ajax({
+          type: "POST",
+          url: 'index.php?route=tool/export/updateabuserorder&token=<?php echo $token; ?>', 
+          data: {
+           abuserid:abuserid,
+            mailid:mailid,
+           couponcode:couponcode,
+           //message1:''+disresp
+          },
+           
+            success: function(resp) {  
+        $("#mailsendbtn").prop('disabled', false); 
+           
+            if(resp==1)
+            {
+              $("#s_sendmail").show();
 
-        setTimeout(function() {
-                 $("#s_sendmail").hide();
-                 $("#orderModal").dialog("close");
-                   
-              }, 3000);  
+              setTimeout(function() {
+                       $("#s_sendmail").hide();
+                       $("#orderModal").dialog("close");
+                         
+                    }, 3000);  
 
-      }
+            }
 
-     else{ $("#s_sendmail").html('Sending Failed'); 
-            $("#s_sendmail").show();
-                setTimeout(function() {
-                   $("#orderModal").dialog("close");
-                   $("#s_sendmail").hide();
-              }, 3000);
- }
-     
+           else{ $("#s_sendmail").html('Sending Failed'); 
+                  $("#s_sendmail").show();
+                      setTimeout(function() {
+                         $("#orderModal").dialog("close");
+                         $("#s_sendmail").hide();
+                    }, 3000);
        }
-    });  
-}
+           
+             }
+          });  
+  }
 });
 
   }
@@ -354,7 +353,9 @@ if(a==1){
       success: function(resp) { 
 
          if(resp==1){
-          alert('Customer removed successfully!'); location.reload(); }
+          alert('Customer removed successfully!'); 
+          location.reload(); 
+        }
          else{ alert('failed'); }
     
       }

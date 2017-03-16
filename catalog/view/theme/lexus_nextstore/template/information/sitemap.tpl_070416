@@ -193,36 +193,36 @@
 										<ul> -->
 											
 											<li class="col-lg-4 col-sm-4 col-xs-12">
-												<a href="https://footlounge.in/adidas-shoes-online">Adidas</a>
+												<a href="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/adidas-shoes-online">Adidas</a>
 																							
 											</li>
 											<li class="col-lg-4 col-sm-4 col-xs-12">
-												<a href="https://footlounge.in/reebok-shoes-online">Reebok</a>
+												<a href="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/reebok-shoes-online">Reebok</a>
 																							
 											</li>
 											<li class="col-lg-4 col-sm-4 col-xs-12">
-												<a href="https://footlounge.in/nike-shoes-online">Nike</a>
+												<a href="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/nike-shoes-online">Nike</a>
 																							
 											</li>
 											<li class="col-lg-4 col-sm-4 col-xs-12">
-												<a href="https://footlounge.in/american-tourister-travel-bags-online">American Tourister</a>
+												<a href="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/american-tourister-travel-bags-online">American Tourister</a>
 																							
 											</li>
 											<li class="col-lg-4 col-sm-4 col-xs-12">
-												<a href="https://footlounge.in/fila-shoes-online">Fila</a>
+												<a href="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/fila-shoes-online">Fila</a>
 																							
 											</li>
 											<li class="col-lg-4 col-sm-4 col-xs-12">
-												<a href="https://footlounge.in/footlounge-sports-clothing-online">foot lounge</a>
+												<a href="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/footlounge-sports-clothing-online">foot lounge</a>
 																							
 											</li>
 
 											<li class="col-lg-4 col-sm-4 col-xs-12">
-												<a href="https://footlounge.in/lee-cooper-shoes-online">Lee Cooper</a>
+												<a href="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/lee-cooper-shoes-online">Lee Cooper</a>
 																							
 											</li>
 											<li class="col-lg-4 col-sm-4 col-xs-12">
-												<a href="https://footlounge.in/puma-shoes-online">puma</a>
+												<a href="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/puma-shoes-online">puma</a>
 																							
 											</li>
 											
@@ -253,23 +253,23 @@
 										<ul> -->
 											
 											<li class="col-lg-4 col-sm-4 col-xs-12">
-												<a href="https://footlounge.in/about_us">About Us</a>
+												<a href="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/about_us">About Us</a>
 																							
 											</li>
 											<li class="col-lg-4 col-sm-4 col-xs-12">
-												<a href="https://footlounge.in/delivery-information">Delivery Information</a>
+												<a href="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/delivery-information">Delivery Information</a>
 																							
 											</li>
 											<li class="col-lg-4 col-sm-4 col-xs-12">
-												<a href="https://footlounge.in/terms-conditions">Terms & Conditions</a>
+												<a href="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/terms-conditions">Terms & Conditions</a>
 																							
 											</li>
 											<li class="col-lg-4 col-sm-4 col-xs-12">
-												<a href="https://footlounge.in/privacy-policy-and-pisclaimer">Privacy Policy And Disclaimer</a>
+												<a href="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/privacy-policy-and-pisclaimer">Privacy Policy And Disclaimer</a>
 																							
 											</li>
 											<li class="col-lg-4 col-sm-4 col-xs-12">
-												<a href="https://footlounge.in/footlounge-return-policy">Return Policy</a>
+												<a href="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/footlounge-return-policy">Return Policy</a>
 																							
 											</li>
 											
@@ -300,19 +300,19 @@
 										<ul> -->
 											
 											<li class="col-lg-4 col-sm-4 col-xs-12">
-												<a href="https://footlounge.in/contact">Contact Us</a>
+												<a href="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/contact">Contact Us</a>
 																							
 											</li>
 											<li class="col-lg-4 col-sm-4 col-xs-12">
-												<a href="https://footlounge.in/return">Returns</a>
+												<a href="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/return">Returns</a>
 																							
 											</li>
 											<li class="col-lg-4 col-sm-4 col-xs-12">
-												<a href="https://footlounge.in/sitemap">Site Map</a>
+												<a href="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/sitemap">Site Map</a>
 																							
 											</li>
 											<li class="col-lg-4 col-sm-4 col-xs-12">
-												<a href="https://footlounge.in/Footlounge-Frequently-Asked-Questions">FAQ</a>
+												<a href="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/Footlounge-Frequently-Asked-Questions">FAQ</a>
 																							
 											</li>
 											

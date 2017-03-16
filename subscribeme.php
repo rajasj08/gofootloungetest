@@ -17,12 +17,16 @@ require 'Mailchimp.php';
 $Mailchimp = new Mailchimp( $api_key );
 $Mailchimp_Lists = new Mailchimp_Lists( $Mailchimp );
  try{
-$subscriber = $Mailchimp_Lists->subscribe( $list_id, array( 'email' => htmlentities($_POST['Nemail']),'double_optin'=> false ) ); 
+$subscriber = $Mailchimp_Lists->subscribe( $list_id, array( 'email' => htmlentities($_POST['Nemail']) ) ); 
+
 } 
 catch (Exception $e) 
 { 
-    echo 2;
+	
+   echo 2;
 }  
+
+
 if ( ! empty( $subscriber['leid'] ) ) {
    echo 1;
 } 

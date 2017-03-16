@@ -56,8 +56,8 @@ ecomm_pagetype: "home"
   "@context": "http://schema.org",
   "@type": "Organization",
   "name" : "footlounge",
-  "url": "https://footlounge.in",
-  "logo": "https://footlounge.in/image/data/lo2logo.png",
+  "url": "http://gofootlounge-env.ap-south-1.elasticbeanstalk.com",
+  "logo": "http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/image/data/lo2logo.png",
   "contactPoint": [{
     "@type": "ContactPoint",
     "telephone": "+91-91768-70701",
@@ -157,7 +157,7 @@ function subscribenews()
     {
       $.ajax({
          type: "POST",        
-         url: 'https://footlounge.in/subscribeme.php',  
+         url: 'http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/subscribeme.php',  
          data: {
           Nemail:Nemail
         },

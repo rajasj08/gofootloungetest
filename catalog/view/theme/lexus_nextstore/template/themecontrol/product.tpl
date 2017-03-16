@@ -648,8 +648,8 @@ $(function(){
 			<a class="sharesocial">SHARE: &nbsp;</a> 
 				<!-- AddThis Button END --> 				
 				<div class="addthis_default_style">
-				<a onclick="PopupCenter('https://plus.google.com/share?url=https://footlounge.in','xtf','450','400');"><img class="piconcls" src="https://footlounge.in/image/social-icons/google_plus27.png"></a>&nbsp;&nbsp;<a onclick="PopupCenter('https://twitter.com/intent/tweet?text=@go_footlounge&','xtf','450','400');"><img class="piconcls" src="https://footlounge.in/image/social-icons/twittersmall1.png"></a>&nbsp; 
-				<a onclick="PopupCenter('http://www.facebook.com/sharer/sharer.php?u=https://footlounge.in','xtf','450','400');"> <img class="piconcls" src="https://footlounge.in/image/icon-facebook.png"></a>
+				<a onclick="PopupCenter('https://plus.google.com/share?url=http://gofootlounge-env.ap-south-1.elasticbeanstalk.com','xtf','450','400');"><img class="piconcls" src="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/image/social-icons/google_plus27.png"></a>&nbsp;&nbsp;<a onclick="PopupCenter('https://twitter.com/intent/tweet?text=@go_footlounge&','xtf','450','400');"><img class="piconcls" src="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/image/social-icons/twittersmall1.png"></a>&nbsp; 
+				<a onclick="PopupCenter('http://www.facebook.com/sharer/sharer.php?u=http://gofootlounge-env.ap-south-1.elasticbeanstalk.com','xtf','450','400');"> <img class="piconcls" src="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/image/icon-facebook.png"></a>
 				
 				</div>
 				<script type="text/javascript" src="//s7.addthis.com/js/250/addthis_widget.js"></script> 

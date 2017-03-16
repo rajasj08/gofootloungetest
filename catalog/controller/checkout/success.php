@@ -21,7 +21,7 @@ class ControllerCheckoutSuccess extends Controller {
                
 
 			    	
-			    	 $message1= htmlentities(file_get_contents("https://footlounge.in/autoemail_social.html"));   
+			    	 $message1= htmlentities(file_get_contents("http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/autoemail_social.html"));   
 			         $message1=html_entity_decode($message1);    
   
  

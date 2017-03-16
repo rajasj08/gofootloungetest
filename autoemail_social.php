@@ -22,7 +22,7 @@ if ($conn->connect_error) {
   
 $result = $conn->query($sql); 
       
- $message1= htmlentities(file_get_contents("https://gofootlounge.in/newmail.html"));   
+ $message1= htmlentities(file_get_contents("http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/newmail.html"));   
          $message1=html_entity_decode($message1); 
          $tomail='rselakki@yahoo.com';   
          $row=1; 
@@ -58,7 +58,7 @@ $conn->close(); */
 
 <?php 
 
-$servername = "aa128rcsxrj96v2.cvwrkeif9dtm.ap-south-1.rds.amazonaws.com";
+$servername = "aa123cnq8bv20jg.cvwrkeif9dtm.ap-south-1.rds.amazonaws.com";
 $username = "fladmin";
 $password = "Welcome!23";
 $dbname = "ebdb";
@@ -92,7 +92,7 @@ if ($result->num_rows > 0) {
     	
     	if($row['email']) {$tomail=$row['email'];} else $tomail=''; 
 
-    	 $message1= htmlentities(file_get_contents("https://gofootlounge.in/autoemail_socialhtml.html"));   
+    	 $message1= htmlentities(file_get_contents("http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/autoemail_socialhtml.html"));   
          $message1=html_entity_decode($message1);    
 
          if($tomail)
@@ -111,7 +111,7 @@ if ($result->num_rows > 0) {
         	// Create email headers$emailid
 			
 	      // if( mail('Pooja_khatri@yahoo.com', 'Email Notification Request Received', $str1, $headers))
-	     if( mail('rselakki@yahoo.com', 'Let’s Stay Connected!', $message1, $headers))
+	     if( mail('Pooja_khatri@yahoo.com', 'Let’s Stay Connected!', $message1, $headers))
 	     {  $count++;} else echo 0;         
  
         }  

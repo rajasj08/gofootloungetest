@@ -1,6 +1,10 @@
 <?php
+echo "success";
+/*echo file_get_contents('http://track.aftership.com/6546454?'); die; 
 
-/*
+$jsonData = json_decode(file_get_contents('http://track.aftership.com/6546454?'));
+echo $jsonData; die; 
+
 $ch = curl_init();
 $url='http://track.aftership.com/6546454?';
     curl_setopt($ch, CURLOPT_AUTOREFERER, TRUE);

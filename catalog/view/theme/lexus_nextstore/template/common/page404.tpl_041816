@@ -199,7 +199,7 @@ function valids()
 var searches = document.getElementById('category_id').value;
 var sval = document.getElementById('searchs').value; 
 
-window.location.href ="https://footlounge.in/index.php?route=product/search&search=" + sval + "&category_id=" +searches;
+window.location.href ="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/index.php?route=product/search&search=" + sval + "&category_id=" +searches;
 }
 
 </script>
@@ -474,7 +474,7 @@ if( $modules ){
 		<div class="fl_404_container">   
     
     <div tabindex="501" class="screenreader">
-       <img src="https://footlounge.in/catalog/view/theme/lexus_nextstore/image/page404/teamflcartoonshoes.png" style="width:100%;" alt="Page 404">
+       <img src="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/catalog/view/theme/lexus_nextstore/image/page404/teamflcartoonshoes.png" style="width:100%;" alt="Page 404">
 
     <!--<p class="errorpage">404 <span> page not found</span></p>-->
     <p>The page you requested is no longer here.</p>
@@ -492,47 +492,47 @@ if( $modules ){
 								<ul>
 									
 									<!---<li class="col-lg-12 col-sm-12 col-xs-12">
-										<a href="https://footlounge.in/running-shoes">Top Brands</a>
+										<a href="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/running-shoes">Top Brands</a>
 
 
 									
 										<ul> -->
 											
 											<li class="col-lg-3 col-sm-3 col-xs-12 first liststyle">
-												<a href="https://footlounge.in/men">Men</a>
+												<a href="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/men">Men</a>
 																							
 											</li>
 											<li class="col-lg-3 col-sm-3 col-xs-12 liststyle">
-												<a href="https://footlounge.in/women">Women</a>
+												<a href="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/women">Women</a>
 																							
 											</li>
 											<li class="col-lg-3 col-sm-3 col-xs-12 liststyle">
-												<a href="https://footlounge.in/kids">Kids</a>
+												<a href="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/kids">Kids</a>
 																							
 											</li>
 											<li class="col-lg-3 col-sm-3 col-xs-12 liststyle">
-												<a href="https://footlounge.in/fitness">Fitness</a>
+												<a href="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/fitness">Fitness</a>
 																							
 											</li>
 											<li class="col-lg-3 col-sm-3 col-xs-12 liststyle">
-												<a href="https://footlounge.in/apparel">Apparel</a>
+												<a href="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/apparel">Apparel</a>
 																							
 											</li>
 											<li class="col-lg-3 col-sm-3 col-xs-12 liststyle">
-												<a href="https://footlounge.in/flip-flops">Flip Flops</a>
+												<a href="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/flip-flops">Flip Flops</a>
 																							
 											</li>
 
 											<li class="col-lg-3 col-sm-3 col-xs-12 liststyle">
-												<a href="https://footlounge.in/lifestyle-sandals">LifeStyle Sandals</a>
+												<a href="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/lifestyle-sandals">LifeStyle Sandals</a>
 																							
 											</li>
 											<li class="col-lg-3 col-sm-3 col-xs-12 last liststyle">
-												<a href="https://footlounge.in/luggage-bags">Luggage Bags</a>
+												<a href="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/luggage-bags">Luggage Bags</a>
 																							
 											</li>
 											<li class="col-lg-3 col-sm-3 col-xs-12 last liststyle">
-												<a href="https://footlounge.in/running-shoes">Running Shoes</a>
+												<a href="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/running-shoes">Running Shoes</a>
 																							
 											</li>
 											
@@ -558,43 +558,43 @@ if( $modules ){
 								<ul>
 									
 									<!---<li class="col-lg-12 col-sm-12 col-xs-12">
-										<a href="https://footlounge.in/running-shoes">Top Brands</a>
+										<a href="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/running-shoes">Top Brands</a>
 
 
 									
 										<ul> -->
 											
 											<li class="col-lg-3 col-sm-3 col-xs-12 first liststyle">
-												<a href="https://footlounge.in/adidas-shoes-online">Adidas</a>
+												<a href="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/adidas-shoes-online">Adidas</a>
 																							
 											</li>
 											<li class="col-lg-3 col-sm-3 col-xs-12 liststyle">
-												<a href="https://footlounge.in/reebok-shoes-online">Reebok</a>
+												<a href="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/reebok-shoes-online">Reebok</a>
 																							
 											</li>
 											<li class="col-lg-3 col-sm-3 col-xs-12 liststyle">
-												<a href="https://footlounge.in/nike-shoes-online">Nike</a>
+												<a href="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/nike-shoes-online">Nike</a>
 																							
 											</li>
 											<li class="col-lg-3 col-sm-3 col-xs-12 liststyle">
-												<a href="https://footlounge.in/american-tourister-travel-bags-online">American Tourister</a>
+												<a href="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/american-tourister-travel-bags-online">American Tourister</a>
 																							
 											</li>
 											<li class="col-lg-3 col-sm-3 col-xs-12 liststyle">
-												<a href="https://footlounge.in/fila-shoes-online">Fila</a>
+												<a href="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/fila-shoes-online">Fila</a>
 																							
 											</li>
 											<li class="col-lg-3 col-sm-3 col-xs-12 liststyle">
-												<a href="https://footlounge.in/footlounge-sports-clothing-online">Foot Lounge</a>
+												<a href="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/footlounge-sports-clothing-online">Foot Lounge</a>
 																							
 											</li>
 
 											<li class="col-lg-3 col-sm-3 col-xs-12 liststyle">
-												<a href="https://footlounge.in/lee-cooper-shoes-online">Lee Cooper</a>
+												<a href="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/lee-cooper-shoes-online">Lee Cooper</a>
 																							
 											</li>
 											<li class="col-lg-3 col-sm-3 col-xs-12 last liststyle">
-												<a href="https://footlounge.in/puma-shoes-online">Puma</a>
+												<a href="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/puma-shoes-online">Puma</a>
 																							
 											</li>
 											
@@ -619,28 +619,28 @@ if( $modules ){
 								<ul>
 									
 								<!---	<li class="col-lg-12 col-sm-12 col-xs-12">
-										<a href="https://footlounge.in/running-shoes">Information</a>
+										<a href="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/running-shoes">Information</a>
 									
 										<ul> -->
 											
 											<li class="col-lg-3 col-sm-3 col-xs-12 first liststyle">
-												<a href="https://footlounge.in/about_us">About Us</a>
+												<a href="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/about_us">About Us</a>
 																							
 											</li>
 											<li class="col-lg-3 col-sm-3 col-xs-12 liststyle">
-												<a href="https://footlounge.in/delivery-information">Delivery Information</a>
+												<a href="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/delivery-information">Delivery Information</a>
 																							
 											</li>
 											<li class="col-lg-3 col-sm-3 col-xs-12 liststyle">
-												<a href="https://footlounge.in/terms-conditions">Terms &amp; Conditions</a>
+												<a href="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/terms-conditions">Terms &amp; Conditions</a>
 																							
 											</li>
 											<li class="col-lg-3 col-sm-3 col-xs-12 liststyle">
-												<a href="https://footlounge.in/privacy-policy-and-pisclaimer">Privacy Policy And Disclaimer</a>
+												<a href="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/privacy-policy-and-pisclaimer">Privacy Policy And Disclaimer</a>
 																							
 											</li>
 											<li class="col-lg-3 col-sm-3 col-xs-12 last liststyle">
-												<a href="https://footlounge.in/footlounge-return-policy">Return Policy</a>
+												<a href="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/footlounge-return-policy">Return Policy</a>
 																							
 											</li>
 											
@@ -665,24 +665,24 @@ if( $modules ){
 								<ul>
 									
 								<!---	<li class="col-lg-12 col-sm-12 col-xs-12">
-										<a href="https://footlounge.in/running-shoes">Information</a>
+										<a href="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/running-shoes">Information</a>
 									
 										<ul> -->
 											
 											<li class="col-lg-3 col-sm-3 col-xs-12 first liststyle">
-												<a href="https://footlounge.in/contact">Contact Us</a>
+												<a href="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/contact">Contact Us</a>
 																							
 											</li>
 											<li class="col-lg-3 col-sm-3 col-xs-12 liststyle">
-												<a href="https://footlounge.in/return">Returns</a>
+												<a href="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/return">Returns</a>
 																							
 											</li>
 											<li class="col-lg-3 col-sm-3 col-xs-12 liststyle">
-												<a href="https://footlounge.in/sitemap">Site Map</a>
+												<a href="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/sitemap">Site Map</a>
 																							
 											</li>
 											<li class="col-lg-3 col-sm-3 col-xs-12 last liststyle">
-												<a href="https://footlounge.in/Footlounge-Frequently-Asked-Questions">FAQ</a>
+												<a href="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/Footlounge-Frequently-Asked-Questions">FAQ</a>
 																							
 											</li>
 											

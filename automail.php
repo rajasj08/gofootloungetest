@@ -58,7 +58,7 @@ $conn->close(); */
 
 <?php 
 
-$servername = "aa128rcsxrj96v2.cvwrkeif9dtm.ap-south-1.rds.amazonaws.com";
+$servername = "aa123cnq8bv20jg.cvwrkeif9dtm.ap-south-1.rds.amazonaws.com";
 $username = "fladmin";
 $password = "Welcome!23";
 $dbname = "ebdb";
@@ -97,7 +97,7 @@ if ($result->num_rows > 0) {
       
       if($row['email']) {$tomail=$row['email'];} else $tomail=''; 
 
-       $message1= htmlentities(file_get_contents("https://gofootlounge.in/newmail.html"));   
+       $message1= htmlentities(file_get_contents("http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/newmail.html"));   
          $message1=html_entity_decode($message1);    
 
          if($tomail)

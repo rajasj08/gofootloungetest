@@ -178,4 +178,4 @@ User-agent: *
 Allow: / 
 Disallow: /2016demo/
 
-Sitemap: https://footlounge.in/sitemap.xml
+Sitemap: http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/sitemap.xml

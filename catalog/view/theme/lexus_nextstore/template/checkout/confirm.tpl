@@ -124,7 +124,7 @@
         <h4 class="modal-title">Change Product Size</h4>
       </div>
       <div class="modal-body">
-      <!--<div style="margin-bottom: 20px;" ><p>This product has been solded out! Kindly fill the following details, our executive will contact you in another 48 hours. <a href="https://footlounge.in/new-arrivals"><span style="color: #CD6927 " id="modal_content">Happy Shopping</span><a></p></div>-->
+      <!--<div style="margin-bottom: 20px;" ><p>This product has been solded out! Kindly fill the following details, our executive will contact you in another 48 hours. <a href="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/new-arrivals"><span style="color: #CD6927 " id="modal_content">Happy Shopping</span><a></p></div>-->
 		<div class="reentryclsimg2"><p></p></div>
 
        	<form class="form-horizontal">
@@ -175,7 +175,7 @@
       <div class="modal-footer reentryclsimg4">
       <span class="alert alert-success reentryclsimg5" id="success_msgaa">Request sent successfully</span>
       <span class="alert alert-danger reentryclsimg5" id="failure_msg">sending failed</span>
-      	<img src="https://footlounge.in/image/loading_spinner.gif" alt="loading..." id="image_spinner">
+      	<img src="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/image/loading_spinner.gif" alt="loading..." id="image_spinner">
         <button type="button" class="btn btn-default" id="closebtn" onclick="closeproductSizeModal();">Close</button>
         <button type="button" class="btn btn-primary" id="sendbtn" onclick="updatecartprodsize();">Submit</button>
       </div>

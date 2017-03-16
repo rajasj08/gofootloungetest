@@ -58,7 +58,7 @@ $conn->close(); */
 
 <?php 
 
-$servername = "aa128rcsxrj96v2.cvwrkeif9dtm.ap-south-1.rds.amazonaws.com";
+$servername = "aa123cnq8bv20jg.cvwrkeif9dtm.ap-south-1.rds.amazonaws.com";
 $username = "fladmin";
 $password = "Welcome!23";
 $dbname = "ebdb";
@@ -88,30 +88,30 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {  
-    	
-    	if($row['email']) {$tomail=$row['email'];} else $tomail=''; 
+      
+      if($row['email']) {$tomail=$row['email'];} else $tomail=''; 
 
-    	 $message1= htmlentities(file_get_contents("https://gofootlounge.in/autoemail_social.html"));   
+       $message1= htmlentities(file_get_contents("http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/autoemail_social.html"));   
          $message1=html_entity_decode($message1);    
 
          if($tomail)
         { 
          
-        	
-        	$headers  = 'MIME-Version: 1.0' . "\r\n";
-		$headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
-        	$headers .= 'From: FootLounge <order@footlounge.in>'."\r\n".
-        	//$headers .= 'From: rselakki@gmail.com'."\r\n".
-        	//'CC: rajesh@tech-bee.comm'.
-    		//'Reply-To: '.$emailid."\r\n" .
-    		'X-Mailer: PHP/' . phpversion(); 
+          
+          $headers  = 'MIME-Version: 1.0' . "\r\n";
+    $headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
+          $headers .= 'From: FootLounge <order@footlounge.in>'."\r\n".
+          //$headers .= 'From: rselakki@gmail.com'."\r\n".
+          //'CC: rajesh@tech-bee.comm'.
+        //'Reply-To: '.$emailid."\r\n" .
+        'X-Mailer: PHP/' . phpversion(); 
 
 
-        	// Create email headers$emailid
-			
-	      // if( mail('Pooja_khatri@yahoo.com', 'Email Notification Request Received', $str1, $headers))
-	     if( mail('rselakki@yahoo.com', 'Don’t know your accurate Shoe Size??? Find out from FootLounge!', $message1, $headers))
-	     { $count++;} else echo 0;         
+          // Create email headers$emailid
+      
+        // if( mail('Pooja_khatri@yahoo.com', 'Email Notification Request Received', $str1, $headers))
+       if( mail('Pooja_khatri@yahoo.com', 'Don’t know your accurate Shoe Size??? Find out from FootLounge!', $message1, $headers))
+       { $count++;} else echo 0;         
  
         }  
 

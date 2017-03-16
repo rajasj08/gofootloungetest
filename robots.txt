@@ -1,181 +1,181 @@
 User-agent: Adsbot-Google
-Disallow: / 
+Allow: / 
 
 
 User-agent: Alexabot
-Disallow: / 
+Allow: / 
 
 
 User-agent: Applebot
-Disallow: / 
+Allow: / 
 
 
 User-agent: Architextspider
-Disallow: / 
+Allow: / 
 
 
 User-agent: Baiduspider
-Disallow: / 
+Allow: / 
 
- 
+
 User-agent: Bender
-Disallow: / 
+Allow: / 
 
- 
+
 User-agent: Bingbot
-Disallow: / 
+Allow: / 
 
 
 User-agent: Birubot
-Disallow: / 
+Allow: / 
 
 
 User-agent: BlogPulseLive
-Disallow: / 
+Allow: / 
 
 
 User-agent: Coccoc
-Disallow: / 
+Allow: / 
 
 
 User-agent: Daumoa
-Disallow: / 
+Allow: / 
  
 
 User-agent: Duckduckbot
-Disallow: / 
+Allow: / 
 
 
 User-agent: Fast
-Disallow: / 
+Allow: / 
 
 
 User-agent: Feedfetcher-Google
-Disallow: / 
+Allow: / 
 
 
 User-agent: Googlebot
-Disallow: / 
+Allow: / 
 
 
 User-agent: Googlebot-Image
-Disallow: / 
+Allow: / 
 
 
 User-agent: Googlebot-Mobile
-Disallow: / 
+Allow: / 
 
 
 User-agent: Googlebot-News
-Disallow: / 
+Allow: / 
 
 
 User-agent: Googlebot-Video
-Disallow: / 
+Allow: / 
 
 
 User-agent: Gulliver
-Disallow: / 
+Allow: / 
 
 
 User-agent: Ia_Archiver
-Disallow: / 
+Allow: / 
 
 
 User-agent: iisbot
-Disallow: / 
+Allow: / 
 
 
 User-agent: Jikespider
-Disallow: / 
+Allow: / 
 
 
 User-agent: Lycos_Spider_(T-Rex)
-Disallow: / 
+Allow: / 
 
 
 User-agent: Mail.Ru_Bot
-Disallow: / 
+Allow: / 
 
 
 User-agent: Mediapartners-Google
-Disallow: / 
+Allow: / 
 
 
 User-agent: Msnbot
-Disallow: / 
+Allow: / 
 
 
 User-agent: Msnbot-Media
-Disallow: / 
+Allow: / 
 
 
 User-agent: Msnptc
-Disallow: / 
+Allow: / 
 
 
 User-agent: Naverbot
-Disallow: / 
+Allow: / 
 
 
 User-agent: Nutch
-Disallow: / 
+Allow: / 
 
 
 User-agent: Quickobot
-Disallow: / 
+Allow: / 
 
 
 User-agent: Rogerbot
-Disallow: / 
+Allow: / 
 
 
 User-agent: Scooter
-Disallow: / 
+Allow: / 
 
 
 User-agent: Seznambot
-Disallow: / 
+Allow: / 
 
 
 User-agent: Slurp
-Disallow: / 
+Allow: / 
 
 
 User-agent: StackRambler
-Disallow: / 
+Allow: / 
 
 
 User-agent: Surveybot
-Disallow: / 
+Allow: / 
 
 
 User-agent: Teoma
-Disallow: / 
+Allow: / 
 
 
 User-agent: Twitterbot/1.0
-Disallow: / 
+Allow: / 
 
 
 User-agent: Vscooter
-Disallow: / 
+Allow: / 
 
 
 User-agent: Yandex
-Disallow: / 
+Allow: / 
 
 
 User-agent: Yeti
-Disallow: / 
+Allow: / 
 
 
 User-agent: Zyborg
-Disallow: / 
+Allow: / 
 
 
 User-agent: *
-Disallow: / 
+Allow: / 
 
 
-Sitemap: https://gofootlounge.in/sitemap.xml
+Sitemap: http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/sitemap.xml

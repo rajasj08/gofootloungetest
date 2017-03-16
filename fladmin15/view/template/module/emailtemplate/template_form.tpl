@@ -61,7 +61,7 @@
 	    				<a href="#tab-setting"><?php echo $heading_settings; ?></a>
 	    				<a href="#tab-advanced"><?php echo $heading_advanced; ?></a>
 	    				<a href="#tab-mail"><?php echo $heading_mail; ?></a>
-	    				<a href="#tab-theme" class="reentryclsimg2"><?php echo $heading_theme; ?></a>
+	    				<a href="#tab-theme" style="margin-bottom: 20px"><?php echo $heading_theme; ?></a>
 	    				<?php if (!empty($templates)) { ?>
 		    				<a href="#tab-templates"><?php echo $heading_custom_templates; ?></a>
 	    				<?php } ?>
