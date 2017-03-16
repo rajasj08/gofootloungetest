@@ -434,10 +434,13 @@ class ControllerCheckoutGuest extends Controller {
         public function updateabandoncustomer()
         {
             if(isset($this->session->data['abduserid'])){
-            $this->load->model('account/address');
-            $resultsdata = $this->model_account_address->updateabdandoneduser($this->session->data['abduserid'],$this->customer->isLogged());
 
-           // echo $resultsdata;
+            $this->load->model('account/address');
+            if(isset($this->request->post['ab_mobileno'])){ $ab_mobileno=$this->request->post['ab_mobileno'];}else{$ab_mobileno='';}
+            
+            $resultsdata = $this->model_account_address->updateabdandoneduser($ab_mobileno,$this->session->data['abduserid'],$this->customer->isLogged());
+
+           
 
              $this->load->model('checkout/order');
 

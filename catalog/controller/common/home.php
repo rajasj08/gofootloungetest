@@ -182,6 +182,18 @@ public function getstatecodeinfo()
 	 
 }
 
+public function subscibemecookie()//subscribe newsletter for the user
+{
+         $this->session->data['newsletter_sess'] =1; 
+echo "1"; 
+	/*//set cookie for newsletter subscription
+         //if(isset($this->session->data['newsletter_sess'])){ unset($this->session->data['newsletter_sess']);}
+		//setcookie("newsletter", true, time()+15, "/"); 
+        // else{
+        // $this->session->data['newsletter_sess'] =1; //}*/
+
+} 
+
 }
 
 ?>

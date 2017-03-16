@@ -73,7 +73,7 @@
         <h4 class="modal-title">Reset Pincode</h4>
       </div>
       <div class="modal-body">  
-      <!--<div style="margin-bottom: 20px;" ><p>This product has been solded out! Kindly fill the following details, our executive will contact you in another 48 hours. <a href="https://gofootlounge.in/new-arrivals"><span style="color: #CD6927 " id="modal_content">Happy Shopping</span><a></p></div>-->
+      <!--<div style="margin-bottom: 20px;" ><p>This product has been solded out! Kindly fill the following details, our executive will contact you in another 48 hours. <a href="https://footlounge.in/new-arrivals"><span style="color: #CD6927 " id="modal_content">Happy Shopping</span><a></p></div>-->
 		<div class="reentryclsimg2"><p> Seems like the pincode is missing or an invalid entry. You can either replace the pincode to your current address  or ignore this process and go with adding the new address. (Pincode tells you the availability of the COD).</p></div>
 
        	<form class="form-horizontal"> 
@@ -96,12 +96,12 @@
 		   	 </div>
 		   </div>
 		 
-		</form>
+		</form> 
       </div>
       <div class="modal-footer reentryclsimg4">
      <!--<span class="alert alert-success" style=" padding:5px !important; margin-bottom:0px; display:none;"  id="rsuccess_msgaa">pincode updated successfully</span>-->
       <span class="alert alert-danger reentryclsimg5" id="rfailure_msg">sending failed</span>
-      	<img src="https://gofootlounge.in/image/loading_spinner.gif" alt="loading..." id="image_spinner">
+      	<img src="https://footlounge.in/image/loading_spinner.gif" alt="loading..." id="image_spinner">
         <button type="button" class="btn btn-default" id="closebtn" onclick="rclosemodal();">Close</button>
         <button type="button" class="btn btn-primary" id="sendbtn" onclick="resetaddnewaddress();">Add New Address</button>
         <button type="button" class="btn btn-primary" id="sendbtn" onclick="resetpincode();">Next Step</button>
@@ -453,8 +453,8 @@ $('#button-register').live('click', function() {
 					$('#payment-address input[name=\'address_1\'] + br').after('<span class="error">' + json['error']['address_1'] + '</span>');
 				}
 				
-				if (json['error']['address_2']) {
-					$('#payment-address input[name=\'address_2\'] + br').after('<span class="error">' + json['error']['address_2'] + '</span>');
+				if (json['error']['phone']) {
+					$('#payment-address input[name=\'phone\'] + br').after('<span class="error">' + json['error']['phone'] + '</span>');
 				}	
 				
 					
@@ -485,13 +485,19 @@ $('#button-register').live('click', function() {
 			} else {
 				<?php if ($shipping_required) { ?>	
 
-                                /********* code for saving abandoned user details *********/
+                   
+/********* code for saving abandoned user details *********/
 //code for updating abandonent custiomer table
+
+var ab_mobileno=$("#payment-address input[name=\'address_2\']").val();
+
+
 					$.ajax({
 					    type: "POST",
 					    url: 'index.php?route=checkout/guest/updateabandoncustomer',      
 					    data: {
-					      step2:1
+					      step2:1,
+					      ab_mobileno:ab_mobileno
 					    },
 					  	
 					    success: function(dresp){ 
@@ -1083,12 +1089,17 @@ $('#button-guest').live('click', function() {
 			} else {
 				<?php if ($shipping_required) { ?>	
 
-                                //code for updating abandonent custiomer table
+   
+//code for updating abandonent custiomer table
+var ab_mobileno=$("#payment-address input[name=\'address_2\']").val();
+
+ 
 					$.ajax({
 					    type: "POST",
 					    url: 'index.php?route=checkout/guest/updateabandoncustomer',   
 					    data: {
-					      step2:1
+					      step2:1,
+                          ab_mobileno:ab_mobileno
 					    },
 					  	
 					    success: function(dresp){ 

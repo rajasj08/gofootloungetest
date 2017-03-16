@@ -295,7 +295,7 @@ function valids()
 var searches = document.getElementById('category_id').value;
 var sval = document.getElementById('searchs').value; 
 
-window.location.href ="https://gofootlounge.in/index.php?route=product/search&search=" + sval + "&category_id=" +searches;
+window.location.href ="https://footlounge.in/index.php?route=product/search&search=" + sval + "&category_id=" +searches;
 }
 
 </script>
@@ -304,10 +304,10 @@ window.location.href ="https://gofootlounge.in/index.php?route=product/search&se
 {
  "@context": "http://schema.org/",
   "@type": "WebSite",
-  "url": "https://gofootlounge.in/",
+  "url": "https://footlounge.in/",
   "potentialAction": {
     "@type": "SearchAction",
-     "target":"https://gofootlounge.in/search?term={search_term_string}",
+     "target":"https://footlounge.in/search?term={search_term_string}",
         "query-input":"required name=search_term_string"
   }
 }
@@ -324,9 +324,8 @@ document,'script','https://connect.facebook.net/en_US/fbevents.js');
 
 fbq('init', '176279402782250');
 fbq('track', "PageView");</script>
-<noscript><img height="1" width="1" alt="FootLounge Facebook Pixel Code" class="reentryclsimg1"
-src="https://www.facebook.com/tr?id=176279402782250&ev=PageView&noscript=1"
-/></noscript>
+<noscript><img height="1" width="1" alt="FootLounge Facebook Pixel Code" class="reentryclsimg1" src="https://www.facebook.com/tr?id=176279402782250&ev=PageView&noscript=1"
+/></noscript> 
 <!-- End Facebook Pixel Code -->
 
 
@@ -346,14 +345,14 @@ src="https://www.facebook.com/tr?id=176279402782250&ev=PageView&noscript=1"
 							<ul class="links">								
 								<!--<li><a href="<?php echo $wishlist; ?>" id="wishlist-total"><i class="fa fa-list-alt"></i><?php echo $text_wishlist; ?></a></li> -->
 
-								<li><a href="https://gofootlounge.in/Footlounge-Frequently-Asked-Questions" id="help" data-toggle="tooltip" title="FAQ" data-placement="bottom"><i class="fa fa-info-circle"></i><?php echo $text_help; ?></a></li>
+								<li><a href="https://footlounge.in/Footlounge-Frequently-Asked-Questions" id="help" data-toggle="tooltip" title="FAQ" data-placement="bottom"><i class="fa fa-info-circle"></i><?php echo $text_help; ?></a></li>
 
 								<!--<li><a href="<?php echo $account; ?>"><i class="fa fa-user"></i><?php echo $text_account; ?></a></li>-->
 
-								<li><a href="https://gofootlounge.in/voucher" data-toggle="tooltip" title="Gift Cards" data-placement="bottom"><i class="fa fa-gift"></i><?php echo $text_giftcards; ?></a></li> 
+								<li><a href="https://footlounge.in/voucher" data-toggle="tooltip" title="Gift Cards" data-placement="bottom"><i class="fa fa-gift"></i><?php echo $text_giftcards; ?></a></li> 
 
 								<!--<li><a href="<?php echo $shopping_cart; ?>"><i class="fa fa-bookmark"></i><?php echo $text_shopping_cart; ?></a></li>-->
-								<li><a class="last" href="https://www.bluedart.com/maintracking.html" target="_blank" data-toggle="tooltip" title="Track Order" data-placement="bottom"><i class="fa fa-share"></i><?php echo 'Track Order'; ?></a></li>
+								<li><a class="last" href="https://footlounge.in/trackorder.html" target="_blank" data-toggle="tooltip" title="Track Order" data-placement="bottom"><i class="fa fa-share"></i><?php echo 'Track Order'; ?></a></li>
 
 <!--<li><a class="last" href="<?php echo $checkout; ?>"><i class="fa fa-share"></i><?php echo $text_checkout; ?></a></li> -->
 	
@@ -410,7 +409,7 @@ src="https://www.facebook.com/tr?id=176279402782250&ev=PageView&noscript=1"
 						</div>
 <div class="logo1 inner1">  
  
-								<div class="col-md-12 mview new_page_disp1"><div id="mlogo1" class="m-logo-store"><a href="<?php echo $base; ?>" class="new_header_leftimp"><img src="<?php echo $logo; ?>" title="Foot Lounge" alt="FootLounge" class="m-logo-image"></a></div><div class="m-logo-store1"><div class="top-contact1"><i class="fa fa-phone"></i>&nbsp;<?php echo $text_contact; ?></div></div></div>
+								<div class="col-md-12 mview new_page_disp1"><div id="mlogo1" class="m-logo-store"><a href="<?php echo $base; ?>" class="new_header_leftimp"><img src="<?php echo $logo; ?>" title="FootLounge" alt="FootLounge" class="m-logo-image"></a></div><div class="m-logo-store1"><div class="top-contact1"><i class="fa fa-phone"></i>&nbsp;<?php echo $text_contact; ?></div></div></div>
 
 
 							<?php if( $logoType=='logo-theme'){ ?>
@@ -451,18 +450,18 @@ src="https://www.facebook.com/tr?id=176279402782250&ev=PageView&noscript=1"
 
 							<div class="socialicons">
 
-								<div class="social-icon1"><a target="_blank" href="   https://in.pinterest.com/footloungeindia/"><img alt="FootLounge Pinterest" src="https://gofootlounge.in/image/social-icons/pinterest_27.png"></a></div>
+								<div class="social-icon1"><a target="_blank" href="https://in.pinterest.com/footloungeindia/"><img alt="FootLounge Pinterest" src="https://footlounge.in/image/social-icons/pinterest_27.png"></a></div>
 
-								<div class="social-icon1"><a target="_blank" href=" https://plus.google.com/115256944391879546136/posts"><img src="https://gofootlounge.in/image/social-icons/google_plus27.png" alt="FootLounge Google+"></a></div>
+								<div class="social-icon1"><a target="_blank" href="https://plus.google.com/115256944391879546136/posts"><img src="https://footlounge.in/image/social-icons/google_plus27.png" alt="FootLounge Google+"></a></div>
 
-								<div class="social-icon1"><a target="_blank" href="https://www.youtube.com/c/adidas"><img src="https://gofootlounge.in/image/social-icons/youtube-iconsmall.png" alt="FootLounge YouTube"></a></div>  
+								<div class="social-icon1"><a target="_blank" href="https://www.youtube.com/c/adidas"><img src="https://footlounge.in/image/social-icons/youtube-iconsmall.png" alt="FootLounge YouTube"></a></div>  
 								
-								<div class="social-icon1"><a target="_blank" href="https://www.instagram.com/go_footlounge"><img src="https://gofootlounge.in/image/social-icons/instagramsmall.png" alt="FootLounge Instagram"></a></div>
+								<div class="social-icon1"><a target="_blank" href="https://www.instagram.com/go_footlounge"><img src="https://footlounge.in/image/social-icons/instagramsmall.png" alt="FootLounge Instagram"></a></div>
 								 
-								<div class="social-icon1"><a target="_blank" href="https://twitter.com/go_footlounge"><img src="https://gofootlounge.in/image/social-icons/twittersmall1.png" alt="FootLounge Twitter"></a></div>	
+								<div class="social-icon1"><a target="_blank" href="https://twitter.com/go_footlounge"><img src="https://footlounge.in/image/social-icons/twittersmall1.png" alt="FootLounge Twitter"></a></div>	
 												
 							</div>
- 
+   
 						</div>
 						
 					</div>
@@ -476,18 +475,18 @@ src="https://www.facebook.com/tr?id=176279402782250&ev=PageView&noscript=1"
 							</div>
 						<div class="cart-mini-right">
 							<!--<div class="socialicons">
-								<div class="social-icon1"><img src="https://gofootlounge.in/image/social-icons/twitter.png" style=" height:40px; width:40px;" alt="FootLounge Twitter"></div>
-								<div class="social-icon1"><img src="https://gofootlounge.in/image/social-icons/instagramsmall.png" style=" height:40px; width:40px;" alt="FootLounge Instagram"></div>
-								<div class="social-icon1"><img src="https://gofootlounge.in/image/social-icons/you-tube-icon.png" style=" height:40px; width:40px;" alt="FootLounge YouTube"></div>
+								<div class="social-icon1"><img src="https://footlounge.in/image/social-icons/twitter.png" style=" height:40px; width:40px;" alt="FootLounge Twitter"></div> 
+								<div class="social-icon1"><img src="https://footlounge.in/image/social-icons/instagramsmall.png" style=" height:40px; width:40px;" alt="FootLounge Instagram"></div>
+								<div class="social-icon1"><img src="https://footlounge.in/image/social-icons/you-tube-icon.png" style=" height:40px; width:40px;" alt="FootLounge YouTube"></div>
 												
 							</div> -->
 							<div class="shopping-cart">
-								<div class="cart-top">
+								<div class="cart-top"> 
 									<?php echo $cart; ?>
 								</div>
 							</div>
 						</div>
-						 
+						
 
 						<!--	<div class="fbcls">
 							<iframe src="https://www.facebook.com/plugins/like.php?href=http://facebook.com/footlounge.online&width=98&layout=button_count&action=like&show_faces=false&share=false&height=40&appId" width="98" height="40" style="border:none;overflow:hidden; margin-top:10px" scrolling="no" frameborder="0" allowTransparency="true"></iframe>

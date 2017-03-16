@@ -13,8 +13,8 @@
 		<input type="text" name="email" value="<?php if(isset($this->session->data['newuserid'])) echo $this->session->data['newuserid']; ?>" class="large-field" />
 		<br />
 		<br />
-		   <span class="required">*</span> <?php echo $entry_address_2;?><br />
-		<input type="text" name="address_2" value="" class="large-field" />
+		   <span class="required">*</span> <?php echo $entry_phone;?><br />
+		<input type="text" name="phone" value="" class="large-field" />
 		<br />
 		<br />
 		
@@ -75,15 +75,16 @@
 		<span class="required">*</span> <?php echo $entry_address_1; ?><br />
 		<input type="text" name="address_1" value="" class="large-field" />
 		<br />
-		<br />
+		<br />  
      
 		<span class="required">*</span> <?php echo $entry_postcode; ?><br />
 		<input type="text" name="postcode" value="<?php if($postcode)echo $postcode; else { if(isset($this->session->data['user_zipcode'])) echo $this->session->data['user_zipcode']; } ?>" class="large-field" onchange="getchangedvalues();" />
+		<br/>
 		
 		<!------------hidden field for country state city------>
-<input type="hidden" name="city" value="" class="large-field" />
-<input name="country_id" type="hidden" class="large-field" value='99' /> 
-<input type="hidden" name="zone_id" class="large-field" /> 
+		<input type="hidden" name="city" value="" class="large-field" />
+		<input name="country_id" type="hidden" class="large-field" value='99' /> 
+		<input type="hidden" name="zone_id" class="large-field" /> 
 		<div id="resppincodecont" style="display:none; ">
 		 
 <br />

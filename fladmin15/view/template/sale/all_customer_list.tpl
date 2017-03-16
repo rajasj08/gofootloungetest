@@ -45,6 +45,9 @@
               <td class="center">
                 <a >Mobile No.</a>
                </td>
+               <td class="center">
+                <a >Added Date</a>
+               </td>
  
             <!--  <td class="center">
                 <a class="<?php echo strtolower($order); ?>">Order Date</a>
@@ -75,7 +78,7 @@
              
              
            
-              
+              <td></td>
               <td align="center"><a onclick="filter();" class="button"><?php echo $button_filter; ?></a></td>
             </tr>
             <?php if ($abusers) {  $z=1;$muc=count($abusers);
@@ -92,11 +95,14 @@ if($mypage=='' || $mypage==1 ){$start=0;if($muc<20){$end=$muc;} else {$end=20;}}
               
               <td class="center"><?php echo $abusers[$i]['mobileno']; ?></td>
 
+              <td class="center"><?php echo $abusers[$i]['added_date']; ?></td>
+
              <!-- <td class="left"><?php echo $abusers[$i]['products']; ?></td>
 
               <td class="center"><?php if($abusers['order_date']) { echo date("d/m/Y", strtotime($abusers['order_date'])); } ?></td> -->
               <td class="center">
                <a class="button">View / Send</a> 
+               <a onclick="removecustomer(<?php echo $abusers[$i]['userid']; ?>,'<?php echo $abusers[$i]['usertype']; ?>');"  class="button">Remove</a>
               
                 </td>
             </tr>
@@ -144,92 +150,92 @@ echo '<option value="'.$cdata['coupon_id'].'">'.$cdata['coupon_name'].'</option>
 function filter() {
 
 
-	url = 'index.php?route=tool/export/getallcustomer&token=<?php echo $token; ?>';
-	
-	var filter_usertype = $('select[name=\'filter_usertype\'] option:selected').val();
-	
+  url = 'index.php?route=tool/export/getallcustomer&token=<?php echo $token; ?>';
+  
+  var filter_usertype = $('select[name=\'filter_usertype\'] option:selected').val();
+  
        $('select[name="' + name + '"] option:selected').val()
-	if (filter_usertype) {
-		url += '&filter_usertype=' + encodeURIComponent(filter_usertype);
-	}
+  if (filter_usertype) {
+    url += '&filter_usertype=' + encodeURIComponent(filter_usertype);
+  }
         
-	
-	/*var filter_userid = $('input[name=\'filter_userid\']').attr('value');
-	
-	if (filter_userid) {
-		url += '&filter_userid=' + encodeURIComponent(filter_userid);
-	} */
-	
-	var filter_cust_mailid = $('input[name=\'filter_cust_mailid\']').attr('value');
-	
-	if (filter_cust_mailid) {
-		url += '&filter_cust_mailid=' + encodeURIComponent(filter_cust_mailid);
-	}	
+  
+  /*var filter_userid = $('input[name=\'filter_userid\']').attr('value');
+  
+  if (filter_userid) {
+    url += '&filter_userid=' + encodeURIComponent(filter_userid);
+  } */
+  
+  var filter_cust_mailid = $('input[name=\'filter_cust_mailid\']').attr('value');
+  
+  if (filter_cust_mailid) {
+    url += '&filter_cust_mailid=' + encodeURIComponent(filter_cust_mailid);
+  } 
 
-	/*var filter_order_date = $('input[name=\'filter_order_date\']').attr('value');
+  /*var filter_order_date = $('input[name=\'filter_order_date\']').attr('value');
 
-	if (filter_order_date) {
-		url += '&filter_order_date=' + encodeURIComponent(filter_order_date);
-	}*/ 	
-	
-		
-	location = url;
+  if (filter_order_date) {
+    url += '&filter_order_date=' + encodeURIComponent(filter_order_date);
+  }*/   
+  
+    
+  location = url;
 }
 //--></script>  
 <script type="text/javascript"><!--
 $(document).ready(function() {
-	$('.date').datepicker({dateFormat: 'yy-mm-dd'});
+  $('.date').datepicker({dateFormat: 'yy-mm-dd'});
 });
 //--></script> 
 <script type="text/javascript"><!--
 $('#form input').keydown(function(e) {
-	if (e.keyCode == 13) {
-		filter();
-	}
+  if (e.keyCode == 13) {
+    filter();
+  }
 });
 //--></script> 
 <script type="text/javascript"><!--
 $.widget('custom.catcomplete', $.ui.autocomplete, {
-	_renderMenu: function(ul, items) {
-		var self = this, currentCategory = '';
-		
-		$.each(items, function(index, item) {
-			if (item.category != currentCategory) {
-				ul.append('<li class="ui-autocomplete-category">' + item.category + '</li>');
-				
-				currentCategory = item.category;
-			}
-			
-			self._renderItem(ul, item);
-		});
-	}
+  _renderMenu: function(ul, items) {
+    var self = this, currentCategory = '';
+    
+    $.each(items, function(index, item) {
+      if (item.category != currentCategory) {
+        ul.append('<li class="ui-autocomplete-category">' + item.category + '</li>');
+        
+        currentCategory = item.category;
+      }
+      
+      self._renderItem(ul, item);
+    });
+  }
 });
 
 $('input[name=\'filter_customer\']').catcomplete({
-	delay: 500,
-	source: function(request, response) {
-		$.ajax({
-			url: 'index.php?route=sale/customer/autocomplete&token=<?php echo $token; ?>&filter_name=' +  encodeURIComponent(request.term),
-			dataType: 'json',
-			success: function(json) {		
-				response($.map(json, function(item) {
-					return {
-						category: item.customer_group,
-						label: item.name,
-						value: item.customer_id
-					}
-				}));
-			}
-		});
-	}, 
-	select: function(event, ui) {
-		$('input[name=\'filter_customer\']').val(ui.item.label);
-						
-		return false;
-	},
-	focus: function(event, ui) {
-      	return false;
-   	}
+  delay: 500,
+  source: function(request, response) {
+    $.ajax({
+      url: 'index.php?route=sale/customer/autocomplete&token=<?php echo $token; ?>&filter_name=' +  encodeURIComponent(request.term),
+      dataType: 'json',
+      success: function(json) {   
+        response($.map(json, function(item) {
+          return {
+            category: item.customer_group,
+            label: item.name,
+            value: item.customer_id
+          }
+        }));
+      }
+    });
+  }, 
+  select: function(event, ui) {
+    $('input[name=\'filter_customer\']').val(ui.item.label);
+            
+    return false;
+  },
+  focus: function(event, ui) {
+        return false;
+    }
 });
 
 function sendupdateorder(abuserid,mailid) //send update order
@@ -330,6 +336,30 @@ alert(disresp);
 });
 
   }
+}
+ 
+function removecustomer(userid,usertype)
+{
+var a=confirm('Are you surely want to remove?');
+if(a==1){
+ $.ajax({
+    type: "POST",
+    url: 'index.php?route=tool/export/removecustomerinfo&token=<?php echo $token; ?>', 
+    data: {
+     userid:userid,
+      usertype:usertype,
+    
+    },
+     
+      success: function(resp) { 
+
+         if(resp==1){
+          alert('Customer removed successfully!'); location.reload(); }
+         else{ alert('failed'); }
+    
+      }
+    });
+ }
 }
 //--></script> 
 <?php echo $footer; ?>

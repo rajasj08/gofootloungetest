@@ -19,7 +19,7 @@ class ControllerCheckoutRegister extends Controller {
 		$this->data['entry_company_id'] = $this->language->get('entry_company_id');
 		$this->data['entry_tax_id'] = $this->language->get('entry_tax_id');		
 		$this->data['entry_address_1'] = $this->language->get('entry_address_1');
-		$this->data['entry_address_2'] = $this->language->get('entry_address_2');
+		$this->data['entry_phone'] = $this->language->get('entry_address_2');
 		$this->data['entry_postcode'] = $this->language->get('entry_postcode');
 		$this->data['entry_city'] = $this->language->get('entry_city');
 		$this->data['entry_country'] = $this->language->get('entry_country');
@@ -33,7 +33,7 @@ class ControllerCheckoutRegister extends Controller {
 
 		$this->data['customer_groups'] = array();
 		
-		if (is_array($this->config->get('config_customer_group_display'))) {
+		if (is_array($this->config->get('config_customer_group_display'))) { 
 			$this->load->model('account/customer_group');
 			
 			$customer_groups = $this->model_account_customer_group->getCustomerGroups();
@@ -206,8 +206,8 @@ class ControllerCheckoutRegister extends Controller {
 				$json['error']['address_1'] = $this->language->get('error_address_1');
 			}
 	           
-			if ((utf8_strlen($this->request->post['address_2']) < 10) || (utf8_strlen($this->request->post['address_2']) > 10)) {
-				$json['error']['address_2'] = "Mobile No must be 10 characters!";
+			if ((utf8_strlen($this->request->post['phone']) < 10) || (utf8_strlen($this->request->post['phone']) > 10)) {
+				$json['error']['phone'] = "Mobile No must be 10 characters!";
 			}   
 			   
 			if ((utf8_strlen($this->request->post['city']) < 2) || (utf8_strlen($this->request->post['city']) > 128)) {

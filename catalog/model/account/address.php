@@ -217,7 +217,7 @@ class ModelAccountAddress extends Model {
 
 	}  
 
-         public function updateabdandoneduser($abduserid,$custid) //save abdandoned user
+         public function updateabdandoneduser($abmobileno,$abduserid,$custid) //save abdandoned user
 	{
 
 		 $query = $this->db->query("select * from " . DB_PREFIX . "abandoned_customer WHERE ab_cust_id=$abduserid and st2 = '1'");
@@ -227,9 +227,9 @@ class ModelAccountAddress extends Model {
 
                 if($custid){
 
-               $this->db->query("UPDATE `" . DB_PREFIX . "abandoned_customer` SET st2 = '1',userid=$custid where ab_cust_id=$abduserid");
+               $this->db->query("UPDATE `" . DB_PREFIX . "abandoned_customer` SET st2 = '1',userid=$custid, mobile_no='".$abmobileno."' where ab_cust_id=$abduserid");
                 }else {
-                $this->db->query("UPDATE `" . DB_PREFIX . "abandoned_customer` SET st2 = '1' where ab_cust_id=$abduserid");
+                $this->db->query("UPDATE `" . DB_PREFIX . "abandoned_customer` SET st2 = '1', mobile_no='".$abmobileno."' where ab_cust_id=$abduserid");
                 }
                 }
 			

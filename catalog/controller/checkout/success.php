@@ -9,19 +9,19 @@ class ControllerCheckoutSuccess extends Controller {
 		include(DOCUMENT_ROOT . 'sms/sendsms.php');
 		 
 		//to know payment method and zipcode
-		if(isset($this->session->data['user_zipcode'])) unset($this->session->data['user_zipcode']);   
+		if(isset($this->session->data['user_zipcode'])) unset($this->session->data['user_zipcode']);  
+		 if(isset($this->session->data['newsletter_sess'])){ unset($this->session->data['newsletter_sess']);}   
 		
 			if($this->session->data['order_id'])
-		    {	
-              
+		{	
 
-            //send know your size mail to the user  
+			 //send know your size mail to the user  
 		    	$order_status_mailinfo=$this->model_checkout_order->getorder_useremail($this->session->data['order_id']);
 		    	
                
 
 			    	
-			    	 $message1= htmlentities(file_get_contents("https://gofootlounge.in/autoemail_social.html"));   
+			    	 $message1= htmlentities(file_get_contents("https://footlounge.in/autoemail_social.html"));   
 			         $message1=html_entity_decode($message1);    
   
  
@@ -30,7 +30,7 @@ class ControllerCheckoutSuccess extends Controller {
 			         
 			        	
 			        	$headers  = 'MIME-Version: 1.0' . "\r\n";
-					$headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
+						$headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
 			        	$headers .= 'From: FootLounge <order@footlounge.in>'."\r\n".
 			        	//$headers .= 'From: rselakki@gmail.com'."\r\n".
 			        	//'CC: rajesh@tech-bee.comm'.
@@ -47,8 +47,8 @@ class ControllerCheckoutSuccess extends Controller {
 			        }                
 
 
-           		
-				$order_status_info=$this->model_checkout_order->getorder_statusdetails($this->session->data['order_id']);  
+		
+		$order_status_info=$this->model_checkout_order->getorder_statusdetails($this->session->data['order_id']);  
 		 
                 //code for abandonened user update table
                 if(isset($this->session->data['abduserid'])){

@@ -154,7 +154,7 @@ if (view) {
       <div class="modal-footer new_asearch_padd">
       <span class="alert alert-success new_asearch_padd1"   id="success_msgaa">send successfully</span>
       <span class="alert alert-danger new_asearch_padd1" id="failure_msg">sending failed</span>
-      	<img src="https://gofootlounge.in/image/loading_spinner.gif" alt="loading..." id="image_spinner">
+      	<img src="https://footlounge.in/image/loading_spinner.gif" alt="loading..." id="image_spinner">
         <button type="button" class="btn btn-default" id="closebtn" onclick="closemodal();">Close</button>
         <button type="button" class="btn btn-primary" id="sendbtn" onclick="sendnotify();">Send</button>
       </div>

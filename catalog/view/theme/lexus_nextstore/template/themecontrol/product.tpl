@@ -222,7 +222,7 @@ $(function(){
 		<section id="sys-notification">
 			<div class="container">
 				<?php if ($error) { ?>
-				<div class="warning"><?php echo $error ?><img src="catalog/view/theme/<?php echo $this->config->get('config_template');?>/image/close.png" alt="Close" class="close" /></div>
+				<div class="warning"><?php echo $error ?><img src="catalog/view/theme/<?php echo $this->config->get('config_template');?>/image/close.png" alt="" class="close" /></div>
 				<?php } ?>
 				<div id="notification"></div>
 			<script type="text/javascript">
@@ -648,8 +648,8 @@ $(function(){
 			<a class="sharesocial">SHARE: &nbsp;</a> 
 				<!-- AddThis Button END --> 				
 				<div class="addthis_default_style">
-				<a onclick="PopupCenter('https://plus.google.com/share?url=https://gofootlounge.in','xtf','450','400');"><img class="piconcls" src="https://gofootlounge.in/image/social-icons/google_plus27.png"></a>&nbsp;&nbsp;<a onclick="PopupCenter('https://twitter.com/intent/tweet?text=@go_footlounge&','xtf','450','400');"><img class="piconcls" src="https://gofootlounge.in/image/social-icons/twittersmall1.png"></a>&nbsp; 
-				<a onclick="PopupCenter('http://www.facebook.com/sharer/sharer.php?u=https://gofootlounge.in','xtf','450','400');"> <img class="piconcls" src="https://gofootlounge.in/image/icon-facebook.png"></a>
+				<a onclick="PopupCenter('https://plus.google.com/share?url=https://footlounge.in','xtf','450','400');"><img class="piconcls" src="https://footlounge.in/image/social-icons/google_plus27.png"></a>&nbsp;&nbsp;<a onclick="PopupCenter('https://twitter.com/intent/tweet?text=@go_footlounge&','xtf','450','400');"><img class="piconcls" src="https://footlounge.in/image/social-icons/twittersmall1.png"></a>&nbsp; 
+				<a onclick="PopupCenter('http://www.facebook.com/sharer/sharer.php?u=https://footlounge.in','xtf','450','400');"> <img class="piconcls" src="https://footlounge.in/image/icon-facebook.png"></a>
 				
 				</div>
 				<script type="text/javascript" src="//s7.addthis.com/js/250/addthis_widget.js"></script> 
@@ -715,7 +715,7 @@ $('#button-cart').bind('click', function() {
 			} 
 			
 			if (json['success']) {
-				$('#notification').html('<div class="success" style="display: none;">' + json['success'] + '<img src="catalog/view/theme/default/image/close.png" alt="Close" class="close" /></div>');
+				$('#notification').html('<div class="success" style="display: none;">' + json['success'] + '<img src="catalog/view/theme/default/image/close.png" alt="" class="close" /></div>');
 					
 				$('.success').fadeIn('slow');
 					
@@ -746,7 +746,7 @@ $('#button-buynow').bind('click', function() {
 			} 
 			
 			if (json['success']) {
-				$('#notification').html('<div class="success" style="display: none;">' + json['success'] + '<img src="catalog/view/theme/default/image/close.png" alt="Close" class="close" /></div>');
+				$('#notification').html('<div class="success" style="display: none;">' + json['success'] + '<img src="catalog/view/theme/default/image/close.png" alt="" class="close" /></div>');
 
 					var url = "index.php?route=checkout/checkout";    
 					//$(location).attr('href',url);

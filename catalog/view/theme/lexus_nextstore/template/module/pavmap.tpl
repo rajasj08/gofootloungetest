@@ -43,7 +43,7 @@ jQuery(document).ready(function($) {
 					},
 					data: '<div class="marker-holder"><div class="marker-content with-image"><img src="<?php echo $image; ?>" alt="FootLounge"><div class="map-item-info"><div class="title">'+"<?php echo $location['title']; ?>"+'</div><div class="address">'+"<?php echo $location['address']; ?>"+'</div><div class="description">'+"<?php echo $location['content']; ?>"+'</div><a href="' + "<?php echo $location['link']?>" + '" class="more-button">' + "<?php echo $text_view_more; ?>" + '</a></div><div class="arrow"></div><div class="close"></div></div></div></div>'
 				},
-				<?php endforeach; ?> 
+				<?php endforeach; ?>
 			],
 			options:{
 				draggable: false, //Alow move icon location

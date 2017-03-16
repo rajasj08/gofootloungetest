@@ -36,7 +36,7 @@ class ControllerCommonSeoUrl extends Controller {
 			$this->url->addRewrite($this);
 		}
 
-			$test404link = $_SERVER['REQUEST_URI'];
+		$test404link = $_SERVER['REQUEST_URI'];
  
 			$test404link=trim($test404link);
 			
@@ -47,9 +47,9 @@ class ControllerCommonSeoUrl extends Controller {
             	$this->request->get['route']='common/home/page404';
                	return $this->forward($this->request->get['route']);
 
-            }
+            } 
            
-
+			
 		// Decode URL
 		if (isset($this->request->get['_route_'])) {
 			$parts = explode('/', $this->request->get['_route_']);
@@ -119,8 +119,8 @@ class ControllerCommonSeoUrl extends Controller {
 											}
 										}
 									}
-								}  //foreach end
-							} //inner if end
+								}
+							}
 							else
 							{
 								
@@ -131,21 +131,20 @@ class ControllerCommonSeoUrl extends Controller {
 								}
 								$categoryArray[] = $url[1];
 							}
-						}		//outer if end	
+						}			
 						
 							
-					} //query if end 
-					else {
+					} else {
 
 						
 						$this->request->get['route'] = 'common/home/page404';	
 					}
-				} //outer query if
+				} 
 
-			} //foreach end
+			}
 			
 
-		
+			
 			if ( $_s = $this->setURL($this->request->get['_route_']) ) {
 				
                 $this->request->get['route'] = $_s;
@@ -210,8 +209,6 @@ class ControllerCommonSeoUrl extends Controller {
                       	$this->request->get['route']='common/home/page410';
                       	return $this->forward($this->request->get['route']);
                  	 }
-
-
          
 	}
 	

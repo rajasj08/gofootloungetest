@@ -685,8 +685,7 @@ class ModelCheckoutOrder extends Model {
 		  
 		return $arrayval;    
 	}	
-
-    //get ordered user email
+	//get ordered user email
     public function getorder_useremail($order_id) //get order user email
     {
     	 $query = $this->db->query("select email from " . DB_PREFIX . "order WHERE order_id='".$order_id."'");
@@ -696,7 +695,6 @@ class ModelCheckoutOrder extends Model {
 				else { return 0;}
 
     }
-
 	public function getcustomersmsalert($id)
 	{
 		$query = $this->db->query("select * from " . DB_PREFIX . "customer WHERE customer_id = $id");
@@ -790,7 +788,7 @@ class ModelCheckoutOrder extends Model {
 
         }
 
-        public function saveabdandoneduserproducts() //save abandoned user checkout products
+       public function saveabdandoneduserproducts() //save abandoned user checkout products
         {
 
           
@@ -860,6 +858,7 @@ $this->db->query("INSERT INTO " . DB_PREFIX . "abuser_product_options SET abuser
    
            return 1; 
         }   
+
 
       
 }
