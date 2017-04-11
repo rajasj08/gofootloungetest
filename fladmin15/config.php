@@ -24,7 +24,7 @@ define('DIR_LOGS', $documentRoot. 'system/logs/');
 define('DIR_CATALOG', $documentRoot. 'catalog/');
 
 define('DB_DRIVER', 'mysql'); 
-define('DB_HOSTNAME', 'aa1efuoo5beqqvd.cvwrkeif9dtm.ap-south-1.rds.amazonaws.com');
+define('DB_HOSTNAME', 'aa2jnoqusg640e.cvwrkeif9dtm.ap-south-1.rds.amazonaws.com');
 define('DB_USERNAME', 'fladmin');
 define('DB_PASSWORD', 'Welcome!23');
 define('DB_DATABASE', 'ebdb'); 
