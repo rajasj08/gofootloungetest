@@ -44,8 +44,8 @@ $_['error_lastname']       = 'Last Name must be between 1 and 32 characters!';
 $_['error_email']          = 'E-Mail Address does not appear to be valid!';
 $_['error_telephone']      = 'Mobile Phone must be between 3 and 32 characters!';
 
-$_['error_mobile']      = ' Mobile number must !';
-$_['error_mobile']       = 'Mobile number must be minimum 10 digits!';
+$_['error_mobile']      = ' Mobile number must be minimum 10 digits!';
+$_['error_mobile1']       = 'Mobile number must be minimum 10 digits!';
 $_['error_mobilephone']       = 'Mobile number must be minimum 10 digits!';
 
 $_['error_password']       = 'Password must be between 4 and 20 characters!';

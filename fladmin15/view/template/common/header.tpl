@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html dir="<?php echo $direction; ?>" lang="<?php echo $lang; ?>">
 <head>
+
 <meta charset="UTF-8" />
-<title><?php echo $title; ?></title>
+<title><?php echo $title; ?></title> 
 <base href="<?php echo $base; ?>" />
 <?php if ($description) { ?>
 <meta name="description" content="<?php echo $description; ?>" />
@@ -23,6 +24,7 @@
 <script type="text/javascript" src="view/javascript/jquery/tabs.js"></script>
 <script type="text/javascript" src="view/javascript/jquery/superfish/js/superfish.js"></script>
 <script type="text/javascript" src="view/javascript/common.js"></script>
+
 <?php foreach ($scripts as $script) { ?>
 <script type="text/javascript" src="<?php echo $script; ?>"></script>
 <?php } ?>

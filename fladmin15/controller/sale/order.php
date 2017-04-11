@@ -1235,6 +1235,8 @@ if (isset($this->error['payment_address_2'])) {
     } else {
           $this->data['order_totals'] = array();
       } 
+
+   
      $this->data['smsresults'] = $this->model_sale_order->get_previousorder_sms($this->request->get['order_id']);
      
     $this->template = 'sale/order_form.tpl';

@@ -194,6 +194,11 @@ echo "1";
 
 } 
 
+public function subscribeme()
+{
+	echo testvar; die; 
+}
+
 }
 
 ?>

@@ -323,7 +323,19 @@
             </tr>
             <?php } ?>
           </tbody>
-          <?php foreach ($totals as $totals) { ?>
+          <?php $coupon_tot=0; foreach ($totals as $totals) {
+            if($totals['code']=='coupon')
+                {
+                  $coupon_tot=round($totals['value']); 
+                }
+
+                if($totals['code']=='total')
+                {
+                  $totals['value']=round($totals['value']+$coupon_tot);
+                  $totals['text']='<span class="WebRupee">Rs</span>'.$totals['value']; 
+                }
+
+             ?>
           <tbody id="totals">
             <tr>
               <td colspan="4" class="right"><?php echo $totals['title']; ?>:</td>

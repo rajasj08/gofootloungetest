@@ -18,12 +18,12 @@
 			<div class="wrapper underline">
 				<?php echo $text_message; ?>
 
-            <!--<div class="col-md-9 socialiconbunchcls">    
+            <div class="col-md-9 socialiconbunchcls">    
                                <div class="col-md-4"><a href="https://www.instagram.com/go_footlounge/"><img src="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/image/social-icons/icon1.png" class="successicons" alt="FootLounge Instagram"/></a></div>
                                <div class="col-md-4"><a href="http://facebook.com/footlounge.online"><img src="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/image/social-icons/icon2.png" class="successicons" alt="FootLounge Facebook"/></a></div>
                                <div class="col-md-4"><a href="https://twitter.com/go_footlounge"><img src="http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/image/social-icons/icon3.png" class="successicons" alt="FootLounge Twitter"/></a></div>
 
-                      </div>-->
+                      </div>
 			</div>
 			<div class="buttons">
 				<div class="right"><a href="<?php echo $continue; ?>" class="button btn btn-theme-default"><?php echo $button_continue; ?></a></div>

@@ -92,7 +92,7 @@ $swapimg 				= ($categoryConfig['show_swap_image'])?'swap':'';
 								<?php } ?>
 
 								<div class="product-meta">
-									<h3 class="name"><a href="<?php echo $product['href']; ?>"><?php echo $product['name']; ?></a></h3>
+									<h1 class="name cath1cls"><a href="<?php echo $product['href']; ?>"><?php echo $product['name']; ?></a></h1>
 									<?php if ($product['rating']) { ?>
 									<div class="rating">
 										<img src="catalog/view/theme/<?php echo $this->config->get('config_template');?>/image/stars-<?php echo $product['rating']; ?>.png" alt="<?php echo $product['reviews']; ?>" />

@@ -71,7 +71,7 @@ redirect 301 /account/voucher http://gofootlounge-env.ap-south-1.elasticbeanstal
 redirect 301 /product/manufacturer http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/brands?
 redirect 301 /PUMA-m19 http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/puma-shoes-online?
 redirect 301 /NIKE-m18 http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/nike-shoes-online?
-redirect 301 /information/contact http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/contact?
+#redirect 301 /information/contact http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/contact?
 redirect 301 /REEBOK-m16 http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/reebok-shoes-online?
 redirect 301 /FILA-m20 http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/fila-shoes-online?
 redirect 301 /Apparel-c220 http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/apparel?

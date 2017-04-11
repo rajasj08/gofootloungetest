@@ -8,11 +8,13 @@ define('HTTP_SERVER', 'http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/'
 $documentRoot = $_SERVER['DOCUMENT_ROOT'].'/';
 define('DOCUMENT_ROOT', $documentRoot); 
 
+$testvar="test";  
+
 // HTTPS
 define('HTTPS_SERVER', 'http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/');
 
 $documentRoot = $_SERVER['DOCUMENT_ROOT'].'/';
-
+define('API_KEY', "b2d475cf2e336960cd8faa96d8209b3f-us12");
 // DIR
 define('DIR_APPLICATION', $documentRoot. 'catalog/');
 define('DIR_SYSTEM', $documentRoot. 'system/');

@@ -476,7 +476,23 @@
                 <td class="right"><?php echo $order_voucher['amount']; ?></td>
               </tr>
               <?php } ?>
-              <?php foreach ($order_totals as $order_total) { ?>
+              <?php
+
+                $coupon_tot=0;
+               foreach ($order_totals as $order_total) { 
+
+                if($order_total['code']=='coupon')
+                  {
+                    $coupon_tot=round($order_total['value']); 
+                  }
+
+                  if($order_total['code']=='total')
+                  {
+                    $order_total['value']=round($order_total['value']+$coupon_tot);
+                    $order_total['text']="<span class='WebRupee'>Rs</span>".$order_total['value']; 
+                  }
+
+                ?>
               <tr id="total-row<?php echo $total_row; ?>">
                 <td class="right" colspan="4"><?php echo $order_total['title']; ?>:
                   <input type="hidden" name="order_total[<?php echo $total_row; ?>][order_total_id]" value="<?php echo $order_total['order_total_id']; ?>" />

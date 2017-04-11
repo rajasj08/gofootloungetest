@@ -114,7 +114,7 @@ setTimeout(function(){
  <?php if(!(isset( $this->session->data['newsletter_sess'])))
 { ?> 
   
-  /*$("#NewssubscribeModal").modal('show'); 
+  $("#NewssubscribeModal").modal('show'); 
   var cookieset=1;
   $.ajax({
         type: "POST",
@@ -125,7 +125,7 @@ setTimeout(function(){
         success: function(resp){
           
         } 
-    });*/
+    }); 
     // IS SET and has a true value
 <?php } ?>    
 

@@ -206,9 +206,14 @@ class ControllerCheckoutRegister extends Controller {
 				$json['error']['address_1'] = $this->language->get('error_address_1');
 			}
 	           
-			if ((utf8_strlen($this->request->post['phone']) < 10) || (utf8_strlen($this->request->post['phone']) > 10)) {
-				$json['error']['phone'] = "Mobile No must be 10 characters!";
+			if ((utf8_strlen($this->request->post['mobile']) < 10) || (utf8_strlen($this->request->post['mobile']) > 10)) {
+				$json['error']['mobile'] = "Mobile number must be minimum 10 digits!";
 			}   
+
+			 if (!preg_match('/^[0-9]*$/',$this->request->post['mobile'])) {
+	      		$this->error['mobile'] = "Mobile number must be minimum 10 digits!";
+	    	}
+    
 			   
 			if ((utf8_strlen($this->request->post['city']) < 2) || (utf8_strlen($this->request->post['city']) > 128)) {
 				$json['error']['city'] = $this->language->get('error_city');
@@ -261,7 +266,7 @@ class ControllerCheckoutRegister extends Controller {
 		if (!$json) {
 			$this->model_account_customer->addCustomer($this->request->post);
 			
-			$this->session->data['account'] = 'register';
+			$this->session->data['account'] = 'register'; 
 			
 			if ($customer_group && !$customer_group['approval']) {
 				$this->customer->login($this->request->post['email'], $this->request->post['password']);

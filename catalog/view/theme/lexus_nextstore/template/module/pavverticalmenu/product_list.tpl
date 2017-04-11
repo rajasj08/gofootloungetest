@@ -15,7 +15,7 @@
 				<?php } ?>
 
 				<div class="product-meta">
-					<h3 class="name"><a href="<?php echo $product['href']; ?>"><?php echo $product['name']; ?></a></h3>
+					<h1 class="name cath1cls"><a href="<?php echo $product['href']; ?>"><?php echo $product['name']; ?></a></h1>
 					<?php if ($product['price']) { ?>
 					<div class="price">
 						<?php if (!$product['special']) { ?>

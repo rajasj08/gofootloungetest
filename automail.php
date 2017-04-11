@@ -95,7 +95,7 @@ if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {  
       
-      if($row['email']) {$tomail=$row['email'];} else $tomail=''; 
+      if($row['email']) {$tomail=trim($row['email']);} else $tomail=''; 
 
        $message1= htmlentities(file_get_contents("http://gofootlounge-env.ap-south-1.elasticbeanstalk.com/newmail.html"));   
          $message1=html_entity_decode($message1);    
@@ -116,7 +116,7 @@ if ($result->num_rows > 0) {
           // Create email headers$emailid
       
         // if( mail('Pooja_khatri@yahoo.com', 'Email Notification Request Received', $str1, $headers))
-       if( mail('Pooja_khatri@yahoo.com', 'Thank You for Shopping ! Review Us to Earn a Free Pair of Socks', $message1, $headers))
+       if( mail($tomail, 'Thank You for Shopping ! Review Us to Earn a Free Pair of Socks', $message1, $headers))
        { $count++;} else echo 0;         
  
         }  

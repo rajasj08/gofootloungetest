@@ -187,6 +187,11 @@ class ControllerAccountEdit extends Controller {
       		
     	}}
 
+    	 if (!preg_match('/^[0-9]*$/',$this->request->post['address_2'])) {
+      		$this->error['address_2'] = $this->language->get('error_address_2');
+    	}
+    
+
 		if ((utf8_strlen($this->request->post['email']) > 96) || !preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $this->request->post['email'])) {
 			$this->error['email'] = $this->language->get('error_email');
 		}

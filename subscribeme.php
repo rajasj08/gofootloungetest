@@ -1,4 +1,5 @@
 <?php
+include('config.php');
 
 header('Access-Control-Allow-Origin: *');
 
@@ -9,7 +10,7 @@ $api_key = "27e7dd598991864130d3e89adabd977c-us15";
 $list_id = "a0c96a3796";
 */
 
-$api_key = "e5e81bb20cd318481c47f3287bbed7ac-us12";
+$api_key = API_KEY;
 $list_id = "8a1b232ca9"; 
 
 require 'Mailchimp.php'; 

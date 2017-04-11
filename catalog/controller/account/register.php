@@ -401,7 +401,7 @@ if (isset($this->error['mobile'])) {
       		$this->error['mobile'] = $this->language->get('error_mobile');
     	}
 
-    if (!preg_match('/^[0-9]*$/',$this->request->post['mobile'])) {
+        if (!preg_match('/^[0-9]*$/',$this->request->post['mobile'])) {
       		$this->error['mobile'] = $this->language->get('error_mobile1');
     	}
     
